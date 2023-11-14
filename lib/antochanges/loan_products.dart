@@ -23,10 +23,14 @@ class _LoanProductsScreenState extends State<LoanProductsScreen> {
     super.initState();
   }
 
-  Future<DynamicResponse?> fetchLoansDocument() async {
-    DynamicResponse? dynamicResponse;
-    dynamicResponse = await _api.fetchLoansDocument(widget.moduleItem);
-    return dynamicResponse;
+  Future<String> fetchLoansDocument() async {
+    String url = "";
+    DynamicResponse? dynamicResponse =
+        await _api.fetchLoansDocument(widget.moduleItem);
+    if (dynamicResponse?.status == StatusCode.success.statusCode) {
+      url = dynamicResponse?.dynamicList?.first ?? "";
+    }
+    return url;
   }
 
   @override
@@ -111,23 +115,39 @@ class _LoanProductsScreenState extends State<LoanProductsScreen> {
                 },
               ),
             ),
-            InkWell(
-                onTap: () {},
-                child: Container(
-                    padding: const EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Loan products document",
-                          style: TextStyle(color: APIService.appPrimaryColor),
-                        ),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: APIService.appPrimaryColor,
-                        )
-                      ],
-                    )))
+            FutureBuilder<String>(
+                future: fetchLoansDocument(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  Widget child = const SizedBox();
+                  if (snapshot.hasData) {
+                    var url = snapshot.data ?? "";
+                    if (url.isNotEmpty) {
+                      child = InkWell(
+                          onTap: () {
+                            CommonUtils.openUrl(Uri.parse(url));
+                          },
+                          child: Container(
+                              padding: const EdgeInsets.all(12),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "View Loan Products",
+                                    style: TextStyle(
+                                        color: APIService.appPrimaryColor),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    color: APIService.appPrimaryColor,
+                                  )
+                                ],
+                              )));
+                    }
+                  }
+                  return child;
+                }),
           ],
         ));
   }
