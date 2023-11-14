@@ -64,11 +64,11 @@ class _ViewStandingOrderState extends State<ViewStandingOrder> {
                   );
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasData) {
-                      // var list = snapshot.data;
                       SO? dy = snapshot.data;
                       List<SILIST>? st = dy!.sILIST;
 
-                      print('>>>>>Order>>>$st');
+                      st?.removeWhere((item) => item.status != "ACTIVE");
+
                       if (st != null && st.isNotEmpty) {
                         child = ListView.builder(
                           itemCount: st?.length,
@@ -95,7 +95,7 @@ class _ViewStandingOrderState extends State<ViewStandingOrder> {
                               const SizedBox(
                                 height: 12,
                               ),
-                              const Text("Nothing here!")
+                              const Text("No standing orders found!")
                             ],
                           ),
                         );

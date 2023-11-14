@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:craft_dynamic/antochanges/extensions.dart';
-import 'package:craft_dynamic/antochanges/loan_list_item.dart';
 import 'package:craft_dynamic/antochanges/loan_products_item.dart';
 import 'package:craft_dynamic/craft_dynamic.dart';
 import 'package:flutter/material.dart';
@@ -9,19 +6,27 @@ import 'package:flutter/material.dart';
 CommonSharedPref _sharedPrefs = CommonSharedPref();
 
 class LoanProductsScreen extends StatefulWidget {
-  const LoanProductsScreen({super.key});
+  final ModuleItem moduleItem;
+
+  const LoanProductsScreen({super.key, required this.moduleItem});
 
   @override
   State<LoanProductsScreen> createState() => _LoanProductsScreenState();
 }
 
 class _LoanProductsScreenState extends State<LoanProductsScreen> {
-  final _apiServices = APIService();
+  final _api = APIService();
 
   @override
   void initState() {
-    _apiServices.getLoanInfo();
+    fetchLoansDocument();
     super.initState();
+  }
+
+  Future<DynamicResponse?> fetchLoansDocument() async {
+    DynamicResponse? dynamicResponse;
+    dynamicResponse = await _api.fetchLoansDocument(widget.moduleItem);
+    return dynamicResponse;
   }
 
   @override
@@ -34,7 +39,7 @@ class _LoanProductsScreenState extends State<LoanProductsScreen> {
           children: [
             Expanded(
               child: FutureBuilder(
-                future: _apiServices.getLoanProducts(),
+                future: _api.getLoanProducts(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   Widget child = Center(
                     child: CircularLoadUtil(),
@@ -86,7 +91,7 @@ class _LoanProductsScreenState extends State<LoanProductsScreen> {
                                       const SizedBox(
                                         width: 20,
                                       ),
-                                      Text("${loans[index].loanProductName},"),
+                                      Text("${loans[index].loanProductName}"),
                                     ],
                                   ),
                                 ],

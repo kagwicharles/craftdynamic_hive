@@ -76,6 +76,20 @@ extension APICall on APIService {
     AppLogger.appLogI(tag: "dynamic link", message: "data::$response");
     return DynamicResponse.fromJson(jsonDecode(response ?? "{}"));
   }
+
+  Future<DynamicResponse?> fetchLoansDocument(ModuleItem moduleItem) async {
+    var request = await dioRequestBodySetUp("DBCALL", objectMap: {
+      "MerchantID": moduleItem.merchantID,
+      "DynamicForm": {
+        "HEADER": "GETFILEPATH",
+        "DocumentName": "Our Loan Products"
+      }
+    });
+    final route = await _sharedPref.getRoute("other".toLowerCase());
+    var response = await performDioRequest(request, route: route);
+    AppLogger.appLogI(tag: "loans document", message: "data::$response");
+    return DynamicResponse.fromJson(jsonDecode(response ?? "{}"));
+  }
 }
 
 extension Navigate on BuildContext {

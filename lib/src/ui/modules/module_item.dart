@@ -30,12 +30,12 @@ class ModuleItemWidget extends StatelessWidget {
             if (moduleItem.moduleId == 'LOANINFORMATION') {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => LoanListScreen()));
-            }
-            else if (moduleItem.moduleId == "LOANPRODUCTS") {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => LoanProductsScreen()));
-            }
-            else {
+            } else if (moduleItem.moduleId == "LOANPRODUCTS") {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => LoanProductsScreen(
+                        moduleItem: moduleItem,
+                      )));
+            } else {
               ModuleUtil.onItemClick(moduleItem, context);
             }
           },
