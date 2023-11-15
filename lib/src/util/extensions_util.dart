@@ -69,7 +69,7 @@ extension APICall on APIService {
       String actionID, ModuleItem moduleItem) async {
     var request = await dioRequestBodySetUp("DBCALL", objectMap: {
       "MerchantID": moduleItem.merchantID,
-      "DynamicForm": {"HEADER": actionID, "MerchantID": moduleItem.merchantID}
+      "DynamicForm": {"HEADER": actionID, "DocumentName": "LOANAPPLICATION"}
     });
     final route = await _sharedPref.getRoute("other".toLowerCase());
     var response = await performDioRequest(request, route: route);
@@ -80,10 +80,7 @@ extension APICall on APIService {
   Future<DynamicResponse?> fetchLoansDocument(ModuleItem moduleItem) async {
     var request = await dioRequestBodySetUp("DBCALL", objectMap: {
       "MerchantID": moduleItem.merchantID,
-      "DynamicForm": {
-        "HEADER": "GETFILEPATH",
-        "DocumentName": "Our Loan Products"
-      }
+      "DynamicForm": {"HEADER": "GETFILEPATH", "DocumentName": "LOANPRODUCTS"}
     });
     final route = await _sharedPref.getRoute("other".toLowerCase());
     var response = await performDioRequest(request, route: route);

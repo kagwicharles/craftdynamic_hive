@@ -28,7 +28,7 @@ class _LoanProductsScreenState extends State<LoanProductsScreen> {
     DynamicResponse? dynamicResponse =
         await _api.fetchLoansDocument(widget.moduleItem);
     if (dynamicResponse?.status == StatusCode.success.statusCode) {
-      url = dynamicResponse?.dynamicList?.first ?? "";
+      url = dynamicResponse?.otherText ?? "";
     }
     return url;
   }

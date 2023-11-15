@@ -41,9 +41,11 @@ class ListWidget extends StatelessWidget {
       }
     }
 
-    AppLogger.appLogD(tag: "summary list", message: summaryItems);
+    AppLogger.appLogD(tag: "summary list", message: dynamicList);
 
-    return dynamicList != null && dynamicList!.isNotEmpty
+    return dynamicList != null &&
+            (dynamicList?.isNotEmpty ?? false) &&
+            dynamicList?.first == {}
         ? Column(children: [
             summaryItems.isNotEmpty
                 ? Padding(
@@ -202,26 +204,12 @@ class ListWidget extends StatelessWidget {
               },
             ))
           ])
-        : Center(
+        : const Center(
             child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                "packages/craft_dynamic/assets/images/empty.png",
-                height: 64,
-                width: 64,
-                fit: BoxFit.cover,
-              ),
-              const SizedBox(
-                height: 14,
-              ),
-              Text(
-                "Nothing found!",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: APIService.appPrimaryColor),
-              )
+              EmptyUtil(),
             ],
           ));
   }

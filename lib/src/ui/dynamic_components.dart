@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
-
 part of craft_dynamic;
 
 var classname = "dynamic_components";
@@ -563,7 +562,7 @@ class _ImageDynamicDropDownState extends State<ImageDynamicDropDown> {
             .isEmpty) {
           Provider.of<PluginState>(context, listen: false)
               .addDynamicDropDownData(
-                  {formItem?.rowID.toString() ?? "": initialValue});
+                  {formItem?.controlId.toString() ?? "": initialValue});
         }
       } catch (e) {
         AppLogger.appLogE(tag: "Dropdown error", message: e.toString());
@@ -672,9 +671,8 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 style: const TextStyle(fontWeight: FontWeight.normal),
                 onChanged: (value) {
                   Provider.of<PluginState>(context, listen: false)
-                      .addDynamicDropDownData({
-                    formItem?.rowID.toString() ?? "": getValueFromList(value)
-                  });
+                      .addDynamicDropDownData(
+                          {formItem?.controlId ?? "": getValueFromList(value)});
                 },
                 validator: (value) {
                   String? input = value.toString();
@@ -708,7 +706,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
             .isEmpty) {
           Provider.of<PluginState>(context, listen: false)
               .addDynamicDropDownData(
-                  {formItem?.rowID.toString() ?? "": initialValue});
+                  {formItem?.controlId ?? "": initialValue});
         }
       } catch (e) {
         AppLogger.appLogE(tag: "Dropdown error", message: e.toString());
@@ -850,7 +848,7 @@ class _DropDownState extends State<DropDown> {
                           }),
                           Provider.of<PluginState>(context, listen: false)
                               .addDynamicDropDownData({
-                            formItem?.rowID?.toString() ?? "": {
+                            formItem?.controlId ?? "": {
                               formItem?.controlId ?? "": getValueFromList(value)
                             }
                           }),
@@ -935,7 +933,7 @@ class _DropDownState extends State<DropDown> {
                 .setCurrentSelections({formItem?.controlId: _currentValue});
           }
           Provider.of<PluginState>(context, listen: false)
-              .addDynamicDropDownData({formItem?.rowID?.toString() ?? "": map});
+              .addDynamicDropDownData({formItem?.controlId ?? "": map});
           Provider.of<DropDownState>(context, listen: false)
               .addCurrentDropDownValue({formItem?.controlId: initialValue});
           if (isBillerType(formItem?.controlId ?? "")) {

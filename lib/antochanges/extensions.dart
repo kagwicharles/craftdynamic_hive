@@ -125,7 +125,7 @@ extension ApiCall on APIService {
     return emailList;
   }
 
-  Future getLoanInfo() async {
+  Future<DynamicResponse> getLoanInfo() async {
     String? res;
     LoanListItem loanListItem = LoanListItem();
     DynamicResponse dynamicResponse =
@@ -153,14 +153,14 @@ extension ApiCall on APIService {
           await dioRequestBodySetUp("PAYBILL",
               objectMap: requestObj, isAuthenticate: false),
           route: route);
-      loanListItem = LoanListItem.fromJson(jsonDecode(res ?? "{}") ?? {});
+      dynamicResponse = DynamicResponse.fromJson(jsonDecode(res ?? "{}"));
       logger.d("loanLisst>>: $res");
     } catch (e) {
       // CommonUtils.showToast("Unable to get promotional images");
       AppLogger.appLogE(tag: runtimeType.toString(), message: e.toString());
-      return loanListItem;
+      return dynamicResponse;
     }
 
-    return loanListItem;
+    return dynamicResponse;
   }
 }

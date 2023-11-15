@@ -150,8 +150,9 @@ class EmptyUtil extends StatelessWidget {
           const SizedBox(
             height: 14,
           ),
-          const Text(
+          Text(
             "Nothing found!",
+            style: TextStyle(color: Theme.of(context).primaryColor),
           )
         ],
       ));

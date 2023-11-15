@@ -13,9 +13,9 @@ class CreditCard {
 
   CreditCard.fromMap(Map map)
       : this(
-    balance: map['balance'],
-    currency: map['currency'],
-  );
+          balance: map['balance'],
+          currency: map['currency'],
+        );
 }
 
 class MenuItemData {
@@ -30,9 +30,10 @@ class AppLocation {
   double latitude;
   String location;
 
-  AppLocation({required this.longitude,
-    required this.latitude,
-    required this.location});
+  AppLocation(
+      {required this.longitude,
+      required this.latitude,
+      required this.location});
 }
 
 class FavouriteItem {
@@ -40,7 +41,6 @@ class FavouriteItem {
   String title;
 
   FavouriteItem({required this.imageUrl, required this.title});
-
 }
 // {"Status":"000","Message":"Completed Successfully",
 // "FormID":"STANDINGORDERVIEWDETAILS",
@@ -66,27 +66,30 @@ class DynamicResponse {
       accountStatement,
       beneficiaries,
       standingOrderList,
-      summary;
+      summary,
+      loanInformationList;
 
-  DynamicResponse({required this.status,
-    this.dynamicData,
-    this.message,
-    this.languageID,
-    this.otherText,
-    this.formID,
-    this.display,
-    this.nextFormSequence,
-    this.backstack,
-    this.dynamicList,
-    this.notifications,
-    this.resultsData,
-    this.formFields,
-    this.notifyText,
-    this.receiptDetails,
-    this.accountStatement,
-    this.beneficiaries,
-    this.standingOrderList,
-    this.summary});
+  DynamicResponse(
+      {required this.status,
+      this.dynamicData,
+      this.message,
+      this.languageID,
+      this.otherText,
+      this.formID,
+      this.display,
+      this.nextFormSequence,
+      this.backstack,
+      this.dynamicList,
+      this.notifications,
+      this.resultsData,
+      this.formFields,
+      this.notifyText,
+      this.receiptDetails,
+      this.accountStatement,
+      this.beneficiaries,
+      this.standingOrderList,
+      this.summary,
+      this.loanInformationList});
 
   DynamicResponse.fromJson(Map<String, dynamic> json) {
     status = json["Status"];
@@ -108,6 +111,7 @@ class DynamicResponse {
     standingOrderList = json[""];
     beneficiaries = json["Beneficiary"];
     summary = json["Summary"];
+    loanInformationList = json["LOANINFORMATIONLIST"];
   }
 }
 
@@ -134,27 +138,28 @@ class ActivationResponse {
       modulesToDisable,
       pendingTransactions;
 
-  ActivationResponse({required this.status,
-    this.message,
-    this.firstName,
-    this.lastName,
-    this.idNumber,
-    this.emailID,
-    this.imageUrl,
-    this.lastLoginDate,
-    this.customerID,
-    this.phone,
-    this.bankID,
-    this.bankType,
-    this.languageID,
-    this.staticDataVersion,
-    this.beneficiary,
-    this.accounts,
-    this.frequentAccessedModules,
-    this.modulesToHide,
-    this.modulesToDisable,
-    this.pendingTransactions,
-    this.customerCategory});
+  ActivationResponse(
+      {required this.status,
+      this.message,
+      this.firstName,
+      this.lastName,
+      this.idNumber,
+      this.emailID,
+      this.imageUrl,
+      this.lastLoginDate,
+      this.customerID,
+      this.phone,
+      this.bankID,
+      this.bankType,
+      this.languageID,
+      this.staticDataVersion,
+      this.beneficiary,
+      this.accounts,
+      this.frequentAccessedModules,
+      this.modulesToHide,
+      this.modulesToDisable,
+      this.pendingTransactions,
+      this.customerCategory});
 
   ActivationResponse.fromJson(Map<String, dynamic> json)
       : status = json["Status"],
@@ -192,18 +197,19 @@ class StaticResponse {
       image,
       faqs;
 
-  StaticResponse({required this.status,
-    this.message,
-    this.staticDataVersion,
-    this.appIdleTimeout,
-    this.appRateLoginCount,
-    this.usercode,
-    this.onlineAccountProduct,
-    this.bankBranch,
-    this.atmLocation,
-    this.branchLocation,
-    this.image,
-    this.faqs});
+  StaticResponse(
+      {required this.status,
+      this.message,
+      this.staticDataVersion,
+      this.appIdleTimeout,
+      this.appRateLoginCount,
+      this.usercode,
+      this.onlineAccountProduct,
+      this.bankBranch,
+      this.atmLocation,
+      this.branchLocation,
+      this.image,
+      this.faqs});
 
   StaticResponse.fromJson(Map<String, dynamic> json)
       : status = json["Status"],
@@ -225,11 +231,12 @@ class UIResponse {
   String? message;
   List<dynamic>? formControl, actionControl, module;
 
-  UIResponse({required this.status,
-    this.message,
-    this.formControl,
-    this.actionControl,
-    this.module});
+  UIResponse(
+      {required this.status,
+      this.message,
+      this.formControl,
+      this.actionControl,
+      this.module});
 
   UIResponse.fromJson(Map<String, dynamic> json)
       : status = json["Status"],
@@ -272,10 +279,11 @@ class PostDynamic {
   ListType? listType;
   bool isList, returnsWidget, opensDynamicRoute, tappedButton;
 
-  PostDynamic(PostDynamicBuilder builder,
-      BuildContext buildContext,
-      String myActionID,)
-      : context = buildContext,
+  PostDynamic(
+    PostDynamicBuilder builder,
+    BuildContext buildContext,
+    String myActionID,
+  )   : context = buildContext,
         actionID = myActionID,
         moduleItem = builder.moduleItem,
         controlID = builder.controlID,
@@ -312,19 +320,20 @@ class TextFormFieldProperties {
   int? maxLength;
   int? maxLines;
 
-  TextFormFieldProperties({this.autofocus = false,
-    this.isEnabled = false,
-    this.isObscured = false,
-    this.isAmount = false,
-    this.initialValue = "",
-    this.onChange,
-    required this.controller,
-    required this.textInputType,
-    this.inputDecoration,
-    this.boxDecoration,
-    this.textStyle,
-    this.maxLength,
-    this.maxLines});
+  TextFormFieldProperties(
+      {this.autofocus = false,
+      this.isEnabled = false,
+      this.isObscured = false,
+      this.isAmount = false,
+      this.initialValue = "",
+      this.onChange,
+      required this.controller,
+      required this.textInputType,
+      this.inputDecoration,
+      this.boxDecoration,
+      this.textStyle,
+      this.maxLength,
+      this.maxLines});
 }
 
 class PreCallData {
@@ -362,10 +371,11 @@ class MenuScreenProperties {
   double? mainAxisSpacing;
   double? childAspectRatio;
 
-  MenuScreenProperties({this.gridcount,
-    this.crossAxisSpacing,
-    this.mainAxisSpacing,
-    this.childAspectRatio});
+  MenuScreenProperties(
+      {this.gridcount,
+      this.crossAxisSpacing,
+      this.mainAxisSpacing,
+      this.childAspectRatio});
 }
 
 @JsonSerializable()
@@ -400,16 +410,17 @@ class StandingOrder {
   @JsonKey(name: 'NoOfExecutions')
   int? noOfExecutions;
 
-  StandingOrder({this.amount,
-    this.standingOrderID,
-    this.effectiveDate,
-    this.frequencyID,
-    this.lastExecutionDate,
-    this.createdBy,
-    this.requestData,
-    this.debitAccount,
-    this.narration,
-    this.noOfExecutions});
+  StandingOrder(
+      {this.amount,
+      this.standingOrderID,
+      this.effectiveDate,
+      this.frequencyID,
+      this.lastExecutionDate,
+      this.createdBy,
+      this.requestData,
+      this.debitAccount,
+      this.narration,
+      this.noOfExecutions});
 
   factory StandingOrder.fromJson(Map<String, dynamic> json) =>
       _$StandingOrderFromJson(json);
