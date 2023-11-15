@@ -45,7 +45,7 @@ class ListWidget extends StatelessWidget {
 
     return dynamicList != null &&
             (dynamicList?.isNotEmpty ?? false) &&
-            dynamicList?.first == {}
+            dynamicList?.first != {}
         ? Column(children: [
             summaryItems.isNotEmpty
                 ? Padding(
