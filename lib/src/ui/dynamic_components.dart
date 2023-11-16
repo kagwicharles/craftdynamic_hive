@@ -1609,20 +1609,25 @@ class _TextLinkState extends State<TextLink> {
         future: _api.getDynamicLink(formItem?.actionId ?? "", moduleItem!),
         builder:
             (BuildContext context, AsyncSnapshot<DynamicResponse?> snapshot) {
-          Widget child = TextButton(
-              onPressed: () {
-                CommonUtils.openUrl(Uri.parse(formItem?.controlValue ?? ""));
-              },
-              child: Text(formItem?.controlText ?? "Link"));
+          Widget child = SizedBox(
+            height: 28,
+            child: CircularLoadUtil(),
+          );
           if (snapshot.hasData) {
-            return Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                    onPressed: () {
-                      CommonUtils.openUrl(
-                          Uri.parse(snapshot.data?.otherText ?? ""));
-                    },
-                    child: Text(formItem?.controlText ?? "Link")));
+            String url = snapshot.data?.otherText ?? "";
+            if (url.isNotEmpty) {
+              child = Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                      onPressed: () {
+                        context.navigate(ViewPDFScreen(
+                            moduleItem: moduleItem,
+                            documentUrl: snapshot.data?.otherText ?? ""));
+                      },
+                      child: Text(formItem?.controlText ?? "Link")));
+            } else {
+              child = const SizedBox();
+            }
           }
           return child;
         });

@@ -713,6 +713,8 @@ class AppNotification {
   String? imageUrl;
 
   AppNotification({this.title, this.message, this.imageUrl});
+
+  Map toJson() => {'title': title, 'message': message, 'imageUrl': imageUrl};
 }
 
 //TODO Add Entity for service alerts

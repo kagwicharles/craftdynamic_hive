@@ -490,13 +490,23 @@ class NotificationRepository {
   }
 
   addNotification(AppNotification notification) async {
-    var box = await openBox();
-    await box.clear();
-    box.add(notification);
+    try {
+      var box = await openBox();
+      box.add(notification);
+    } catch (e) {
+      AppLogger.appLogD(tag: "hive_repository", message: e);
+    }
   }
 
   Future<List<AppNotification>> getAllNotifications() async {
     var box = await openBox();
+    AppLogger.appLogD(
+        tag: "hive_repository::count", message: box.values.length);
     return box.values.toList();
+  }
+
+  clearNotifications() async {
+    var box = await openBox();
+    box.clear();
   }
 }

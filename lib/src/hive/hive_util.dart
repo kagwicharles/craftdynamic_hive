@@ -41,26 +41,33 @@ class HiveUtil {
   }
 
   static initializeHive() async {
-    await Hive.initFlutter();
-    Hive.registerAdapter(FaqAdapter());
-    Hive.registerAdapter(MenuBorderAdapter());
-    Hive.registerAdapter(MenuPropertiesAdapter());
-    Hive.registerAdapter(BlockSpacingAdapter());
-    Hive.registerAdapter(ModuleItemAdapter());
-    Hive.registerAdapter(FormItemAdapter());
-    Hive.registerAdapter(ActionItemAdapter());
-    Hive.registerAdapter(UserCodeAdapter());
-    Hive.registerAdapter(BankBranchAdapter());
-    Hive.registerAdapter(AtmLocationAdapter());
-    Hive.registerAdapter(ImageDataAdapter());
-    Hive.registerAdapter(BranchLocationAdapter());
-    Hive.registerAdapter(FrequentAccessedModuleAdapter());
-    Hive.registerAdapter(BankAccountAdapter());
-    Hive.registerAdapter(BeneficiaryAdapter());
-    Hive.registerAdapter(ModuleToHideAdapter());
-    Hive.registerAdapter(ModuleToDisableAdapter());
-    Hive.registerAdapter(PendingTrxDisplayAdapter());
-    Hive.registerAdapter(OnlineAccountProductAdapter());
-    Hive.registerAdapter(NotificationAdapter());
+    try {
+      if (!Hive.isAdapterRegistered(19)) {
+        await Hive.close();
+        await Hive.initFlutter();
+        Hive.registerAdapter(FaqAdapter());
+        Hive.registerAdapter(MenuBorderAdapter());
+        Hive.registerAdapter(MenuPropertiesAdapter());
+        Hive.registerAdapter(BlockSpacingAdapter());
+        Hive.registerAdapter(ModuleItemAdapter());
+        Hive.registerAdapter(FormItemAdapter());
+        Hive.registerAdapter(ActionItemAdapter());
+        Hive.registerAdapter(UserCodeAdapter());
+        Hive.registerAdapter(BankBranchAdapter());
+        Hive.registerAdapter(AtmLocationAdapter());
+        Hive.registerAdapter(ImageDataAdapter());
+        Hive.registerAdapter(BranchLocationAdapter());
+        Hive.registerAdapter(FrequentAccessedModuleAdapter());
+        Hive.registerAdapter(BankAccountAdapter());
+        Hive.registerAdapter(BeneficiaryAdapter());
+        Hive.registerAdapter(ModuleToHideAdapter());
+        Hive.registerAdapter(ModuleToDisableAdapter());
+        Hive.registerAdapter(PendingTrxDisplayAdapter());
+        Hive.registerAdapter(OnlineAccountProductAdapter());
+        Hive.registerAdapter(NotificationAdapter());
+      }
+    } catch (e) {
+      AppLogger.appLogD(tag: "hive_util", message: e);
+    }
   }
 }

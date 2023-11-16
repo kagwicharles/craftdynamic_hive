@@ -3,6 +3,8 @@ import 'package:craft_dynamic/antochanges/loan_products_item.dart';
 import 'package:craft_dynamic/craft_dynamic.dart';
 import 'package:flutter/material.dart';
 
+import '../src/ui/dynamic_static/viewpdf_screen.dart';
+
 CommonSharedPref _sharedPrefs = CommonSharedPref();
 
 class LoanProductsScreen extends StatefulWidget {
@@ -125,7 +127,9 @@ class _LoanProductsScreenState extends State<LoanProductsScreen> {
                     if (url.isNotEmpty) {
                       child = InkWell(
                           onTap: () {
-                            CommonUtils.openUrl(Uri.parse(url));
+                            context.navigate(ViewPDFScreen(
+                                moduleItem: widget.moduleItem,
+                                documentUrl: url));
                           },
                           child: Container(
                               padding: const EdgeInsets.all(12),
