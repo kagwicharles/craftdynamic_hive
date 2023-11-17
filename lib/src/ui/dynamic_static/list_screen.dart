@@ -204,7 +204,7 @@ class ListWidget extends StatelessWidget {
               },
             ))
           ])
-        : const Center(
+        : Center(
             child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,

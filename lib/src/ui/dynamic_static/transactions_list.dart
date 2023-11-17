@@ -67,7 +67,7 @@ class _TransactionListState extends State<TransactionList> {
                     ),
                   );
                 } else {
-                  widget = const EmptyUtil();
+                  widget = EmptyUtil();
                 }
               }
               return widget;

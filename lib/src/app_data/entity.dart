@@ -703,19 +703,19 @@ class Faq {
         message = json["MessageBodyContent"];
 }
 
-@HiveType(typeId: 20)
-class AppNotification {
-  @HiveField(0)
-  String? title;
-  @HiveField(1)
-  String? message;
-  @HiveField(2)
-  String? imageUrl;
+// @HiveType(typeId: 20)
+// class AppNotification {
+//   @HiveField(0)
+//   String? title;
+//   @HiveField(1)
+//   String? message;
+//   @HiveField(2)
+//   String? imageUrl;
 
-  AppNotification({this.title, this.message, this.imageUrl});
+//   AppNotification({this.title, this.message, this.imageUrl});
 
-  Map toJson() => {'title': title, 'message': message, 'imageUrl': imageUrl};
-}
+//   Map toJson() => {'title': title, 'message': message, 'imageUrl': imageUrl};
+// }
 
-//TODO Add Entity for service alerts
-//TODO Add Entity for loanlimit
+// //TODO Add Entity for service alerts
+// //TODO Add Entity for loanlimit

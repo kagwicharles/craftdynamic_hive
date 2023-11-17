@@ -9,12 +9,12 @@ class SO {
 
   SO(
       {this.status,
-        this.message,
-        this.formID,
-        this.nextFormSequence,
-        this.backStack,
-        this.resultsData,
-        this.sILIST});
+      this.message,
+      this.formID,
+      this.nextFormSequence,
+      this.backStack,
+      this.resultsData,
+      this.sILIST});
 
   SO.fromJson(Map<String, dynamic> json) {
     status = json['Status'];
@@ -38,16 +38,16 @@ class SO {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Status'] = this.status;
-    data['Message'] = this.message;
-    data['FormID'] = this.formID;
-    data['NextFormSequence'] = this.nextFormSequence;
-    data['BackStack'] = this.backStack;
-    if (this.resultsData != null) {
-      data['ResultsData'] = this.resultsData!.map((v) => v.toJson()).toList();
+    data['Status'] = status;
+    data['Message'] = message;
+    data['FormID'] = formID;
+    data['NextFormSequence'] = nextFormSequence;
+    data['BackStack'] = backStack;
+    if (resultsData != null) {
+      data['ResultsData'] = resultsData!.map((v) => v.toJson()).toList();
     }
-    if (this.sILIST != null) {
-      data['SILIST'] = this.sILIST!.map((v) => v.toJson()).toList();
+    if (sILIST != null) {
+      data['SILIST'] = sILIST!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -66,8 +66,8 @@ class ResultsData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ControlID'] = this.controlID;
-    data['ControlValue'] = this.controlValue;
+    data['ControlID'] = controlID;
+    data['ControlValue'] = controlValue;
     return data;
   }
 }
@@ -85,12 +85,14 @@ class SILIST {
 
   SILIST(
       {this.amount,
-        this.frequency,
-        this.noOfExecutions,
-        this.firstExecutionDate,
-        this.lastExecutionDate,
-        this.creditAccountID,
-        this.status, this.reference, this.siID});
+      this.frequency,
+      this.noOfExecutions,
+      this.firstExecutionDate,
+      this.lastExecutionDate,
+      this.creditAccountID,
+      this.status,
+      this.reference,
+      this.siID});
 
   SILIST.fromJson(Map<String, dynamic> json) {
     amount = json['Amount'];
@@ -106,13 +108,13 @@ class SILIST {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Amount'] = this.amount;
-    data['Frequency'] = this.frequency;
-    data['No Of Executions'] = this.noOfExecutions;
-    data['First Execution Date'] = this.firstExecutionDate;
-    data['Last Execution Date'] = this.lastExecutionDate;
-    data['Credit AccountID'] = this.creditAccountID;
-    data['Status'] = this.status;
+    data['Amount'] = amount;
+    data['Frequency'] = frequency;
+    data['No Of Executions'] = noOfExecutions;
+    data['First Execution Date'] = firstExecutionDate;
+    data['Last Execution Date'] = lastExecutionDate;
+    data['Credit AccountID'] = creditAccountID;
+    data['Status'] = status;
     return data;
   }
 }

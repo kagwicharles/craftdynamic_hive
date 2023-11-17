@@ -480,33 +480,33 @@ class FaqRepository {
   }
 }
 
-class NotificationRepository {
-  Future<Box<AppNotification>> openBox() async {
-    if (Hive.isBoxOpen("notifications")) {
-      return Hive.box<AppNotification>("notifications");
-    } else {
-      return await Hive.openBox<AppNotification>("notifications");
-    }
-  }
+// class NotificationRepository {
+//   Future<Box<AppNotification>> openBox() async {
+//     if (Hive.isBoxOpen("notifications")) {
+//       return Hive.box<AppNotification>("notifications");
+//     } else {
+//       return await Hive.openBox<AppNotification>("notifications");
+//     }
+//   }
 
-  addNotification(AppNotification notification) async {
-    try {
-      var box = await openBox();
-      box.add(notification);
-    } catch (e) {
-      AppLogger.appLogD(tag: "hive_repository", message: e);
-    }
-  }
+//   addNotification(AppNotification notification) async {
+//     try {
+//       var box = await openBox();
+//       box.add(notification);
+//     } catch (e) {
+//       AppLogger.appLogD(tag: "hive_repository", message: e);
+//     }
+//   }
 
-  Future<List<AppNotification>> getAllNotifications() async {
-    var box = await openBox();
-    AppLogger.appLogD(
-        tag: "hive_repository::count", message: box.values.length);
-    return box.values.toList();
-  }
+//   Future<List<AppNotification>> getAllNotifications() async {
+//     var box = await openBox();
+//     AppLogger.appLogD(
+//         tag: "hive_repository::count", message: box.values.length);
+//     return box.values.toList();
+//   }
 
-  clearNotifications() async {
-    var box = await openBox();
-    box.clear();
-  }
-}
+//   clearNotifications() async {
+//     var box = await openBox();
+//     box.clear();
+//   }
+// }

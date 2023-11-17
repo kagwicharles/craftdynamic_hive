@@ -230,6 +230,14 @@ class _StandingOrderItemState extends State<StandingOrderItem> {
                           value: widget.standingOrder.noOfExecutions.toString(),
                         ),
                         const SizedBox(
+                          height: 12,
+                        ),
+                        RowItem(
+                          title: "Credit Account",
+                          value:
+                              widget.standingOrder.creditAccountID.toString(),
+                        ),
+                        const SizedBox(
                           height: 16,
                         ),
                         IconButton(
@@ -305,7 +313,7 @@ class _StandingOrderItemState extends State<StandingOrderItem> {
       BuildContext context, SILIST standingOrder, ModuleItem moduleItem) {
     return AlertUtil.showAlertDialog(
       context,
-      "Confirm Termination of Standing order for debit account ${standingOrder.creditAccountID} with amount ${standingOrder.amount}",
+      "Confirm Termination of Standing order for credit account ${standingOrder.creditAccountID} with amount ${standingOrder.amount}",
       isConfirm: true,
       title: "Confirm",
       confirmButtonText: "Terminate",
@@ -314,8 +322,11 @@ class _StandingOrderItemState extends State<StandingOrderItem> {
         DeleteStandingOrder.confirmPIN(context, moduleItem, standingOrder)
             .then((value) {
           if (value.status == StatusCode.success.statusCode) {
+            setState(() {});
+
             AlertUtil.showAlertDialog(context, value.message ?? "",
-                isInfoAlert: true, title: "Info");
+                    isInfoAlert: true, title: "Info")
+                .then((value) {});
           }
         });
         // showModalBottomDialogPIN(context, 'Enter PIN', pin, standingOrder);
@@ -347,11 +358,12 @@ class RowItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title),
-            Text(value ?? "***",
-                style: const TextStyle(fontWeight: FontWeight.bold))
+            Expanded(flex: 4, child: Text("$title:")),
+            Expanded(
+                flex: 6,
+                child: Text(value ?? "***",
+                    style: const TextStyle(fontWeight: FontWeight.bold)))
           ],
         ),
       ]);

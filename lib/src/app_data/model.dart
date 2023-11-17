@@ -67,7 +67,8 @@ class DynamicResponse {
       beneficiaries,
       standingOrderList,
       summary,
-      loanInformationList;
+      loanInformationList,
+      emailList;
 
   DynamicResponse(
       {required this.status,
@@ -89,7 +90,8 @@ class DynamicResponse {
       this.beneficiaries,
       this.standingOrderList,
       this.summary,
-      this.loanInformationList});
+      this.loanInformationList,
+      this.emailList});
 
   DynamicResponse.fromJson(Map<String, dynamic> json) {
     status = json["Status"];
@@ -112,6 +114,7 @@ class DynamicResponse {
     beneficiaries = json["Beneficiary"];
     summary = json["Summary"];
     loanInformationList = json["LOANINFORMATIONLIST"];
+    emailList = json["EMAILLIST"];
   }
 }
 

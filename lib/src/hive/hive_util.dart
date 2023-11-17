@@ -64,7 +64,7 @@ class HiveUtil {
         Hive.registerAdapter(ModuleToDisableAdapter());
         Hive.registerAdapter(PendingTrxDisplayAdapter());
         Hive.registerAdapter(OnlineAccountProductAdapter());
-        Hive.registerAdapter(NotificationAdapter());
+        // Hive.registerAdapter(NotificationAdapter());
       }
     } catch (e) {
       AppLogger.appLogD(tag: "hive_util", message: e);

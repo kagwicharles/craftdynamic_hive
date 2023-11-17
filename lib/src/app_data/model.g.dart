@@ -1056,42 +1056,42 @@ class FaqAdapter extends TypeAdapter<Faq> {
           typeId == other.typeId;
 }
 
-class NotificationAdapter extends TypeAdapter<AppNotification> {
-  @override
-  final int typeId = 20;
+// class NotificationAdapter extends TypeAdapter<AppNotification> {
+//   @override
+//   final int typeId = 20;
 
-  @override
-  AppNotification read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return AppNotification(
-      title: fields[0] as String?,
-      message: fields[1] as String?,
-      imageUrl: fields[2] as String?,
-    );
-  }
+//   @override
+//   AppNotification read(BinaryReader reader) {
+//     final numOfFields = reader.readByte();
+//     final fields = <int, dynamic>{
+//       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+//     };
+//     return AppNotification(
+//       title: fields[0] as String?,
+//       message: fields[1] as String?,
+//       imageUrl: fields[2] as String?,
+//     );
+//   }
 
-  @override
-  void write(BinaryWriter writer, AppNotification obj) {
-    writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.title)
-      ..writeByte(1)
-      ..write(obj.message)
-      ..writeByte(2)
-      ..write(obj.imageUrl);
-  }
+//   @override
+//   void write(BinaryWriter writer, AppNotification obj) {
+//     writer
+//       ..writeByte(3)
+//       ..writeByte(0)
+//       ..write(obj.title)
+//       ..writeByte(1)
+//       ..write(obj.message)
+//       ..writeByte(2)
+//       ..write(obj.imageUrl);
+//   }
 
-  @override
-  int get hashCode => typeId.hashCode;
+//   @override
+//   int get hashCode => typeId.hashCode;
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is NotificationAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
+//   @override
+//   bool operator ==(Object other) =>
+//       identical(this, other) ||
+//       other is NotificationAdapter &&
+//           runtimeType == other.runtimeType &&
+//           typeId == other.typeId;
+// }

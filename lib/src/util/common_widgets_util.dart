@@ -133,7 +133,9 @@ class PulseLoadUtil extends StatelessWidget {
 }
 
 class EmptyUtil extends StatelessWidget {
-  const EmptyUtil({super.key});
+  String? text;
+
+  EmptyUtil({super.key, this.text});
 
   @override
   Widget build(BuildContext context) => Center(
@@ -151,7 +153,7 @@ class EmptyUtil extends StatelessWidget {
             height: 14,
           ),
           Text(
-            "Nothing found!",
+            text ?? "Nothing found!",
             style: TextStyle(color: Theme.of(context).primaryColor),
           )
         ],

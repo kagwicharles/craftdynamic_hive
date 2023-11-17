@@ -41,7 +41,7 @@ class _ViewBeneficiaryState extends State<ViewBeneficiary> {
                   final itemCount = snapshot.data?.length ?? 0;
 
                   if (itemCount == 0) {
-                    widget = const EmptyUtil();
+                    widget = EmptyUtil();
                   } else {
                     widget = ListView.separated(
                         separatorBuilder: (context, index) => Divider(
