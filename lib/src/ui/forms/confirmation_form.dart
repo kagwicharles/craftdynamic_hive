@@ -5,6 +5,8 @@ class ConfirmationForm {
   static confirmTransaction(context, List<FormItem> formItems,
       ModuleItem moduleItem, Map<String?, dynamic> input) {
     final formKey = GlobalKey<FormState>();
+    AppLogger.appLogD(
+        tag: "confirmation_form", message: "items ${formItems.length}");
 
     return showModalBottomSheet<void>(
       showDragHandle: true,

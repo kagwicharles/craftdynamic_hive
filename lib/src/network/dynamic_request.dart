@@ -115,6 +115,9 @@ class DynamicFormRequest {
     if (confirmationModuleID != null &&
         confirmationModuleID != "" &&
         formItem?.controlFormat != ControlFormat.SHOWDIALOG.name) {
+      AppLogger.appLogD(
+          tag: "dynamic_request",
+          message: "getting forms for confirmation form $confirmationModuleID");
       List<FormItem> form = await _formsRepository
               .getFormsByModuleId(confirmationModuleID ?? "") ??
           [];
