@@ -197,10 +197,10 @@ class _StandingOrderItemState extends State<StandingOrderItem> {
                         const SizedBox(
                           height: 12,
                         ),
-                        RowItem(
-                          title: "Debit Account",
-                          value: widget.standingOrder.creditAccountID,
-                        ),
+                        // RowItem(
+                        //   title: "Debit Account",
+                        //   value: widget.standingOrder.creditAccountID,
+                        // ),
                         const SizedBox(
                           height: 12,
                         ),
