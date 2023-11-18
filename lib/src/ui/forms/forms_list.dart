@@ -44,6 +44,7 @@ class FormsListWidget extends StatelessWidget {
             .screenDropDowns
             .clear();
       });
+      startenddate.clear();
     }
 
     return FutureBuilder<List<FormItem>?>(

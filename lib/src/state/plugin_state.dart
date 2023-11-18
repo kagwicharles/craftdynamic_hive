@@ -226,3 +226,5 @@ var lastWebHeaderUsed = "other".obs;
 var showAccountBalanceInDropdowns = true.obs;
 
 var accountsAndBalances = {}.obs;
+
+var startenddate = {}.obs;

@@ -144,6 +144,8 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
   @override
   Widget build(BuildContext context) {
     bool isEnabled = formItem?.isEnabled ?? false;
+    AppLogger.appLogD(
+        tag: "textformfield", message: "controlid-->${formItem?.controlId}");
 
     return Consumer<PluginState>(builder: (context, state, child) {
       isObscured = formItem?.controlFormat == ControlFormat.PinNumber.name ||
@@ -216,6 +218,11 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
     var formattedValue = value.toString().replaceAll(',', '');
     if (formItem!.isMandatory! && value!.isEmpty) {
       return 'Input required*';
+    }
+
+    if (formItem?.controlId == "STARTDATE" ||
+        formItem?.controlId == "ENDDATE") {
+      startenddate.addAll({formItem?.controlId: value});
     }
 
     if (inputType == TextInputType.number &&
@@ -412,6 +419,13 @@ class _DynamicButtonState extends State<DynamicButton> {
             ));
         return;
       } else {
+        if (startenddate.isNotEmpty && !validateStartAndEndDate()) {
+          AlertUtil.showAlertDialog(context,
+              "Invalid Dates Seleted!\nEnd date cannot be before start date",
+              isInfoAlert: true, title: "Info");
+          return;
+        }
+
         Provider.of<PluginState>(context, listen: false).setRequestState(true);
         _dynamicRequest
             .dynamicRequest(moduleItem,
@@ -436,6 +450,19 @@ class _DynamicButtonState extends State<DynamicButton> {
     } else {
       CommonUtils.vibrate();
     }
+  }
+
+  bool validateStartAndEndDate() {
+    var start = startenddate["STARTDATE"];
+    var end = startenddate["ENDDATE"];
+
+    DateTime startDate = DateTime.parse(start);
+    DateTime endDate = DateTime.parse(end);
+
+    if (endDate.isBefore(startDate)) {
+      return false;
+    }
+    return true;
   }
 
   getModule(String moduleID) => _moduleRepository.getModuleById(moduleID);
@@ -1605,12 +1632,16 @@ class _DynamicHorizontalText extends State<DynamicHorizontalText> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(formItem?.controlText ?? ""),
-                Text(
-                  formInput ?? "****",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.start,
-                )
+                Expanded(
+                    flex: 5, child: Text("${formItem?.controlText}:" ?? "")),
+                Expanded(
+                    flex: 5,
+                    child: Text(
+                      formInput ?? "****",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.start,
+                      softWrap: true,
+                    ))
               ],
             ));
   }
