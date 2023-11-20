@@ -62,25 +62,24 @@ class AlertUtil {
                   ],
                 )),
                 content: SizedBox(
-                    width: MediaQuery.of(context).size.width,
                     child: SingleChildScrollView(
                         child: ListBody(
-                      children: <Widget>[
-                        Center(
-                            child: Text(
-                          message,
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.normal),
-                          textAlign: TextAlign.center,
-                        )),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Divider(
-                          color: APIService.appPrimaryColor.withOpacity(.2),
-                        )
-                      ],
-                    ))),
+                  children: <Widget>[
+                    Center(
+                        child: Text(
+                      message,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.normal),
+                      textAlign: TextAlign.center,
+                    )),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Divider(
+                      color: APIService.appPrimaryColor.withOpacity(.2),
+                    )
+                  ],
+                ))),
                 actions: <Widget>[
                   Row(
                     mainAxisAlignment: isConfirm
@@ -154,6 +153,4 @@ class AlertUtil {
       },
     );
   }
-
-
 }

@@ -41,6 +41,9 @@ class _ViewStandingOrderState extends State<ViewStandingOrder> {
 
   @override
   Widget build(BuildContext context) {
+    AppLogger.appLogD(
+        tag: "view_standing_order", message: "building screen...");
+
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -322,11 +325,11 @@ class _StandingOrderItemState extends State<StandingOrderItem> {
         DeleteStandingOrder.confirmPIN(context, moduleItem, standingOrder)
             .then((value) {
           if (value.status == StatusCode.success.statusCode) {
-            setState(() {});
-
             AlertUtil.showAlertDialog(context, value.message ?? "",
                     isInfoAlert: true, title: "Info")
-                .then((value) {});
+                .then((value) {
+              widget.refreshParent();
+            });
           }
         });
         // showModalBottomDialogPIN(context, 'Enter PIN', pin, standingOrder);

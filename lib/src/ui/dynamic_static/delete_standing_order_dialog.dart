@@ -149,6 +149,12 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                                   StatusCode.success.statusCode) {
                                 otpController.clear();
                                 Navigator.of(context).pop(value);
+                              } else if (value.status ==
+                                  StatusCode.failure.statusCode) {
+                                otpController.clear();
+                                AlertUtil.showAlertDialog(
+                                    context, "Invalid Mobile Number or PIN",
+                                    title: "Error");
                               } else {
                                 otpController.clear();
                                 AlertUtil.showAlertDialog(
