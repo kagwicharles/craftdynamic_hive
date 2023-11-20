@@ -786,6 +786,7 @@ class _DropDownState extends State<DropDown> {
   List<UserCode> userCodes = [];
   Map<String, dynamic> extraFieldMap = {};
   Map<String, dynamic> relationIDMap = {};
+  Map<String, dynamic> dropdownItems = {};
 
   FormItem? formItem;
   ModuleItem? moduleItem;
@@ -819,7 +820,7 @@ class _DropDownState extends State<DropDown> {
               );
               if (snapshot.hasData) {
                 var data = snapshot.data ?? {};
-                var dropdownItems = data;
+                dropdownItems = data;
                 AppLogger.appLogD(
                     tag: "dropdown data-->", message: dropdownItems);
 
@@ -926,6 +927,12 @@ class _DropDownState extends State<DropDown> {
                       if ((formItem?.isMandatory ?? false) && input == "null") {
                         return 'Input required*';
                       }
+
+                      dropdownSelection.addAll({
+                        formItem?.serviceParamId:
+                            getValueFromKey(value.toString())
+                      });
+
                       Provider.of<PluginState>(context, listen: false)
                           .addFormInput({"${formItem?.serviceParamId}": value});
                       return null;
@@ -939,6 +946,10 @@ class _DropDownState extends State<DropDown> {
       }
     });
   }
+
+  String? getValueFromKey(String? value) =>
+      dropdownItems.keys.firstWhereIndexedOrNull(
+          (index, element) => dropdownItems[element] == value);
 
   String getFirstSubcodeID(MapEntry entry) => entry.key;
 
@@ -1625,6 +1636,10 @@ class _DynamicHorizontalText extends State<DynamicHorizontalText> {
     AppLogger.appLogD(
         tag: "$classname@${formItem?.controlId}", message: "input $formInput");
 
+    AppLogger.appLogD(
+        tag: "$classname@${formItem?.controlId}",
+        message: "dropdown selection ${dropdownSelection}");
+
     return formInput == null
         ? const SizedBox()
         : Padding(
@@ -1637,9 +1652,11 @@ class _DynamicHorizontalText extends State<DynamicHorizontalText> {
                 Expanded(
                     flex: 5,
                     child: Text(
-                      formInput ?? "****",
+                      dropdownSelection[formItem?.controlId] ??
+                          formInput ??
+                          "****",
                       style: const TextStyle(fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.start,
+                      textAlign: TextAlign.right,
                       softWrap: true,
                     ))
               ],

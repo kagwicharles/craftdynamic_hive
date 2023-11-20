@@ -47,13 +47,18 @@ extension APICall on APIService {
       String? merchantID) async {
     DynamicResponse dynamicResponse =
         DynamicResponse(status: StatusCode.unknown.statusCode);
+
+    Map<String, dynamic> innerMap = {};
+    innerMap.addAll({"HEADER": actionID});
+    innerMap.addAll({"MerchantID": merchantID ?? moduleItem.merchantID});
+    if (moduleItem.moduleId == "PAYLOAN") {
+      innerMap.addAll({"INFOFIELD1": "LOANREPAYMENT"});
+    }
+
     var request = await dioRequestBodySetUp(formID.toUpperCase(), objectMap: {
       "MerchantID": merchantID ?? moduleItem.merchantID,
       "ModuleID": moduleItem.moduleId,
-      formID == ActionType.DBCALL.name ? "DynamicForm" : "PayBill": {
-        "HEADER": actionID,
-        "MerchantID": merchantID ?? moduleItem.merchantID
-      }
+      formID == ActionType.DBCALL.name ? "DynamicForm" : "PayBill": innerMap
     });
     final url = await _sharedPref.getRoute(route.toLowerCase());
     var response = await performDioRequest(request, route: url);

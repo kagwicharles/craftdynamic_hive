@@ -228,3 +228,5 @@ var showAccountBalanceInDropdowns = true.obs;
 var accountsAndBalances = {}.obs;
 
 var startenddate = {}.obs;
+
+var dropdownSelection = {}.obs;

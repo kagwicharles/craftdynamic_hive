@@ -61,9 +61,8 @@ class AlertUtil {
                         : const SizedBox()
                   ],
                 )),
-                content: SizedBox(
-                    child: SingleChildScrollView(
-                        child: ListBody(
+                content: SingleChildScrollView(
+                    child: ListBody(
                   children: <Widget>[
                     Center(
                         child: Text(
@@ -79,7 +78,7 @@ class AlertUtil {
                       color: APIService.appPrimaryColor.withOpacity(.2),
                     )
                   ],
-                ))),
+                )),
                 actions: <Widget>[
                   Row(
                     mainAxisAlignment: isConfirm
