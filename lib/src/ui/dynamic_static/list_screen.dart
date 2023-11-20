@@ -86,35 +86,34 @@ class ListWidget extends StatelessWidget {
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
                                                       children: [
-                                                        Text(
-                                                          "$key:",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor),
-                                                        ),
-                                                        Flexible(
+                                                        Expanded(
+                                                            flex: 4,
                                                             child: Text(
-                                                          value.toString(),
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal,
-                                                              color: WidgetUtil
-                                                                  .getTextColor(
-                                                                      value
-                                                                          .toString(),
-                                                                      key.toString())),
-                                                          textAlign:
-                                                              TextAlign.right,
-                                                        ))
+                                                              "$key:",
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .primaryColor),
+                                                            )),
+                                                        Expanded(
+                                                            flex: 6,
+                                                            child: Text(
+                                                              value.toString(),
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  color: WidgetUtil
+                                                                      .getTextColor(
+                                                                          value
+                                                                              .toString(),
+                                                                          key.toString())),
+                                                              softWrap: true,
+                                                            ))
                                                       ],
                                                     ))))
                                             .values
