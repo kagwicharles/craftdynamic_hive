@@ -46,6 +46,7 @@ class FormsListWidget extends StatelessWidget {
       });
       startenddate.clear();
       dropdownSelection.clear();
+      selectedDateFrequency.value = 0;
     }
 
     return FutureBuilder<List<FormItem>?>(

@@ -272,7 +272,7 @@ class _StandingOrderItemState extends State<StandingOrderItem> {
                                     width: 4,
                                   ),
                                   const Text(
-                                    "Terminate Order",
+                                    "Terminate",
                                     style: TextStyle(
                                         color: Colors.red, fontSize: 18),
                                   )

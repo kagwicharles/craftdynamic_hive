@@ -216,7 +216,10 @@ class _RequestStatusScreenState extends State<RequestStatusScreen>
   }
 
   void closePage() {
-    Navigator.pop(context);
+    int no = widget.postDynamic.backstack ?? 0;
+    for (int i = 0; i <= no; i++) {
+      Navigator.of(context).pop();
+    }
   }
 
   @override

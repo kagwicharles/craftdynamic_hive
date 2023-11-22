@@ -399,7 +399,6 @@ class _DynamicButtonState extends State<DynamicButton> {
               moduleItem: module,
             ));
       });
-
       return;
     }
 
@@ -419,11 +418,13 @@ class _DynamicButtonState extends State<DynamicButton> {
             ));
         return;
       } else {
-        if (startenddate.isNotEmpty && !validateStartAndEndDate()) {
-          AlertUtil.showAlertDialog(context,
-              "Invalid Dates Seleted!\nEnd date cannot be before start date",
-              isInfoAlert: true, title: "Info");
-          return;
+        if (startenddate.isNotEmpty) {
+          String? validate = validateStartAndEndDate();
+          if (validate != null) {
+            AlertUtil.showAlertDialog(context, validate,
+                isInfoAlert: true, title: "Info");
+            return;
+          }
         }
 
         Provider.of<PluginState>(context, listen: false).setRequestState(true);
@@ -452,17 +453,25 @@ class _DynamicButtonState extends State<DynamicButton> {
     }
   }
 
-  bool validateStartAndEndDate() {
+  String? validateStartAndEndDate() {
     var start = startenddate["STARTDATE"];
     var end = startenddate["ENDDATE"];
 
     DateTime startDate = DateTime.parse(start);
     DateTime endDate = DateTime.parse(end);
 
+    int differenceInDays = endDate.difference(startDate).inDays;
+
     if (endDate.isBefore(startDate)) {
-      return false;
+      return "Invalid Dates Seleted!\nEnd date cannot be before start date";
     }
-    return true;
+    if (selectedDateFrequency.value == 2 && differenceInDays < 7) {
+      return "Frequency selected as \nWeekly but invalid date range selected";
+    }
+    if (selectedDateFrequency.value == 3 && differenceInDays < 30) {
+      return "Frequency selected as \nMonthly but invalid date range selected";
+    }
+    return null;
   }
 
   getModule(String moduleID) => _moduleRepository.getModuleById(moduleID);
@@ -687,7 +696,9 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
           );
           if (snapshot.hasData) {
             dropdownItems = snapshot.data?.dynamicList ?? [];
-            AppLogger.appLogD(tag: "dropdown data-->", message: dropdownItems);
+            AppLogger.appLogD(
+                tag: "dropdown data--> @${formItem?.controlId}",
+                message: dropdownItems);
 
             if (dropdownItems.isEmpty) {
               child = DropdownButtonFormField2(
@@ -702,6 +713,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 items: const [],
               );
             } else {
+              addLoanAccounts(dropdownItems);
               _currentValue = formItem?.hasInitialValue ?? true
                   ? dropdownItems.first[formItem?.controlId]
                   : null;
@@ -749,6 +761,25 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
 
           return child;
         });
+  }
+
+  addLoanAccounts(List<dynamic> accounts) {
+    if (formItem?.controlId == ControlID.LOANACCOUNT.name) {
+      try {
+        if (accounts.isNotEmpty) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            for (var account in accounts) {
+              Provider.of<DropDownState>(context, listen: false)
+                  .addCurrentRepaymentAccounts({
+                formItem?.controlId ?? "": account[formItem?.controlId]
+              });
+            }
+          });
+        }
+      } catch (e) {
+        AppLogger.appLogD(tag: "dynamic_components", message: e);
+      }
+    }
   }
 
   getValueFromList(value) => dropdownItems
@@ -826,6 +857,9 @@ class _DropDownState extends State<DropDown> {
 
                 child =
                     Consumer<DropDownState>(builder: (context, state, child) {
+                  dropdownItems = removeAllLoanAccounts(
+                      dropdownItems, state.currentRepaymentAccounts);
+
                   AppLogger.appLogD(
                       tag: classname,
                       message:
@@ -933,6 +967,7 @@ class _DropDownState extends State<DropDown> {
                             getValueFromKey(value.toString())
                       });
 
+                      addDateFrequencyToState(value.toString());
                       Provider.of<PluginState>(context, listen: false)
                           .addFormInput({"${formItem?.serviceParamId}": value});
                       return null;
@@ -945,6 +980,16 @@ class _DropDownState extends State<DropDown> {
             });
       }
     });
+  }
+
+  addDateFrequencyToState(String frequency) {
+    if (formItem?.controlId == ControlID.FREQUENCY.name) {
+      try {
+        selectedDateFrequency.value = int.parse(frequency);
+      } catch (e) {
+        AppLogger.appLogD(tag: "dynamic_components", message: e);
+      }
+    }
   }
 
   String? getValueFromKey(String? value) =>
@@ -981,6 +1026,29 @@ class _DropDownState extends State<DropDown> {
       controlID.toLowerCase() == ControlID.BANKACCOUNTID.name.toLowerCase()
           ? true
           : false;
+
+  Map<String, dynamic> removeAllLoanAccounts(Map<String, dynamic> dropdownItems,
+      Map<String?, dynamic> allLoanAccounts) {
+    Map<String, dynamic> items = dropdownItems;
+    if (isFromAccountField(formItem?.controlId ?? "")) {
+      AppLogger.appLogD(
+          tag: "dynamic_components",
+          message: "removing all loan accounts from From Account Dropdown");
+
+      try {
+        if (items.isNotEmpty) {
+          var loanAccounts = allLoanAccounts.entries.toList();
+
+          for (var account in loanAccounts) {
+            items.removeWhere((key, value) => key == account.value);
+          }
+        }
+      } catch (e) {
+        AppLogger.appLogD(tag: "dynamic_components", message: e);
+      }
+    }
+    return items;
+  }
 
   void addInitialValueToLinkedField(BuildContext context, var initialValue) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -1653,7 +1721,8 @@ class _DynamicHorizontalText extends State<DynamicHorizontalText> {
                     flex: 5,
                     child: Text(
                       dropdownSelection[formItem?.controlId] ??
-                          formInput ??
+                          getStringValue(
+                              formItem?.controlText ?? "", formInput) ??
                           "****",
                       style: const TextStyle(fontWeight: FontWeight.bold),
                       textAlign: TextAlign.right,
@@ -1661,6 +1730,19 @@ class _DynamicHorizontalText extends State<DynamicHorizontalText> {
                     ))
               ],
             ));
+  }
+
+  String getStringValue(String key, String value) {
+    if (key == "Frequency") {
+      if (value == "1") {
+        return "Daily";
+      } else if (value == "2") {
+        return "Weekly";
+      } else if (value == "3") {
+        return "Monthly";
+      }
+    }
+    return value;
   }
 }
 

@@ -142,6 +142,7 @@ class DropDownState extends ChangeNotifier {
   String _currentRelationID = "";
   final List<DropdownMenuItem<String>> _toAccountItems = [];
   final Map<String?, dynamic> _currentDropDownValue = {};
+  final Map<String?, dynamic> _currentRepaymentAccounts = {};
 
   bool get loadingFromAccounts => _loadingFromAccounts;
 
@@ -155,6 +156,9 @@ class DropDownState extends ChangeNotifier {
   String get currentRelationID => _currentRelationID;
 
   Map<String?, dynamic> get currentDropDownValue => _currentDropDownValue;
+
+  Map<String?, dynamic> get currentRepaymentAccounts =>
+      _currentRepaymentAccounts;
 
   setLoadingFromAccounts(bool status) {
     _loadingFromAccounts = status;
@@ -180,10 +184,16 @@ class DropDownState extends ChangeNotifier {
     notifyListeners();
   }
 
+  addCurrentRepaymentAccounts(Map<String, dynamic> value) {
+    _currentRepaymentAccounts.addAll(value);
+    notifyListeners();
+  }
+
   clearSelections() {
     _currentRelationID = "";
     _currentSelections.clear();
     _currentDropDownValue.clear();
+    _currentRepaymentAccounts.clear();
   }
 }
 
@@ -230,3 +240,5 @@ var accountsAndBalances = {}.obs;
 var startenddate = {}.obs;
 
 var dropdownSelection = {}.obs;
+
+var selectedDateFrequency = 0.obs;
