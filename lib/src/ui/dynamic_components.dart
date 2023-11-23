@@ -1706,7 +1706,7 @@ class _DynamicHorizontalText extends State<DynamicHorizontalText> {
 
     AppLogger.appLogD(
         tag: "$classname@${formItem?.controlId}",
-        message: "dropdown selection ${dropdownSelection}");
+        message: "dropdown selection $dropdownSelection");
 
     return formInput == null
         ? const SizedBox()
