@@ -11,8 +11,8 @@ class CommonUtils {
 
     final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: selectedDate.add(const Duration(days: 1)),
-        firstDate: selectedDate.add(const Duration(days: 1)),
+        initialDate: selectedDate,
+        firstDate: selectedDate,
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
