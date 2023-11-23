@@ -1733,7 +1733,7 @@ class _DynamicHorizontalText extends State<DynamicHorizontalText> {
   }
 
   String getStringValue(String key, String value) {
-    if (key == "Frequency") {
+    if (key.toLowerCase() == "frequency") {
       if (value == "1") {
         return "Daily";
       } else if (value == "2") {
