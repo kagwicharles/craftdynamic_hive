@@ -6,14 +6,17 @@ class CommonUtils {
   static var errorColor = Colors.red;
   static var successColor = Colors.green[600];
 
-  static Future<void> selectDate(BuildContext context, {refreshDate}) async {
+  static Future<void> selectDate(BuildContext context,
+      {refreshDate, isTodayInitialDate = false}) async {
     DateTime selectedDate = DateTime.now();
 
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: selectedDate,
-        lastDate: DateTime(2101));
+        firstDate: isTodayInitialDate
+            ? selectedDate
+            : DateTime.now().subtract(const Duration(days: 365 * 2)),
+        lastDate: DateTime.now().add(const Duration(days: 365 * 5)));
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
       refreshDate(true, newText: selectedDate);

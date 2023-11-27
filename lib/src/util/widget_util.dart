@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class WidgetUtil {
   static Map<String, dynamic> checkControlFormat(String widgetControlFormat,
-      {context, isObscure, refreshParent}) {
+      {context, isObscure, refreshParent, isTodayInitialDate = false}) {
     IconButton? suffixIcon;
     ControlFormat controlFormat = ControlFormat.OTHER;
     var inputType = TextInputType.text;
@@ -24,7 +24,9 @@ class WidgetUtil {
           inputType = TextInputType.datetime;
           suffixIcon = IconButton(
               onPressed: () {
-                CommonUtils.selectDate(context, refreshDate: refreshParent);
+                CommonUtils.selectDate(context,
+                    refreshDate: refreshParent,
+                    isTodayInitialDate: isTodayInitialDate);
               },
               icon: Icon(
                 Icons.calendar_month,

@@ -120,6 +120,7 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
   bool isObscured = false;
   IconButton? suffixIcon;
   FormItem? formItem;
+  ModuleItem? moduleItem;
   String? initialValue;
   String linkedToControlText = "";
 
@@ -135,6 +136,7 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     formItem = BaseFormInheritedComponent.of(context)?.formItem;
+    moduleItem = BaseFormInheritedComponent.of(context)?.moduleItem;
   }
 
   updateControllerText(String value) {
@@ -157,7 +159,8 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
           formItem!.controlFormat!,
           context: context,
           isObscure: isObscured,
-          refreshParent: refreshParent);
+          refreshParent: refreshParent,
+          isTodayInitialDate: moduleItem?.moduleId == "STANDINGORDERADD");
       inputType = formItem?.controlFormat == ControlFormat.PinNumber.name ||
               formItem?.controlFormat == ControlFormat.PIN.name
           ? TextInputType.number
@@ -454,23 +457,30 @@ class _DynamicButtonState extends State<DynamicButton> {
   }
 
   String? validateStartAndEndDate() {
-    var start = startenddate["STARTDATE"];
-    var end = startenddate["ENDDATE"];
+    try {
+      var start = startenddate["STARTDATE"];
+      var end = startenddate["ENDDATE"];
 
-    DateTime startDate = DateTime.parse(start);
-    DateTime endDate = DateTime.parse(end);
+      if (start != null && end != null) {
+        DateTime startDate = DateTime.parse(start);
+        DateTime endDate = DateTime.parse(end);
 
-    int differenceInDays = endDate.difference(startDate).inDays;
+        int differenceInDays = endDate.difference(startDate).inDays;
 
-    if (endDate.isBefore(startDate)) {
-      return "Invalid Dates Seleted!\nEnd date cannot be before start date";
+        if (endDate.isBefore(startDate)) {
+          return "Invalid Dates Seleted!\nEnd date cannot be before start date";
+        }
+        if (selectedDateFrequency.value == 2 && differenceInDays < 7) {
+          return "Frequency selected as \nWeekly but invalid date range selected";
+        }
+        if (selectedDateFrequency.value == 3 && differenceInDays < 30) {
+          return "Frequency selected as \nMonthly but invalid date range selected";
+        }
+      }
+    } catch (e) {
+      AppLogger.appLogD(tag: "dynamic_components", message: e);
     }
-    if (selectedDateFrequency.value == 2 && differenceInDays < 7) {
-      return "Frequency selected as \nWeekly but invalid date range selected";
-    }
-    if (selectedDateFrequency.value == 3 && differenceInDays < 30) {
-      return "Frequency selected as \nMonthly but invalid date range selected";
-    }
+
     return null;
   }
 
