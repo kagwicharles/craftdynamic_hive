@@ -134,6 +134,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                 TextFormField(
                   controller: _pinController,
                   obscureText: true,
+                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(hintText: "Enter PIN"),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
