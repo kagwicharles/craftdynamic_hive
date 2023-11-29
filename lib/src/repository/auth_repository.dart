@@ -42,6 +42,7 @@ class AuthRepository {
     String? currentLanguage = await _sharedPref.getLanguageID();
     var localdataversion = await _sharedPref.getStaticDataVersion();
     bool refreshUIData = false;
+    await _initRepository.getAppToken();
 
     ActivationResponse activationResponse =
         await _services.login(CryptLib.encryptField(pin));
@@ -81,6 +82,8 @@ class AuthRepository {
   // Call this method to activate app
   Future<ActivationResponse> activate(
       {required mobileNumber, required pin}) async {
+    await _initRepository.getAppToken();
+
     ActivationResponse activationResponse = await _services.activateMobile(
       mobileNumber: mobileNumber,
       encryptedPin: CryptLib.encryptField(pin),
@@ -118,6 +121,8 @@ class AuthRepository {
   // Call this method to verify otp
   Future<ActivationResponse> verifyOTP(
       {required mobileNumber, required otp}) async {
+    await _initRepository.getAppToken();
+
     ActivationResponse activationResponse =
         await _services.verifyOTP(mobileNumber: mobileNumber, key: otp);
     if (activationResponse.customerID != null &&

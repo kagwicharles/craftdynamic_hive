@@ -19,7 +19,7 @@ class APIUtil {
         rawRes = jsonDecode(rawResponse);
         if (rawRes?["Status"] == StatusCode.token.name) {
           CommonUtils.showToast("Please try again!");
-          await _initRepository.getAppToken();
+          // await _initRepository.getAppToken();
         }
       } catch (e) {
         AppLogger.appLogE(

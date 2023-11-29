@@ -242,3 +242,5 @@ var startenddate = {}.obs;
 var dropdownSelection = {}.obs;
 
 var selectedDateFrequency = 0.obs;
+
+var logoutWidget = Rx<Widget>(SizedBox()).obs;

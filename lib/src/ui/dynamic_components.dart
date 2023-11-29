@@ -1134,6 +1134,8 @@ class DynamicLabelWidget implements IFormWidget {
       var formItem = BaseFormInheritedComponent.of(context)?.formItem;
       var moduleItem = BaseFormInheritedComponent.of(context)?.moduleItem;
 
+      AppLogger.appLogD(tag: "dynamic_components", message: "show label...");
+
       return formItem?.controlFormat == ControlFormat.LISTDATA.name
           ? FutureBuilder<DynamicResponse?>(
               future: getDynamicLabel(context, formItem, moduleItem!),
@@ -1155,7 +1157,8 @@ class DynamicLabelWidget implements IFormWidget {
               })
           : Text(
               formItem?.controlText ?? "",
-              style: const TextStyle(fontSize: 16),
+              style: TextStyle(
+                  fontSize: 16, color: Theme.of(context).primaryColor),
             );
     });
   }

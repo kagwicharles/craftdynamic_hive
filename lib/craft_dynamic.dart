@@ -77,7 +77,6 @@ import 'src/network/network_repository.dart';
 import 'src/network/rsa_util.dart';
 import 'src/session_manager/session_manager.dart';
 import 'src/ui/dynamic_static/biometric_login.dart';
-import 'src/ui/dynamic_static/viewpdf_screen.dart';
 import 'src/ui/dynamic_static/qr_scanner.dart';
 import 'src/ui/dynamic_static/transactions_list.dart';
 import 'src/ui/dynamic_static/view_beneficiary.dart';
