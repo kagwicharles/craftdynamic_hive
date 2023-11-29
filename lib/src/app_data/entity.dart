@@ -500,6 +500,8 @@ class BankAccount {
   bool? isDisabled;
   @HiveField(8)
   String? branchID;
+  @HiveField(9)
+  String? productID;
 
   BankAccount(
       {required this.bankAccountId,
@@ -510,7 +512,8 @@ class BankAccount {
       this.accountType = "",
       this.isTransactional,
       this.isDisabled,
-      this.branchID});
+      this.branchID,
+      this.productID});
 
   BankAccount.fromJson(Map<String, dynamic> json)
       : bankAccountId = json["BankAccountID"],
@@ -521,7 +524,8 @@ class BankAccount {
         defaultAccount = json["DefaultAccount"],
         isTransactional = json["ISTRANSACTIONAL"],
         isDisabled = json["Disabled"],
-        branchID = json["BranchID"];
+        branchID = json["BranchID"],
+        productID = json["ProductID"];
 }
 
 @HiveType(typeId: 11)

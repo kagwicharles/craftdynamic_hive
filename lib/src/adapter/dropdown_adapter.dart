@@ -43,12 +43,18 @@ class _BankAccountDropDown implements IDropDownAdapter {
   Future<Map<String, dynamic>?>? getDropDownItems() async {
     var bankAccounts = await _bankAccountRepository.getAllBankAccounts();
     bool? isTransactional = formItem.isTransactional;
+    String? dataSourceID = formItem.dataSourceId;
+
     AppLogger.appLogD(
         tag: "Is transactional ${formItem.controlText}",
         message: isTransactional);
 
     if (isTransactional != null && isTransactional) {
       bankAccounts?.removeWhere((account) => account.isTransactional == false);
+    }
+
+    if (dataSourceID != null) {
+      bankAccounts?.removeWhere((acc) => acc.productID != dataSourceID);
     }
 
     return bankAccounts?.fold<Map<String, dynamic>>({}, (acc, curr) {

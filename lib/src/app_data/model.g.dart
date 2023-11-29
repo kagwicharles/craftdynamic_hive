@@ -723,14 +723,15 @@ class BankAccountAdapter extends TypeAdapter<BankAccount> {
         defaultAccount: fields[6] as bool,
         isTransactional: fields[7] as bool?,
         isDisabled: fields[8] as bool?,
-        branchID: fields[9] as String?)
+        branchID: fields[9] as String?,
+        productID: fields[10] as String?)
       ..no = fields[0] as int?;
   }
 
   @override
   void write(BinaryWriter writer, BankAccount obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.no)
       ..writeByte(1)
@@ -750,7 +751,9 @@ class BankAccountAdapter extends TypeAdapter<BankAccount> {
       ..writeByte(8)
       ..write(obj.isDisabled)
       ..writeByte(9)
-      ..write(obj.branchID);
+      ..write(obj.branchID)
+      ..writeByte(10)
+      ..write(obj.productID);
   }
 
   @override
