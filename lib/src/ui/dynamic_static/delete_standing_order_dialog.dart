@@ -152,8 +152,8 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                               } else if (value.status ==
                                   StatusCode.failure.statusCode) {
                                 otpController.clear();
-                                AlertUtil.showAlertDialog(
-                                    context, "Invalid Mobile Number or PIN",
+                                AlertUtil.showAlertDialog(context,
+                                    value.message ?? "Invalid Credentials",
                                     title: "Error");
                               } else {
                                 otpController.clear();

@@ -101,6 +101,7 @@ class DynamicPostCall {
                 widget: ListDataScreen(
                     title: moduleItem!.moduleName,
                     widget: ListWidget(
+                      moduleItem: moduleItem,
                       dynamicList: postDynamic.list,
                       summary: postDynamic.summary,
                       scrollable: true,

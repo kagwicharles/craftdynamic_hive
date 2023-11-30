@@ -229,7 +229,7 @@ class _StandingOrderItemState extends State<StandingOrderItem> {
                           height: 12,
                         ),
                         RowItem(
-                          title: "Executions",
+                          title: "Expected Executions",
                           value: widget.standingOrder.noOfExecutions.toString(),
                         ),
                         const SizedBox(
@@ -239,6 +239,13 @@ class _StandingOrderItemState extends State<StandingOrderItem> {
                           title: "Credit Account",
                           value:
                               widget.standingOrder.creditAccountID.toString(),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        RowItem(
+                          title: "Debit Account",
+                          value: widget.standingOrder.debitAccount.toString(),
                         ),
                         const SizedBox(
                           height: 16,
@@ -361,12 +368,11 @@ class RowItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(flex: 4, child: Text("$title:")),
-            Expanded(
-                flex: 6,
-                child: Text(value ?? "***",
-                    style: const TextStyle(fontWeight: FontWeight.bold)))
+            Text("$title:"),
+            Text(value ?? "***",
+                style: const TextStyle(fontWeight: FontWeight.bold))
           ],
         ),
       ]);

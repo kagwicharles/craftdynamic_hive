@@ -41,7 +41,9 @@ class ListWidget extends StatelessWidget {
       }
     }
 
-    AppLogger.appLogD(tag: "summary list", message: dynamicList);
+    AppLogger.appLogD(
+        tag: "summary list moduleid ${moduleItem?.moduleId}",
+        message: dynamicList);
 
     return dynamicList != null &&
             (dynamicList?.isNotEmpty ?? false) &&
@@ -53,9 +55,11 @@ class ListWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Summary",
-                          style: TextStyle(
+                        Text(
+                          moduleItem?.moduleId == "LOANANALYZER"
+                              ? "Loan Summary"
+                              : "Summary",
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                         ListView.builder(

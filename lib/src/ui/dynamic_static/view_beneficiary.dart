@@ -30,110 +30,108 @@ class _ViewBeneficiaryState extends State<ViewBeneficiary> {
       appBar: AppBar(
         title: Text(widget.moduleItem.moduleName),
       ),
-      body: BlurrLoadScreen(
-          mainWidget: FutureBuilder<List<Beneficiary>>(
-              future: viewBeneficiaries(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<Beneficiary>> snapshot) {
-                Widget widget = Center(child: LoadUtil());
+      body: FutureBuilder<List<Beneficiary>>(
+          future: viewBeneficiaries(),
+          builder: (BuildContext context,
+              AsyncSnapshot<List<Beneficiary>> snapshot) {
+            Widget widget = Center(child: CircularLoadUtil());
 
-                if (snapshot.hasData) {
-                  final itemCount = snapshot.data?.length ?? 0;
+            if (snapshot.hasData) {
+              final itemCount = snapshot.data?.length ?? 0;
 
-                  if (itemCount == 0) {
-                    widget = EmptyUtil();
-                  } else {
-                    widget = ListView.separated(
-                        separatorBuilder: (context, index) => Divider(
-                              color: Colors.grey[300],
-                            ),
-                        itemCount: itemCount,
-                        itemBuilder: (context, index) {
-                          final beneficiary = snapshot.data![index];
+              if (itemCount == 0) {
+                widget = EmptyUtil();
+              } else {
+                widget = ListView.separated(
+                    separatorBuilder: (context, index) => Divider(
+                          color: Colors.grey[300],
+                        ),
+                    itemCount: itemCount,
+                    itemBuilder: (context, index) {
+                      final beneficiary = snapshot.data![index];
 
-                          return Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 14, vertical: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 14, vertical: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      beneficiary.merchantName,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: APIService.appPrimaryColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(
-                                      height: 12,
-                                    ),
-                                    Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 4),
-                                        child: Row(
-                                          children: [
-                                            const Text(
-                                              "Alias name",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            const SizedBox(
-                                              width: 12,
-                                            ),
-                                            Text(beneficiary.accountAlias),
-                                          ],
-                                        )),
-                                    const SizedBox(
-                                      height: 2,
-                                    ),
-                                    Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 4),
-                                        child: Row(
-                                          children: [
-                                            const Text(
-                                              "Account ID",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            const SizedBox(
-                                              width: 12,
-                                            ),
-                                            Text(beneficiary.accountID),
-                                          ],
-                                        ))
-                                  ],
+                                Text(
+                                  "Beneficiary ${index + 1}",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: APIService.appPrimaryColor,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                IconButton(
-                                    onPressed: () {
-                                      AlertUtil.showAlertDialog(context,
-                                              "Confirm action to delete ${beneficiary.merchantName}",
-                                              isConfirm: true,
-                                              title: "Delete",
-                                              confirmButtonText: "Delete")
-                                          .then((value) {
-                                        if (value) {
-                                          deleteBeneficiary(
-                                              beneficiary, context);
-                                        }
-                                      });
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete_outline_outlined,
-                                      color: Colors.red,
-                                      size: 34,
+                                const SizedBox(
+                                  height: 12,
+                                ),
+                                Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4),
+                                    child: Row(
+                                      children: [
+                                        const Text(
+                                          "Name",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(
+                                          width: 12,
+                                        ),
+                                        Text(beneficiary.accountAlias),
+                                      ],
+                                    )),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4),
+                                    child: Row(
+                                      children: [
+                                        const Text(
+                                          "Account",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(
+                                          width: 12,
+                                        ),
+                                        Text(beneficiary.accountID),
+                                      ],
                                     ))
                               ],
                             ),
-                          );
-                        });
-                  }
-                }
-                return widget;
-              })),
+                            IconButton(
+                                onPressed: () {
+                                  AlertUtil.showAlertDialog(context,
+                                          "Confirm action to delete this beneficiary ${beneficiary.accountAlias}",
+                                          isConfirm: true,
+                                          title: "Delete",
+                                          confirmButtonText: "Delete")
+                                      .then((value) {
+                                    if (value) {
+                                      deleteBeneficiary(beneficiary, context);
+                                    }
+                                  });
+                                },
+                                icon: const Icon(
+                                  Icons.delete_outline_outlined,
+                                  color: Colors.red,
+                                  size: 34,
+                                ))
+                          ],
+                        ),
+                      );
+                    });
+              }
+            }
+            return widget;
+          }),
     );
   }
 

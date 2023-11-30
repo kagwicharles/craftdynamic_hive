@@ -82,6 +82,7 @@ class SILIST {
   String? status;
   String? siID;
   String? reference;
+  String? debitAccount;
 
   SILIST(
       {this.amount,
@@ -92,7 +93,8 @@ class SILIST {
       this.creditAccountID,
       this.status,
       this.reference,
-      this.siID});
+      this.siID,
+      this.debitAccount});
 
   SILIST.fromJson(Map<String, dynamic> json) {
     amount = json['Amount'];
@@ -104,6 +106,7 @@ class SILIST {
     status = json['Status'];
     reference = json['ReferenceNo'];
     siID = json['SIID'];
+    debitAccount = json["Debit AccountID"];
   }
 
   Map<String, dynamic> toJson() {
