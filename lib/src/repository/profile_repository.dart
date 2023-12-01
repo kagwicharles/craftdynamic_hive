@@ -18,6 +18,11 @@ class ProfileRepository {
         bankAccountID: bankAccountID, merchantID: "BALANCE", moduleID: "HOME");
   }
 
+  Future<DynamicResponse?> getAccountSummary(String bankAccountID) async {
+    return await _services.getAccountSummary(
+        bankAccountID: bankAccountID, merchantID: "BALANCE", moduleID: "HOME");
+  }
+
   String getActualBalanceText(DynamicResponse dynamicResponse) {
     return dynamicResponse.resultsData
             ?.firstWhere((e) => e["ControlID"] == "BALTEXT")["ControlValue"] ??

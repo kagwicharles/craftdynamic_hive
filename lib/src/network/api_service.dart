@@ -438,6 +438,35 @@ class APIService {
     return dynamicResponse ?? DynamicResponse(status: "XXX");
   }
 
+  Future<DynamicResponse?> getAccountSummary(
+      {required bankAccountID,
+      required merchantID,
+      required moduleID,
+      formId = "PAYBILL"}) async {
+    var decrypted;
+    DynamicResponse? dynamicResponse;
+    Map<String, dynamic> innerMap = {};
+    Map<String, dynamic> requestObj = {};
+    innerMap["MerchantID"] = merchantID;
+    innerMap["MobileNumber"] =
+        await _sharedPref.getUserAccountInfo(UserAccountData.Phone);
+    requestObj["PayBill"] = innerMap;
+
+    final route = await _sharedPref.getRoute("account".toLowerCase());
+    var res = await performDioRequest(
+        await dioRequestBodySetUp(formId, objectMap: requestObj),
+        route: route);
+
+    try {
+      decrypted = jsonDecode(res ?? "{}") ?? "{}";
+      logger.d("\n\nBANK BALANCE RESPONSE: $decrypted");
+      dynamicResponse = DynamicResponse.fromJson(decrypted);
+    } catch (e) {
+      AppLogger.appLogE(tag: "DECODE:ERROR", message: e.toString());
+    }
+    return dynamicResponse ?? DynamicResponse(status: "XXX");
+  }
+
   Future<DynamicResponse?> checkMiniStatement(
       {required bankAccountID,
       required merchantID,
