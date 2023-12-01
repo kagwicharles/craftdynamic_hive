@@ -18,9 +18,9 @@ class ProfileRepository {
         bankAccountID: bankAccountID, merchantID: "BALANCE", moduleID: "HOME");
   }
 
-  Future<DynamicResponse?> getAccountSummary() async {
+  Future<DynamicResponse?> getAccountSummary({merchantID}) async {
     return await _services.getAccountSummary(
-        merchantID: "BALANCE", moduleID: "HOME");
+        merchantID: merchantID ?? "BALANCE", moduleID: "HOME");
   }
 
   String getActualBalanceText(DynamicResponse dynamicResponse) {
