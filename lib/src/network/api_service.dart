@@ -439,10 +439,7 @@ class APIService {
   }
 
   Future<DynamicResponse?> getAccountSummary(
-      {required bankAccountID,
-      required merchantID,
-      required moduleID,
-      formId = "PAYBILL"}) async {
+      {required merchantID, required moduleID, formId = "PAYBILL"}) async {
     var decrypted;
     DynamicResponse? dynamicResponse;
     Map<String, dynamic> innerMap = {};
