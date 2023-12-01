@@ -58,13 +58,13 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
       await PermissionUtil.checkRequiredPermissions();
     }
     getCurrentLatLong();
-    // await getAppData();
-    showLoadingScreen.value = false;
-    var timeout = await _sharedPref.getAppIdleTimeout();
-    setState(() {
-      _appTimeout = timeout;
-    });
-    periodicActions(_appTimeout);
+    await getAppData();
+    // showLoadingScreen.value = false;
+    // var timeout = await _sharedPref.getAppIdleTimeout();
+    // setState(() {
+    //   _appTimeout = timeout;
+    // });
+    // periodicActions(_appTimeout);
   }
 
   getAppLaunchCount() async {
@@ -79,16 +79,16 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
     }
   }
 
-  // getAppData() async {
-  //   await _initRepository.getAppToken();
-  //   await _initRepository.getAppUIData();
-  //   showLoadingScreen.value = false;
-  //   var timeout = await _sharedPref.getAppIdleTimeout();
-  //   setState(() {
-  //     _appTimeout = timeout;
-  //   });
-  //   periodicActions(_appTimeout);
-  // }
+  getAppData() async {
+    await _initRepository.getAppToken();
+    await _initRepository.getAppUIData();
+    showLoadingScreen.value = false;
+    var timeout = await _sharedPref.getAppIdleTimeout();
+    setState(() {
+      _appTimeout = timeout;
+    });
+    periodicActions(_appTimeout);
+  }
 
   periodicActions(int timeout) {
     Timer.periodic(Duration(milliseconds: timeout), (timer) {

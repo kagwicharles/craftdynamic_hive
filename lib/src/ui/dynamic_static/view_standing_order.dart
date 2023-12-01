@@ -236,17 +236,18 @@ class _StandingOrderItemState extends State<StandingOrderItem> {
                           height: 12,
                         ),
                         RowItem(
-                          title: "Credit Account",
-                          value:
-                              widget.standingOrder.creditAccountID.toString(),
+                          title: "Debit Account",
+                          value: widget.standingOrder.debitAccount.toString(),
                         ),
                         const SizedBox(
                           height: 12,
                         ),
                         RowItem(
-                          title: "Debit Account",
-                          value: widget.standingOrder.debitAccount.toString(),
+                          title: "Credit Account",
+                          value:
+                              widget.standingOrder.creditAccountID.toString(),
                         ),
+
                         const SizedBox(
                           height: 16,
                         ),
