@@ -607,6 +607,7 @@ class _ImageDynamicDropDownState extends State<ImageDynamicDropDown> {
                 value: _currentValue,
                 items: dropdownPicks,
                 isExpanded: true,
+                decoration: InputDecoration(labelText: formItem?.controlText),
                 onChanged: (value) {},
                 validator: (value) {
                   String? input = value.toString();
