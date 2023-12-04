@@ -57,9 +57,9 @@ class _LoanProductsScreenState extends State<LoanProductsScreen> {
                     if (snapshot.hasData) {
                       LoanProducts loanProducts;
                       loanProducts = snapshot.data;
-                      var loans = loanProducts.lOANPRODUCTS!;
+                      var loans = loanProducts.lOANPRODUCTS;
                       child = ListView.separated(
-                        itemCount: loans.length,
+                        itemCount: loans?.length ?? 0,
                         itemBuilder: (context, index) {
                           return Padding(
                               padding:
@@ -79,7 +79,7 @@ class _LoanProductsScreenState extends State<LoanProductsScreen> {
                                       const SizedBox(
                                         width: 20,
                                       ),
-                                      Text(loans[index].loanProductID!),
+                                      Text(loans?[index].loanProductID ?? ""),
                                     ],
                                   ),
                                   const SizedBox(
@@ -97,7 +97,7 @@ class _LoanProductsScreenState extends State<LoanProductsScreen> {
                                       const SizedBox(
                                         width: 20,
                                       ),
-                                      Text("${loans[index].loanProductName}"),
+                                      Text("${loans?[index].loanProductName}"),
                                     ],
                                   ),
                                 ],

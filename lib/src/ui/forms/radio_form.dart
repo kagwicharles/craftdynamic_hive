@@ -125,6 +125,7 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
       chips.add(Expanded(
           flex: 1,
           child: Container(
+              height: 54,
               margin: const EdgeInsets.only(right: 2),
               child: ChoiceChip(
                 side: _value == index
@@ -149,7 +150,30 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
                     });
                   }
                 },
-              ))));
+              )
+
+              //     RadioListTile<int>(
+              //   title: Text(
+              //     formItem.controlText ?? "",
+              //     style: const TextStyle(fontSize: 14, color: Colors.black),
+              //   ),
+              //   value: index,
+              //   groupValue: _value,
+              //   activeColor: APIService.appPrimaryColor,
+              //   onChanged: (value) {
+              //     // if (value != index) {
+              //     // }
+
+              //     setState(() {
+              //       _value = value;
+              //     });
+              //   },
+              //   dense: true,
+              //   shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(12),
+              //       side: BorderSide(color: Theme.of(context).primaryColor)),
+              // ),
+              )));
     });
   }
 
