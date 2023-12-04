@@ -47,62 +47,107 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
             children: [
               Container(
                   padding: const EdgeInsets.all(8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                          child: OutlinedButton(
-                              onPressed: () {
-                                saveFile(context,
-                                    isDownload: widget.downloadReceipt);
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    "Download",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(
-                                    width: 4,
-                                  ),
-                                  Icon(
-                                    Icons.download,
-                                    color: APIService.appPrimaryColor,
-                                  )
-                                ],
-                              ))),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Expanded(
-                          child: OutlinedButton(
-                              onPressed: () {
-                                saveFile(context, isDownload: false);
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    "Share",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(
-                                    width: 4,
-                                  ),
-                                  Icon(
-                                    Icons.share,
-                                    color: APIService.appSecondaryColor,
-                                  )
-                                ],
-                              ))),
-                    ],
-                  )),
+                  child: widget.downloadReceipt
+                      ? OutlinedButton(
+                          onPressed: () {
+                            saveFile(context,
+                                isDownload: widget.downloadReceipt);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Download",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Icon(
+                                Icons.download,
+                                color: APIService.appPrimaryColor,
+                              )
+                            ],
+                          ))
+                      : OutlinedButton(
+                          onPressed: () {
+                            saveFile(context, isDownload: false);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Share",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Icon(
+                                Icons.share,
+                                color: APIService.appSecondaryColor,
+                              )
+                            ],
+                          ))
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     Expanded(
+                  //         child: OutlinedButton(
+                  //             onPressed: () {
+                  //               saveFile(context,
+                  //                   isDownload: widget.downloadReceipt);
+                  //             },
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.center,
+                  //               crossAxisAlignment: CrossAxisAlignment.center,
+                  //               children: [
+                  //                 const Text(
+                  //                   "Download",
+                  //                   style:
+                  //                       TextStyle(fontWeight: FontWeight.bold),
+                  //                 ),
+                  //                 const SizedBox(
+                  //                   width: 4,
+                  //                 ),
+                  //                 Icon(
+                  //                   Icons.download,
+                  //                   color: APIService.appPrimaryColor,
+                  //                 )
+                  //               ],
+                  //             ))),
+                  //     const SizedBox(
+                  //       width: 8,
+                  //     ),
+                  //     Expanded(
+                  //         child: OutlinedButton(
+                  //             onPressed: () {
+                  //               saveFile(context, isDownload: false);
+                  //             },
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.center,
+                  //               crossAxisAlignment: CrossAxisAlignment.center,
+                  //               children: [
+                  //                 const Text(
+                  //                   "Share",
+                  //                   style:
+                  //                       TextStyle(fontWeight: FontWeight.bold),
+                  //                 ),
+                  //                 const SizedBox(
+                  //                   width: 4,
+                  //                 ),
+                  //                 Icon(
+                  //                   Icons.share,
+                  //                   color: APIService.appSecondaryColor,
+                  //                 )
+                  //               ],
+                  //             ))),
+                  //   ],
+                  // )
+                  ),
               const SizedBox(
                 height: 12,
               ),
