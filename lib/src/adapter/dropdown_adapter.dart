@@ -59,7 +59,7 @@ class _BankAccountDropDown implements IDropDownAdapter {
 
     return bankAccounts?.fold<Map<String, dynamic>>({}, (acc, curr) {
       String balance = accountsAndBalances.isNotEmpty
-          ? "(${StringUtil.formatNumberWithThousandsSeparator(accountsAndBalances[curr.bankAccountId] ?? "Balance unavailable")})"
+          ? "(${StringUtil.formatNumberWithThousandsSeparator(accountsAndBalances[curr.bankAccountId]["CLEARBALANCE"] ?? "Balance unavailable")})"
           : "";
       return acc
         ..[curr.bankAccountId] = curr.aliasName.isEmpty

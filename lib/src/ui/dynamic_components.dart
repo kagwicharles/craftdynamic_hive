@@ -847,6 +847,7 @@ class _DropDownState extends State<DropDown> {
     return Builder(builder: (BuildContext context) {
       formItem = BaseFormInheritedComponent.of(context)?.formItem;
       moduleItem = BaseFormInheritedComponent.of(context)?.moduleItem;
+
       {
         return FutureBuilder<Map<String, dynamic>?>(
             future: getDropDownValues(formItem!, moduleItem!),
