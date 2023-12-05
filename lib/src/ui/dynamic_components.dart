@@ -1068,8 +1068,8 @@ class _DropDownState extends State<DropDown> {
         if (Provider.of<PluginState>(context, listen: false)
                     .dynamicDropDownData[formItem?.rowID?.toString()] ==
                 {} ||
-            Provider.of<PluginState>(context, listen: false)
-                    .dynamicDropDownData[formItem?.rowID?.toString()] ==
+            Provider.of<DropDownState>(context, listen: false)
+                    .currentDropDownValue[formItem?.controlId?.toString()] ==
                 null) {
           Map<String, dynamic> map = {};
 
