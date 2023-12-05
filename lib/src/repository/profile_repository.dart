@@ -36,7 +36,7 @@ class ProfileRepository {
     AppLogger.appLogD(
         tag: "profile_repository", message: "available--->$availableBal");
     if (availableBal != null) {
-      return availableBal["AVAILABLEBALANCE"];
+      return availableBal["ControlValue"];
     }
     return "";
   }
