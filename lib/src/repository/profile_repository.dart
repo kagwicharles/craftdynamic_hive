@@ -30,10 +30,15 @@ class ProfileRepository {
       "Not available";
 
   // Available balance
-  String getAvailableBalance(DynamicResponse dynamicResponse) =>
-      dynamicResponse.resultsData?.firstWhereOrNull(
-          (e) => e["ControlID"] == "TOTALBALTEXT")["ControlValue"] ??
-      "Not available";
+  String getAvailableBalance(DynamicResponse dynamicResponse) {
+    var availableBal = dynamicResponse.resultsData
+            ?.firstWhereOrNull((e) => e["ControlID"] == "TOTALBALTEXT") ??
+        "Not available";
+    if (availableBal != null) {
+      return availableBal["AVAILABLEBALANCE"];
+    }
+    return "";
+  }
 
   getAllAccountBalancesAndSaveInAppState() async {
     accountsAndBalances.clear();
