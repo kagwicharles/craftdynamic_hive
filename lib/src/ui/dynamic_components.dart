@@ -473,7 +473,7 @@ class _DynamicButtonState extends State<DynamicButton> {
         if (selectedDateFrequency.value == 2 && differenceInDays < 7) {
           return "Frequency selected as \nWeekly but invalid date range selected";
         }
-        if (selectedDateFrequency.value == 3 && differenceInDays < 27) {
+        if (selectedDateFrequency.value == 3 && differenceInDays <= 27) {
           return "Frequency selected as \nMonthly but invalid date range selected";
         }
       }

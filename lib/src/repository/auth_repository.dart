@@ -130,7 +130,7 @@ class AuthRepository {
       _sharedPref.addActivationData(
           mobileNumber, activationResponse.customerID!);
 
-      await _initRepository.getAppUIData();
+      await _initRepository.getAppUIData(refreshData: true);
     }
     return activationResponse;
   }
