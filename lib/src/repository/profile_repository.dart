@@ -32,8 +32,9 @@ class ProfileRepository {
   // Available balance
   String getAvailableBalance(DynamicResponse dynamicResponse) {
     var availableBal = dynamicResponse.resultsData
-            ?.firstWhereOrNull((e) => e["ControlID"] == "TOTALBALTEXT") ??
-        "Not available";
+        ?.firstWhereOrNull((e) => e["ControlID"] == "TOTALBALTEXT");
+    AppLogger.appLogD(
+        tag: "profile_repository", message: "available--->$availableBal");
     if (availableBal != null) {
       return availableBal["AVAILABLEBALANCE"];
     }
