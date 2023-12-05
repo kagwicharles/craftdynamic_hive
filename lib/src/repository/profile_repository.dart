@@ -23,11 +23,17 @@ class ProfileRepository {
         merchantID: merchantID ?? "BALANCE", moduleID: "HOME");
   }
 
-  String getActualBalanceText(DynamicResponse dynamicResponse) {
-    return dynamicResponse.resultsData
-            ?.firstWhere((e) => e["ControlID"] == "BALTEXT")["ControlValue"] ??
-        "Not available";
-  }
+  //Clear balance
+  String getActualBalanceText(DynamicResponse dynamicResponse) =>
+      dynamicResponse.resultsData
+          ?.firstWhere((e) => e["ControlID"] == "BALTEXT")["ControlValue"] ??
+      "Not available";
+
+  // Available balance
+  String getAvailableBalance(DynamicResponse dynamicResponse) =>
+      dynamicResponse.resultsData?.firstWhere(
+          (e) => e["ControlID"] == "TOTALBALTEXT")["ControlValue"] ??
+      "Not available";
 
   getAllAccountBalancesAndSaveInAppState() async {
     accountsAndBalances.clear();
@@ -37,8 +43,12 @@ class ProfileRepository {
         var accountBalance = await checkAccountBalance(account.bankAccountId);
         if (accountBalance != null &&
             accountBalance.status == StatusCode.success.statusCode) {
-          accountsAndBalances.addAll(
-              {account.bankAccountId: getActualBalanceText(accountBalance)});
+          accountsAndBalances.addAll({
+            account.bankAccountId: {
+              "CLEARBALANCE": getActualBalanceText(accountBalance),
+              "AVAILABLEBALANCE": getAvailableBalance(accountBalance)
+            }
+          });
         }
       }
       return;
