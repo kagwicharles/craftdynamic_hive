@@ -31,7 +31,7 @@ class ProfileRepository {
 
   // Available balance
   String getAvailableBalance(DynamicResponse dynamicResponse) =>
-      dynamicResponse.resultsData?.firstWhere(
+      dynamicResponse.resultsData?.firstWhereOrNull(
           (e) => e["ControlID"] == "TOTALBALTEXT")["ControlValue"] ??
       "Not available";
 
