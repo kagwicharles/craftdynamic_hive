@@ -70,7 +70,7 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
   getAppLaunchCount() async {
     var launchCount = await _sharedPref.getLaunchCount();
     if (launchCount == 0) {
-      _sharedPref.clearPrefs();
+      // _sharedPref.clearPrefs();
       _sharedPref.setLaunchCount(launchCount++);
       await _sharedPref.setLanguageID("ENG");
     }
