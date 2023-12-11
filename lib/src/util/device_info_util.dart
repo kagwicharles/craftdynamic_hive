@@ -59,11 +59,11 @@ class DeviceInfo {
     if (Platform.isAndroid) {
       var info = await deviceInfo.androidInfo;
       return (Platform.environment['ANDROID_EMULATOR'] == '1') ||
-          (Platform.isAndroid && info.isPhysicalDevice);
+          (Platform.isAndroid && !info.isPhysicalDevice);
     } else if (Platform.isIOS) {
       var info = await deviceInfo.iosInfo;
       return (Platform.environment['SIMULATOR_DEVICE_NAME'] != null) ||
-          (Platform.isIOS && info.isPhysicalDevice);
+          (Platform.isIOS && !info.isPhysicalDevice);
     }
     return false;
   }
