@@ -8,7 +8,7 @@ class DeviceInfo {
     return await UniqueIdentifier.serial;
   }
 
-  static performDeviceSecurityScan() async {
+  static performDeviceSecurityScan(bool enableEmulatorCheck) async {
     if (await _checkDeviceRooted()) {
       Fluttertoast.showToast(
           msg: "This app cannot work on rooted device!",
@@ -22,7 +22,7 @@ class DeviceInfo {
         exit(0);
       });
     }
-    if (isEmulator()) {
+    if (enableEmulatorCheck && isEmulator()) {
       Fluttertoast.showToast(
           msg: "This app cannot work on an emulator!",
           toastLength: Toast.LENGTH_LONG,

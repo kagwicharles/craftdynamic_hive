@@ -10,6 +10,7 @@ class DynamicCraftWrapper extends StatefulWidget {
   bool localizationIsEnabled;
   bool useExternalBankID;
   bool showAccountBalanceInDropdowns;
+  bool enableEmulatorCheck;
 
   DynamicCraftWrapper(
       {super.key,
@@ -21,7 +22,8 @@ class DynamicCraftWrapper extends StatefulWidget {
       this.localizationDelegates,
       this.useExternalBankID = false,
       this.localizationIsEnabled = false,
-      this.showAccountBalanceInDropdowns = false});
+      this.showAccountBalanceInDropdowns = false,
+      this.enableEmulatorCheck = false});
 
   @override
   State<DynamicCraftWrapper> createState() => _DynamicCraftWrapperState();
@@ -43,7 +45,7 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
   }
 
   initializeApp() async {
-    await DeviceInfo.performDeviceSecurityScan();
+    await DeviceInfo.performDeviceSecurityScan(widget.enableEmulatorCheck);
     await HiveUtil.initializeHive();
     await _connectivityService.initialize();
     _sessionRepository.stopSession();
