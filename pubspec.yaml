@@ -70,6 +70,7 @@ dependencies:
   pdf_render: 1.4.1
   libphonenumber: ^2.0.2
   syncfusion_flutter_pdfviewer: ^21.2.8
+  device_info_plus: ^8.2.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0

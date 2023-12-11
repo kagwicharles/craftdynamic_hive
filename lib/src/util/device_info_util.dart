@@ -22,7 +22,7 @@ class DeviceInfo {
         exit(0);
       });
     }
-    if (enableEmulatorCheck && isEmulator()) {
+    if (enableEmulatorCheck && await isEmulator()) {
       Fluttertoast.showToast(
           msg: "This app cannot work on an emulator!",
           toastLength: Toast.LENGTH_LONG,
@@ -53,16 +53,18 @@ class DeviceInfo {
     return packageInfo.version;
   }
 
-  static bool isEmulator() {
+  static Future<bool> isEmulator() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
     if (Platform.isAndroid) {
+      var info = await deviceInfo.androidInfo;
       return (Platform.environment['ANDROID_EMULATOR'] == '1') ||
-          (Platform.isAndroid && !isPhysicalDevice);
+          (Platform.isAndroid && info.isPhysicalDevice);
     } else if (Platform.isIOS) {
+      var info = await deviceInfo.iosInfo;
       return (Platform.environment['SIMULATOR_DEVICE_NAME'] != null) ||
-          (Platform.isIOS && !isPhysicalDevice);
+          (Platform.isIOS && info.isPhysicalDevice);
     }
     return false;
   }
-
-  static bool get isPhysicalDevice => !Platform.isAndroid && !Platform.isIOS;
 }
