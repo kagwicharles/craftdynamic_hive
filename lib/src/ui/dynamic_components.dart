@@ -1216,7 +1216,8 @@ class _DynamicPhonePickerFormWidgetState
     final PhoneContact contact = await FlutterContactPicker.pickPhoneContact();
     setState(() {
       controller.text = formatPhone(contact.phoneNumber?.number ?? "")
-          .replaceAll(RegExp(r'^0'), '');
+          .replaceAll(RegExp(r'^0'), '')
+          .replaceAll(" ", "");
     });
   }
 
