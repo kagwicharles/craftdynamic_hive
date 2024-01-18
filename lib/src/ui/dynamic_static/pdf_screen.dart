@@ -161,30 +161,33 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
   }
 
   saveFile(BuildContext context, {isDownload = true}) async {
-    if (Platform.isAndroid || Platform.isIOS) {
-      try {
-        String receiptPath = "";
-        String receipt = "${widget.pdfName}.pdf";
+    try {
+      String receiptPath = "";
+      String receipt = "${widget.pdfName}.pdf";
+      Directory directory = Platform.isAndroid
+          ? Directory("")
+          : await getApplicationDocumentsDirectory();
 
-        Directory directory = Directory("");
+      if (Platform.isAndroid) {
         directory = Directory("/storage/emulated/0/Download");
         AppLogger.appLogD(
             tag: "pdf file",
             message: "Copying file to ==========>${directory.path}");
-        receiptPath = "${directory.path}/$receipt";
-        await requestStoragePermission();
-        File(widget.path ?? "").copy(receiptPath).then((value) {
-          if (isDownload) {
-            CommonUtils.showActionSnackBar(
-              context: context,
-              message: "$receipt saved to download",
-            );
-          } else {
-            openFile(receiptPath, widget.pdfName ?? "", isDownload: isDownload);
-          }
-        });
-      } catch (e) {}
-    }
+      }
+
+      receiptPath = "${directory.path}/$receipt";
+      await requestStoragePermission();
+      File(widget.path ?? "").copy(receiptPath).then((value) {
+        if (isDownload) {
+          CommonUtils.showActionSnackBar(
+            context: context,
+            message: "$receipt saved to download",
+          );
+        } else {
+          openFile(receiptPath, widget.pdfName ?? "", isDownload: isDownload);
+        }
+      });
+    } catch (e) {}
   }
 
   requestStoragePermission() async {
