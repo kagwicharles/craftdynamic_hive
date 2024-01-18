@@ -161,7 +161,7 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
   }
 
   saveFile(BuildContext context, {isDownload = true}) async {
-    if (Platform.isAndroid) {
+    if (Platform.isAndroid || Platform.isIOS) {
       try {
         String receiptPath = "";
         String receipt = "${widget.pdfName}.pdf";
