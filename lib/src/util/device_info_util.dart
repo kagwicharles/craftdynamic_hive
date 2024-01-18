@@ -5,7 +5,9 @@ class DeviceInfo {
     if (kIsWeb) {
       return "123";
     }
-    return await UniqueIdentifier.serial;
+    return Platform.isAndroid
+        ? await UniqueIdentifier.serial
+        : CryptLib.toSHA256(await UniqueIdentifier.serial ?? "", 16);
   }
 
   static performDeviceSecurityScan(bool enableEmulatorCheck) async {
