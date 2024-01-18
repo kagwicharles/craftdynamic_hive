@@ -72,7 +72,7 @@ class _BiometricLoginState extends State<BiometricLogin> {
                 height: 12.0,
               ),
               const Text(
-                "Use fingerprint for faster and easy access to your account",
+                "Use fingerprint/face for faster and easy access to your account",
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
@@ -83,8 +83,8 @@ class _BiometricLoginState extends State<BiometricLogin> {
                     enableDisableBioDialog(context: context);
                   },
                   child: Obx(() => Text(isBiometricEnabled.value
-                      ? "Disable Fingerprint Login"
-                      : "Enable Fingerprint Login")))
+                      ? "Disable Fingerprint/Face Login"
+                      : "Enable Fingerprint/Face Login")))
             ],
           ),
         ));
