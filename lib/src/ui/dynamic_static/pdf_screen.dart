@@ -166,7 +166,7 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
       String receipt = "${widget.pdfName}.pdf";
       Directory directory = Platform.isAndroid
           ? Directory("")
-          : await getApplicationDocumentsDirectory();
+          : await getApplicationSupportDirectory();
 
       if (Platform.isAndroid) {
         directory = Directory("/storage/emulated/0/Download");
