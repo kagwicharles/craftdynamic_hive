@@ -181,7 +181,7 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
         if (isDownload) {
           CommonUtils.showActionSnackBar(
             context: context,
-            message: "$receipt downloaded successfully",
+            message: "$receipt saved successfully",
           );
         } else {
           openFile(receiptPath, widget.pdfName ?? "", isDownload: isDownload);
