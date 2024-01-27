@@ -11,6 +11,8 @@ class AuthRepository {
       {isButtonAction = false, context}) async {
     String bioEnabled = await _sharedPref.getBio();
     if (bioEnabled == "true") {
+      await _initRepository.getAppToken();
+
       if (await BioMetricUtil.biometricAuthenticate()) {
         String bioPin = await _sharedPref.getBioPin();
         pinController.text = CryptLib.decryptField(encrypted: bioPin);
