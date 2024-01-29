@@ -177,6 +177,8 @@ class ModuleUtil {
 
   static onItemClick(ModuleItem moduleItem, BuildContext context) {
     bool isDisabled = moduleItem.isDisabled ?? false;
+    AppLogger.appLogD(
+        tag: "click sensor", message: "module id --> ${moduleItem.moduleId}");
 
     if (isDisabled) {
       CommonUtils.showToast("Coming soon");
