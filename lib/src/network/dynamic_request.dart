@@ -1,5 +1,4 @@
 import 'package:craft_dynamic/craft_dynamic.dart';
-import 'package:craft_dynamic/src/ui/forms/confirmation_form.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
