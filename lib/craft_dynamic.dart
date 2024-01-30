@@ -130,3 +130,4 @@ part 'src/ui/dynamic_components.dart';
 part 'package:craft_dynamic/src/util/permissions_util.dart';
 part 'src/state/plugin_state.dart';
 part 'src/util/string_util.dart';
+part 'src/ui/forms/confirmation_form.dart';

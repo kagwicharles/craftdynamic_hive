@@ -1,5 +1,4 @@
-import 'package:craft_dynamic/craft_dynamic.dart';
-import 'package:flutter/material.dart';
+part of craft_dynamic;
 
 class ConfirmationForm {
   static confirmTransaction(context, List<FormItem> formItems,
