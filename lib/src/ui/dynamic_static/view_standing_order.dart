@@ -222,7 +222,7 @@ class _StandingOrderItemState extends State<StandingOrderItem> {
                           height: 12,
                         ),
                         RowItem(
-                          title: "Frequency",
+                          title: "Beneficiary",
                           value: widget.standingOrder.frequency,
                         ),
                         const SizedBox(
