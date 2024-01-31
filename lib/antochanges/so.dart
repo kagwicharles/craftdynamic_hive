@@ -1,3 +1,5 @@
+import 'package:craft_dynamic/craft_dynamic.dart';
+
 class SO {
   String? status;
   String? message;
@@ -25,19 +27,24 @@ class SO {
     if (json['ResultsData'] != null) {
       resultsData = <ResultsData>[];
       json['ResultsData'].forEach((v) {
-        resultsData!.add(new ResultsData.fromJson(v));
+        resultsData!.add(ResultsData.fromJson(v));
       });
     }
     if (json['SILIST'] != null) {
       sILIST = <SILIST>[];
       json['SILIST'].forEach((v) {
-        sILIST!.add(new SILIST.fromJson(v));
+        try {
+          AppLogger.appLogD(tag: "so", message: "adding item");
+          sILIST!.add(SILIST.fromJson(v));
+        } catch (e) {
+          AppLogger.appLogD(tag: "so error", message: e);
+        }
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['Status'] = status;
     data['Message'] = message;
     data['FormID'] = formID;
@@ -65,7 +72,7 @@ class ResultsData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['ControlID'] = controlID;
     data['ControlValue'] = controlValue;
     return data;
@@ -110,7 +117,7 @@ class SILIST {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['Amount'] = amount;
     data['Frequency'] = frequency;
     data['No Of Executions'] = noOfExecutions;

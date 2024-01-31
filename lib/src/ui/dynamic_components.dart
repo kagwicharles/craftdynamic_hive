@@ -499,11 +499,12 @@ class ImageDynamicDropDown extends StatefulWidget implements IFormWidget {
 
 class _ImageDynamicDropDownState extends State<ImageDynamicDropDown> {
   final _apiService = APIService();
+  Map<String, dynamic> extraFieldMap = {};
+  List<dynamic> dropdownItems = [];
+
   FormItem? formItem;
   ModuleItem? moduleItem;
   String? _currentValue;
-  Map<String, dynamic> extraFieldMap = {};
-  List<dynamic> dropdownItems = [];
 
   Future<DynamicResponse?> getDropDownData(
           String actionID, ModuleItem moduleItem,
