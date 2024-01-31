@@ -92,6 +92,50 @@ extension APICall on APIService {
     AppLogger.appLogI(tag: "loans document", message: "data::$response");
     return DynamicResponse.fromJson(jsonDecode(response ?? "{}"));
   }
+
+  Future<DynamicResponse> terminateStandingOrder(account, amount, startDate,
+      frequency, endDate, String pin, siId, refrenceNo) async {
+    String? res;
+    DynamicResponse dynamicResponse =
+        DynamicResponse(status: StatusCode.unknown.name);
+    Map<String, dynamic> requestObj = {};
+    Map<String, dynamic> innerMap = {};
+    innerMap["MerchantID"] = "STOPSTANDINGINSTRUCTIONS";
+    innerMap["ModuleID"] = "STANDINGORDERVIEWDETAILS";
+    innerMap["AMOUNT"] = amount;
+    innerMap["ACCOUNTID"] = account;
+    innerMap["INFOFIELD3"] = siId;
+    innerMap["INFOFIELD5"] = refrenceNo;
+    innerMap["INFOFIELD6"] = startDate;
+    innerMap["INFOFIELD7"] = frequency;
+    innerMap["INFOFIELD8"] = endDate;
+    innerMap["INFOFIELD10"] = "R";
+    requestObj["EncryptedFields"] = {"PIN": "${CryptLib.encryptField(pin)}"};
+
+    // encryptedPin: CryptLib.encryptField(pin);
+
+    // innerMap["PIN"] = CryptLib.encryptField(pin);
+    // "EncryptedFields":CryptLib.encryptField(pin);
+
+    requestObj[RequestParam.Paybill.name] = innerMap;
+
+    final route =
+        await _sharedPrefs.getRoute(RouteUrl.account.name.toLowerCase());
+    try {
+      res = await performDioRequest(
+          await dioRequestBodySetUp("PAYBILL",
+              objectMap: requestObj, isAuthenticate: false),
+          route: route);
+      dynamicResponse = DynamicResponse.fromJson(jsonDecode(res ?? "{}") ?? {});
+      logger.d("termination>>: $res");
+    } catch (e) {
+      // CommonUtils.showToast("Unable to get promotional images");
+      AppLogger.appLogE(tag: runtimeType.toString(), message: e.toString());
+      return dynamicResponse;
+    }
+
+    return dynamicResponse;
+  }
 }
 
 extension Navigate on BuildContext {
