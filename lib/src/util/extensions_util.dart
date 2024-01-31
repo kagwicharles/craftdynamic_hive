@@ -120,7 +120,7 @@ extension APICall on APIService {
     requestObj[RequestParam.Paybill.name] = innerMap;
 
     final route =
-        await _sharedPrefs.getRoute(RouteUrl.account.name.toLowerCase());
+        await _sharedPref.getRoute(RouteUrl.account.name.toLowerCase());
     try {
       res = await performDioRequest(
           await dioRequestBodySetUp("PAYBILL",
