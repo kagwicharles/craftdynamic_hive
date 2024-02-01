@@ -312,14 +312,6 @@ class HiddenWidget implements IFormWidget {
     return Builder(builder: (context) {
       String controlValue = "";
 
-      TextFormField(
-        validator: (value) {
-          if (value == null || value == "") {
-            return "value is empty";
-          }
-        },
-      );
-
       if (formItem?.controlFormat == ControlFormat.OWNNUMBER.name) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           _sharedPref.getCustomerMobile().then((value) {
@@ -354,9 +346,15 @@ class HiddenWidget implements IFormWidget {
         }
       }
 
-      return const Visibility(
+      return Visibility(
         visible: false,
-        child: SizedBox(),
+        child: TextFormField(
+          validator: (value) {
+            if (value == null || value == "") {
+              return "value is empty";
+            }
+          },
+        ),
       );
     });
   }
