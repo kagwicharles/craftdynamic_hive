@@ -164,6 +164,7 @@ class DynamicFormRequest {
         requestObject: requestObj);
 
     if (dynamicResponse.status == StatusCode.unknown.name) {
+      Provider.of<PluginState>(context, listen: false).clearDynamicInput();
       Provider.of<PluginState>(context, listen: false).setRequestState(false);
     }
 

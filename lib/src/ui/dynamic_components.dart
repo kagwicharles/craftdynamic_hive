@@ -307,7 +307,7 @@ class HiddenWidget implements IFormWidget {
     AppLogger.appLogD(
         tag: "hidden widget",
         message:
-            "values--> ${formItem?.serviceParamId} ${formItem?.controlValue}");
+            "values--> control id:${formItem?.controlId} ${formItem?.serviceParamId} ${formItem?.controlValue}");
 
     return Builder(builder: (context) {
       String controlValue = "";
@@ -467,6 +467,8 @@ class _DynamicButtonState extends State<DynamicButton> {
             DynamicPostCall.processDynamicResponse(
                 value!.dynamicData!, context, formItem!.controlId!,
                 moduleItem: moduleItem);
+            Provider.of<PluginState>(context, listen: false)
+                .clearDynamicInput();
           }
         });
       }

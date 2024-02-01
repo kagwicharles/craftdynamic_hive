@@ -54,6 +54,11 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
             Provider.of<PluginState>(context, listen: false)
                 .clearDynamicDropDown();
           });
+          Provider.of<PluginState>(context, listen: false).clearDynamicInput();
+          Provider.of<DropDownState>(context, listen: false).clearSelections();
+          Provider.of<PluginState>(context, listen: false)
+              .screenDropDowns
+              .clear();
           Provider.of<PluginState>(context, listen: false)
               .setRequestState(false);
           return true;
@@ -117,5 +122,13 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
                                 }))
                       ],
                     ))))));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<PluginState>(context).clearDynamicInput();
+    });
   }
 }
