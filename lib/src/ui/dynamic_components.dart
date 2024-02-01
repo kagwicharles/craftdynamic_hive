@@ -340,8 +340,6 @@ class HiddenWidget implements IFormWidget {
             AppLogger.appLogD(
                 tag: "hidden widget",
                 message: "adding values to hidden widget");
-            Provider.of<PluginState>(context, listen: false).addFormInput(
-                {formItem?.serviceParamId: formItem?.controlValue});
           });
         }
       }
@@ -350,9 +348,10 @@ class HiddenWidget implements IFormWidget {
         visible: false,
         child: TextFormField(
           validator: (value) {
-            if (value == null || value == "") {
-              return "value is empty";
-            }
+            AppLogger.appLogD(
+                tag: "hidden widget", message: formItem?.serviceParamId);
+            Provider.of<PluginState>(context, listen: false).addFormInput(
+                {formItem?.serviceParamId: formItem?.controlValue});
           },
         ),
       );
