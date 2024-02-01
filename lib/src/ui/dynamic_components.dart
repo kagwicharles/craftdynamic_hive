@@ -304,6 +304,11 @@ class HiddenWidget implements IFormWidget {
 
   @override
   Widget render() {
+    AppLogger.appLogD(
+        tag: "hidden widget",
+        message:
+            "values ${formItem?.serviceParamId} ${formItem?.controlValue}");
+
     return Builder(builder: (context) {
       String controlValue = "";
       if (formItem?.controlFormat == ControlFormat.OWNNUMBER.name) {
