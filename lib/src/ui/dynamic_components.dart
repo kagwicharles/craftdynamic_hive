@@ -311,6 +311,7 @@ class HiddenWidget implements IFormWidget {
 
     return Builder(builder: (context) {
       String controlValue = "";
+
       if (formItem?.controlFormat == ControlFormat.OWNNUMBER.name) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           _sharedPref.getCustomerMobile().then((value) {
@@ -336,6 +337,9 @@ class HiddenWidget implements IFormWidget {
           });
         } else {
           WidgetsBinding.instance.addPostFrameCallback((_) {
+            AppLogger.appLogD(
+                tag: "hidden widget",
+                message: "adding values to hidden widget");
             Provider.of<PluginState>(context, listen: false).addFormInput(
                 {formItem?.serviceParamId: formItem?.controlValue});
           });
