@@ -84,7 +84,7 @@ class BaseFormInheritedComponent extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant BaseFormInheritedComponent oldWidget) {
-    return oldformItem != formItem;
+    return oldWidget.formItem != formItem;
   }
 }
 
@@ -165,7 +165,7 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
               formItem?.controlFormat == ControlFormat.PIN.name
           ? TextInputType.number
           : textFieldParams['inputType'];
-      var formFieldValue = formFields?.firstWhereOrNull((formField) =>
+      var formFieldValue = widget.formFields?.firstWhereOrNull((formField) =>
               formField[FormFieldProp.ControlID.name].toLowerCase() ==
               formItem?.controlId?.toLowerCase()) ??
           "";
@@ -295,26 +295,22 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
   }
 }
 
-class HiddenWidget extends StatefulWidget implements IFormWidget {
+class HiddenWidget implements IFormWidget {
+  final _sharedPref = CommonSharedPref();
   List<dynamic>? formFields;
   FormItem? formItem;
 
-  HiddenWidget({super.key, this.formFields, this.formItem});
-
-  @override
-  State<HiddenWidget> createState() => _HiddenWidgetState();
+  HiddenWidget({this.formFields, this.formItem});
 
   @override
   Widget render() {
     AppLogger.appLogD(
         tag: "hidden widget",
         message:
-            "values ${formItem?.serviceParamId} ${formItem?.controlValue}");
+            "values--> ${formItem?.serviceParamId} ${formItem?.controlValue}");
 
     return Builder(builder: (context) {
       String controlValue = "";
-      Provider.of<PluginState>(context, listen: false)
-          .addFormInput({formItem?.serviceParamId: formItem?.controlValue});
 
       if (formItem?.controlFormat == ControlFormat.OWNNUMBER.name) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -348,8 +344,8 @@ class HiddenWidget extends StatefulWidget implements IFormWidget {
         }
       }
 
-      return Visibility(
-        visible: false,
+      return SizedBox(
+        height: 0,
         child: TextFormField(
           validator: (value) {
             AppLogger.appLogD(
@@ -360,13 +356,6 @@ class HiddenWidget extends StatefulWidget implements IFormWidget {
         ),
       );
     });
-  }
-}
-
-class _HiddenWidgetState extends State<HiddenWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox();
   }
 }
 
