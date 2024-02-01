@@ -84,7 +84,7 @@ class BaseFormInheritedComponent extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant BaseFormInheritedComponent oldWidget) {
-    return oldWidget.formItem != formItem;
+    return oldformItem != formItem;
   }
 }
 
@@ -165,7 +165,7 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
               formItem?.controlFormat == ControlFormat.PIN.name
           ? TextInputType.number
           : textFieldParams['inputType'];
-      var formFieldValue = widget.formFields?.firstWhereOrNull((formField) =>
+      var formFieldValue = formFields?.firstWhereOrNull((formField) =>
               formField[FormFieldProp.ControlID.name].toLowerCase() ==
               formItem?.controlId?.toLowerCase()) ??
           "";
@@ -295,12 +295,14 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
   }
 }
 
-class HiddenWidget implements IFormWidget {
-  final _sharedPref = CommonSharedPref();
+class HiddenWidget extends StatefulWidget implements IFormWidget {
   List<dynamic>? formFields;
   FormItem? formItem;
 
-  HiddenWidget({this.formFields, this.formItem});
+  HiddenWidget({super.key, this.formFields, this.formItem});
+
+  @override
+  State<HiddenWidget> createState() => _HiddenWidgetState();
 
   @override
   Widget render() {
@@ -358,6 +360,13 @@ class HiddenWidget implements IFormWidget {
         ),
       );
     });
+  }
+}
+
+class _HiddenWidgetState extends State<HiddenWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox();
   }
 }
 
