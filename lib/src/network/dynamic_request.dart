@@ -88,7 +88,7 @@ class DynamicFormRequest {
       }
     }
 
-    if (actionType == ActionType.VALIDATE || actionType == ActionType.PAYBILL) {
+    if (actionType == ActionType.VALIDATE) {
       setDeleteForm(context, false);
     } else {
       setDeleteForm(context, true);
