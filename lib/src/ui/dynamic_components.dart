@@ -347,6 +347,11 @@ class HiddenWidget implements IFormWidget {
       return SizedBox(
         height: 0,
         child: TextFormField(
+          decoration: const InputDecoration(
+              border: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              errorBorder: InputBorder.none),
           validator: (value) {
             AppLogger.appLogD(
                 tag: "hidden widget", message: formItem?.serviceParamId);
