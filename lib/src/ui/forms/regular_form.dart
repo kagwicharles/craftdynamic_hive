@@ -96,6 +96,8 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
                         ),
                         Form(
                             key: _formKey,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             child: ListView.builder(
                                 padding: const EdgeInsets.only(
                                     left: 18, right: 18, top: 8),
