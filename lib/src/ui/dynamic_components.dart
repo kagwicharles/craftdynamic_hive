@@ -345,7 +345,7 @@ class HiddenWidget implements IFormWidget {
       }
 
       return Visibility(
-        visible: true,
+        visible: false,
         child: TextFormField(
           validator: (value) {
             AppLogger.appLogD(
