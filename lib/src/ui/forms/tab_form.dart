@@ -226,7 +226,7 @@ class _TabWidgetListState extends State<TabWidgetList> {
           ),
           Form(
               key: _formKey,
-              autovalidateMode: AutovalidateMode.always,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: ListView.builder(
                   shrinkWrap: true,
                   padding: const EdgeInsets.only(left: 18, right: 18, top: 8),
