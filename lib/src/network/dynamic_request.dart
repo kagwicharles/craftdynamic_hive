@@ -82,6 +82,7 @@ class DynamicFormRequest {
     if (actionControl != null) {
       try {
         actionType = ActionType.values.byName(actionControl.actionType);
+        AppLogger.appLogD(tag: "action type is", message: actionType);
       } catch (e) {
         AppLogger.appLogD(tag: "GET ACTION TYPE ERROR", message: e);
       }
