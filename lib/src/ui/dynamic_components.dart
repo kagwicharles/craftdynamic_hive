@@ -311,6 +311,8 @@ class HiddenWidget implements IFormWidget {
 
     return Builder(builder: (context) {
       String controlValue = "";
+      Provider.of<PluginState>(context, listen: false)
+          .addFormInput({formItem?.serviceParamId: formItem?.controlValue});
 
       if (formItem?.controlFormat == ControlFormat.OWNNUMBER.name) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
