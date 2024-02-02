@@ -1,5 +1,4 @@
 import 'package:craft_dynamic/craft_dynamic.dart';
-import 'package:craft_dynamic/src/network/dynamic_postcall.dart';
 import 'package:craft_dynamic/src/network/dynamic_request.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';

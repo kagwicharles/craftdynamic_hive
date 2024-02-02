@@ -7,7 +7,6 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:vibration/vibration.dart';
 
 import '../../../craft_dynamic.dart';
-import '../../network/dynamic_postcall.dart';
 import '../../network/dynamic_request.dart';
 
 class QRScanner extends StatefulWidget {
