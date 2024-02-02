@@ -1,12 +1,4 @@
-import 'package:craft_dynamic/src/builder/factory_builder.dart';
-import 'package:craft_dynamic/src/ui/dynamic_static/list_data.dart';
-import 'package:craft_dynamic/src/ui/dynamic_static/list_screen.dart';
-import 'package:craft_dynamic/src/ui/dynamic_static/request_status.dart';
-import 'package:craft_dynamic/src/ui/forms/otp_form.dart';
-import 'package:flutter/material.dart';
-
-import 'package:craft_dynamic/craft_dynamic.dart';
-import 'package:provider/provider.dart';
+part of craft_dynamic;
 
 class DynamicPostCall {
   static final _moduleRepo = ModuleRepository();
