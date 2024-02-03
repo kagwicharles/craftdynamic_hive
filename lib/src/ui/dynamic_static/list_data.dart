@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of craft_dynamic;
 
 class ListDataScreen extends StatelessWidget {
   final Widget widget;
