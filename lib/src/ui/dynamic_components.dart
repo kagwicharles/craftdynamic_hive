@@ -299,6 +299,7 @@ class HiddenWidget implements IFormWidget {
   final _sharedPref = CommonSharedPref();
   List<dynamic>? formFields;
   FormItem? formItem;
+  List<Widget> children = [];
 
   HiddenWidget({this.formFields, this.formItem});
 
@@ -328,7 +329,28 @@ class HiddenWidget implements IFormWidget {
                 formItem?.controlId) {
               controlValue = formField[FormFieldProp.ControlValue.name];
               if (controlValue.isNotEmpty) {
+                children.add(SizedBox(
+                  height: 0,
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        errorBorder: InputBorder.none),
+                    validator: (value) {
+                      AppLogger.appLogD(
+                          tag: "hidden widget",
+                          message: formItem?.serviceParamId);
+                      Provider.of<PluginState>(context, listen: false)
+                          .addFormInput(
+                              {formItem?.serviceParamId: controlValue});
+                    },
+                  ),
+                ));
                 WidgetsBinding.instance.addPostFrameCallback((_) {
+                  AppLogger.appLogD(
+                      tag: "hidden component",
+                      message: "${formItem?.serviceParamId} $controlValue");
                   Provider.of<PluginState>(context, listen: false).addFormInput(
                       {"${formItem?.serviceParamId}": controlValue});
                 });
@@ -341,24 +363,27 @@ class HiddenWidget implements IFormWidget {
                 tag: "hidden widget",
                 message: "adding values to hidden widget");
           });
+          children.add(SizedBox(
+            height: 0,
+            child: TextFormField(
+              decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  errorBorder: InputBorder.none),
+              validator: (value) {
+                AppLogger.appLogD(
+                    tag: "hidden widget", message: formItem?.serviceParamId);
+                Provider.of<PluginState>(context, listen: false).addFormInput(
+                    {formItem?.serviceParamId: formItem?.controlValue});
+              },
+            ),
+          ));
         }
       }
 
-      return SizedBox(
-        height: 0,
-        child: TextFormField(
-          decoration: const InputDecoration(
-              border: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              errorBorder: InputBorder.none),
-          validator: (value) {
-            AppLogger.appLogD(
-                tag: "hidden widget", message: formItem?.serviceParamId);
-            Provider.of<PluginState>(context, listen: false).addFormInput(
-                {formItem?.serviceParamId: formItem?.controlValue});
-          },
-        ),
+      return Column(
+        children: children,
       );
     });
   }

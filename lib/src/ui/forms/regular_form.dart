@@ -42,6 +42,10 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
   Widget build(BuildContext context) {
     formItems = widget.sortedForms.toList()
       ..removeWhere((element) => element.controlType == ViewType.LIST.name);
+    AppLogger.appLogD(
+        tag: "regular form",
+        message:
+            "inputs ${Provider.of<PluginState>(context, listen: false).formInputValues}");
 
     return WillPopScope(
         onWillPop: () async {
