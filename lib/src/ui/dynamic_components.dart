@@ -485,6 +485,8 @@ class _DynamicButtonState extends State<DynamicButton> {
                 context: context,
                 tappedButton: true)
             .then((value) {
+          Provider.of<PluginState>(context, listen: false)
+              .setRequestState(false);
           if (value?.status != StatusCode.unknown.statusCode) {
             AppLogger.appLogD(
                 tag: "DYNAMIC BUTTON POST CALL",
