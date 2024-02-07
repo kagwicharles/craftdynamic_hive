@@ -30,6 +30,7 @@ class DynamicPostCall {
     AppLogger.appLogD(tag: "OTP DIALOG", message: "Opening otp dialog....");
     var result = await OTPForm.confirmOTPTransaction(
         context, moduleItem, formItem, preCallData);
+    Provider.of<PluginState>(context, listen: false).setRequestState(false);
   }
 
   static processDynamicResponse(
