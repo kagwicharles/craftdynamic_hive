@@ -220,7 +220,6 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
               ),
               Form(
                   key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: ListView.builder(
                       shrinkWrap: true,
                       padding:
