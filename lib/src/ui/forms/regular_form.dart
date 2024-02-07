@@ -130,8 +130,5 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<PluginState>(context).clearDynamicInput();
-    });
   }
 }

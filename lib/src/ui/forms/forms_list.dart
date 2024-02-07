@@ -37,6 +37,7 @@ class FormsListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (Provider.of<PluginState>(context, listen: false).deleteFormInput) {
+      AppLogger.appLogD(tag: "forms_list", message: "executing build...");
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Provider.of<PluginState>(context, listen: false).clearDynamicInput();
         Provider.of<DropDownState>(context, listen: false).clearSelections();
