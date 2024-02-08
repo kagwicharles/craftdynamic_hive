@@ -145,7 +145,7 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    bool isEnabled = formItem?.isEnabled ?? false;
+    bool isEnabled = formItem?.isEnabled ?? true;
     AppLogger.appLogD(
         tag: "textformfield", message: "controlid-->${formItem?.controlId}");
 
@@ -189,11 +189,10 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
 
       var properties = TextFormFieldProperties(
           isEnabled:
-              (formFieldValue.isNotEmpty || linkedToControlText.isNotEmpty)
+              (formFieldValue.isNotEmpty || linkedToControlText.isNotEmpty) &&
+                      isEnabled == false
                   ? false
-                  : isEnabled
-                      ? true
-                      : false,
+                  : true,
           isObscured: isObscured ? state.obscureText : false,
           controller: controller,
           textInputType: inputType,
