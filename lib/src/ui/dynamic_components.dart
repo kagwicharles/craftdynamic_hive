@@ -189,10 +189,11 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
 
       var properties = TextFormFieldProperties(
           isEnabled:
-              (formFieldValue.isNotEmpty || linkedToControlText.isNotEmpty) &&
-                      !isEnabled
+              (formFieldValue.isNotEmpty || linkedToControlText.isNotEmpty)
                   ? false
-                  : true,
+                  : isEnabled
+                      ? true
+                      : false,
           isObscured: isObscured ? state.obscureText : false,
           controller: controller,
           textInputType: inputType,
