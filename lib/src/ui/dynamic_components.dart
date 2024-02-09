@@ -171,7 +171,9 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
           "";
 
       if (formFieldValue.isNotEmpty) {
-        controller.text = formFieldValue[FormFieldProp.ControlValue.name] ?? "";
+        controller.text = controller.text.isEmpty
+            ? formFieldValue[FormFieldProp.ControlValue.name]
+            : controller.text;
       }
 
       if (formItem?.linkedToRowID != null) {
