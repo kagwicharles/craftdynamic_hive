@@ -49,6 +49,10 @@ class _BankAccountDropDown implements IDropDownAdapter {
         tag: "Is transactional ${formItem.controlText}",
         message: isTransactional);
 
+    AppLogger.appLogD(
+        tag: "data source id ${formItem.dataSourceId}",
+        message: isTransactional);
+
     if (isTransactional != null && isTransactional) {
       bankAccounts?.removeWhere((account) => account.isTransactional == false);
     }
@@ -83,7 +87,7 @@ class _BeneficiaryDropDown implements IDropDownAdapter {
     var customerNo = await _sharedPref.getCustomerMobile();
     var beneficiaries =
         await _beneficiaryRepository.getBeneficiariesByMerchantID(merchantID!);
-        
+
     if (merchantID == "MOBILETOPUP" || merchantID == "MMONEY") {
       beneficiaries?.add(Beneficiary(
           merchantID: merchantID ?? "",
