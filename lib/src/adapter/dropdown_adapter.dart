@@ -65,7 +65,8 @@ class _BankAccountDropDown implements IDropDownAdapter {
       bankAccounts?.removeWhere((acc) => acc.productID != dataSourceID);
     }
 
-    return bankAccounts?.fold<Map<String, dynamic>>({}, (acc, curr) {
+    Map<String, dynamic>? accounts =
+        bankAccounts?.fold<Map<String, dynamic>>({}, (acc, curr) {
       String balance = accountsAndBalances.isNotEmpty
           ? "(${StringUtil.formatNumberWithThousandsSeparator(accountsAndBalances[curr.bankAccountId]["CLEARBALANCE"] ?? "Balance unavailable")})"
           : "";
@@ -76,6 +77,11 @@ class _BankAccountDropDown implements IDropDownAdapter {
                 ? "${curr.bankAccountId} $balance"
                 : "${curr.aliasName} $balance";
     });
+
+    AppLogger.appLogD(
+        tag: "accounts dropdown adapter",
+        message: "accounts found --> $accounts");
+    return accounts;
   }
 }
 
