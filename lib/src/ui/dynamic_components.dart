@@ -904,6 +904,8 @@ class _DropDownState extends State<DropDown> {
             future: getDropDownValues(formItem!, moduleItem!),
             builder: (BuildContext context,
                 AsyncSnapshot<Map<String, dynamic>?> snapshot) {
+              AppLogger.appLogD(
+                  tag: "dropdown", message: "getting dropdown data...");
               Widget child = DropdownButtonFormField2(
                 value: _currentValue,
                 hint: Text(
