@@ -915,6 +915,8 @@ class _DropDownState extends State<DropDown> {
                 items: const [],
               );
               if (snapshot.hasData) {
+                AppLogger.appLogD(
+                    tag: "dropdown", message: "snapshot has data...");
                 var data = snapshot.data ?? {};
                 dropdownItems = data;
                 AppLogger.appLogD(
