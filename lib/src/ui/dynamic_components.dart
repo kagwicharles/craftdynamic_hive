@@ -917,7 +917,7 @@ class _DropDownState extends State<DropDown> {
               AppLogger.appLogD(
                   tag: "dropdown",
                   message: "snapshot has data...v${snapshot.data}");
-              if (snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.done) {
                 AppLogger.appLogD(
                     tag: "dropdown", message: "snapshot has data...");
                 var data = snapshot.data ?? {};
