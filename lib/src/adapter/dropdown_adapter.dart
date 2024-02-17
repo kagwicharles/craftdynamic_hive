@@ -70,7 +70,7 @@ class _BankAccountDropDown implements IDropDownAdapter {
       String balance = "";
 
       try {
-        accountsAndBalances.isNotEmpty
+        balance = accountsAndBalances.isNotEmpty
             ? "(${StringUtil.formatNumberWithThousandsSeparator(accountsAndBalances[curr.bankAccountId]["CLEARBALANCE"] ?? "Balance unavailable")})"
             : "";
       } catch (e) {
