@@ -914,6 +914,9 @@ class _DropDownState extends State<DropDown> {
                 isExpanded: true,
                 items: const [],
               );
+              AppLogger.appLogD(
+                  tag: "dropdown",
+                  message: "snapshot has data...v${snapshot.data}");
               if (snapshot.hasData) {
                 AppLogger.appLogD(
                     tag: "dropdown", message: "snapshot has data...");
