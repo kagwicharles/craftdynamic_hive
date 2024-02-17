@@ -73,6 +73,8 @@ class _BankAccountDropDown implements IDropDownAdapter {
         balance = accountsAndBalances.isNotEmpty
             ? "(${StringUtil.formatNumberWithThousandsSeparator(accountsAndBalances[curr.bankAccountId]["CLEARBALANCE"] ?? "Balance unavailable")})"
             : "";
+        AppLogger.appLogD(
+            tag: "acconts dropdown adapter", message: "balance $balance");
       } catch (e) {
         AppLogger.appLogD(tag: "acconts dropdown adapter", message: e);
       }
