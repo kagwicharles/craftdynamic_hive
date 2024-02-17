@@ -46,10 +46,6 @@ class _BankAccountDropDown implements IDropDownAdapter {
     String? dataSourceID = formItem.dataSourceId;
 
     AppLogger.appLogD(
-        tag: "total bank accounts ${formItem.controlText}",
-        message: bankAccounts?.length);
-
-    AppLogger.appLogD(
         tag: "Is transactional ${formItem.controlText}",
         message: isTransactional);
 
@@ -64,6 +60,10 @@ class _BankAccountDropDown implements IDropDownAdapter {
     if (dataSourceID != null) {
       bankAccounts?.removeWhere((acc) => acc.productID != dataSourceID);
     }
+
+    AppLogger.appLogD(
+        tag: "total bank accounts ${formItem.controlText}",
+        message: bankAccounts?.length);
 
     Map<String, dynamic>? accounts =
         bankAccounts?.fold<Map<String, dynamic>>({}, (acc, curr) {
