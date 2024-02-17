@@ -55,7 +55,7 @@ class _BankAccountDropDown implements IDropDownAdapter {
 
     AppLogger.appLogD(
         tag: "data source id ${formItem.dataSourceId}",
-        message: isTransactional);
+        message: formItem.dataSourceId);
 
     if (isTransactional != null && isTransactional) {
       bankAccounts?.removeWhere((account) => account.isTransactional == false);
