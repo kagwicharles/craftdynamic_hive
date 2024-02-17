@@ -46,6 +46,10 @@ class _BankAccountDropDown implements IDropDownAdapter {
     String? dataSourceID = formItem.dataSourceId;
 
     AppLogger.appLogD(
+        tag: "total bank accounts ${formItem.controlText}",
+        message: bankAccounts?.length);
+
+    AppLogger.appLogD(
         tag: "Is transactional ${formItem.controlText}",
         message: isTransactional);
 
