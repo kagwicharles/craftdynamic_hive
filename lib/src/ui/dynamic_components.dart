@@ -960,7 +960,8 @@ class _DropDownState extends State<DropDown> {
                   }
 
                   if (!isToAccountField(formItem?.controlId ?? "") &&
-                      !isBillerName(formItem?.controlId ?? "")) {
+                      !isBillerName(formItem?.controlId ?? "") &&
+                      (_currentValue?.isEmpty ?? true)) {
                     _currentValue = formItem?.hasInitialValue ?? true
                         ? dropdownItems.isNotEmpty
                             ? dropdownItems.entries.first.key
@@ -1005,6 +1006,9 @@ class _DropDownState extends State<DropDown> {
                     isExpanded: true,
                     style: const TextStyle(fontWeight: FontWeight.normal),
                     onChanged: ((value) => {
+                          AppLogger.appLogD(
+                              tag: 'dropdown component event elected',
+                              message: value),
                           setState(() {
                             _currentValue = value.toString();
                           }),
@@ -1028,6 +1032,9 @@ class _DropDownState extends State<DropDown> {
                             }
                         }),
                     validator: (value) {
+                      AppLogger.appLogD(
+                          tag: 'dropdown component validator value-->',
+                          message: value);
                       String? input = value.toString();
                       if ((formItem?.isMandatory ?? false) && input == "null") {
                         return 'Input required*';
