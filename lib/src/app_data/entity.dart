@@ -159,6 +159,14 @@ class ModuleItem {
         blockSpacing =
             BlockSpacing.fromJson(jsonDecode(json["BlockSpacing"] ?? "{}")),
         moduleDescription = json["ModuleDescription"];
+
+  @override
+  String toString() {
+    return '$parentModule $moduleUrl $moduleUrl2 $moduleId $moduleName '
+        '$moduleCategory $merchantID $isMainMenu $isDisabled $isHidden'
+        '$displayOrder $isDBCall $header $blockAspectRatio $menuBorder $menuProperties '
+        '$blockSpacing $moduleDescription';
+  }
 }
 
 @HiveType(typeId: 2)
@@ -295,6 +303,14 @@ class FormItem {
         maxLength = json["MaxLength"],
         maxLines = json["MaxLines"],
         isTransactional = json["ISTRANSACTIONAL"];
+
+  @override
+  String toString() {
+    return '$controlType $controlText $moduleId $linkedToControl $controlId $containerID $actionId '
+        '$formSequence $serviceParamId $displayOrder $isMandatory $isEncrypted $controlFormat $dataSourceId '
+        '$controlValue $minValue $maxValue $hidden $linkedToRowID $isEnabled $rowID $verticalPadding $formID '
+        '$route $merchantID $hasInitialValue $countries $leadingDigits $maxLength $maxLines $isTransactional';
+  }
 }
 
 @HiveType(typeId: 3)
@@ -333,6 +349,12 @@ class ActionItem {
         displayFormID = json["DisplayFormID"],
         confirmationModuleID = json["ConfirmationModuleID"],
         merchantID = json["MerchantID"];
+
+  @override
+  String toString() {
+    return '$moduleID $actionType $webHeader $controlID $displayFormID '
+        '$confirmationModuleID $merchantID';
+  }
 }
 
 @HiveType(typeId: 4)
