@@ -14,12 +14,14 @@ import 'package:craft_dynamic/src/ui/forms/otp_form.dart';
 import 'package:craft_dynamic/src/ui/platform_components/platform_button.dart';
 import 'package:craft_dynamic/src/util/config_util.dart';
 import 'package:craft_dynamic/src/util/location_util.dart';
+import 'package:craft_dynamic/src/util/notifications_util.dart';
 import 'package:craft_dynamic/src/util/root_checker.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:encrypt/encrypt.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart' hide Key;
-import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttercontactpicker/fluttercontactpicker.dart'
@@ -136,3 +138,20 @@ part 'src/util/string_util.dart';
 part 'src/ui/forms/confirmation_form.dart';
 part 'src/network/dynamic_postcall.dart';
 part 'src/ui/dynamic_static/list_data.dart';
+
+@pragma('vm:entry-point')
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  RemoteNotification? remoteNotification = message.notification;
+  String? bigImage = message.data['image'];
+
+  AppLogger.appLogD(tag: "main:backgroundnotification", message: message.data);
+  // AppNotification appNotification = AppNotification(
+  //   title: remoteNotification?.title,
+  //   body: remoteNotification?.body,
+  //   imageUrl: bigImage,
+  // );
+  // if (remoteNotification != null) {
+  //   _firebaseUtil.saveNotificationToLocalDB(appNotification);
+  // }
+}

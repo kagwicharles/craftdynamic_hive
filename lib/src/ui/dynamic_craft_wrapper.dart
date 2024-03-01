@@ -11,6 +11,7 @@ class DynamicCraftWrapper extends StatefulWidget {
   bool useExternalBankID;
   bool showAccountBalanceInDropdowns;
   bool enableEmulatorCheck;
+  bool enablenotifications;
 
   DynamicCraftWrapper(
       {super.key,
@@ -23,7 +24,8 @@ class DynamicCraftWrapper extends StatefulWidget {
       this.useExternalBankID = false,
       this.localizationIsEnabled = false,
       this.showAccountBalanceInDropdowns = false,
-      this.enableEmulatorCheck = false});
+      this.enableEmulatorCheck = false,
+      this.enablenotifications = false});
 
   @override
   State<DynamicCraftWrapper> createState() => _DynamicCraftWrapperState();
@@ -34,6 +36,7 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
   final _initRepository = InitRepository();
   final _sessionRepository = SessionRepository();
   final _sharedPref = CommonSharedPref();
+  final _firebaseUtil = NotificationsUtil();
 
   var _appTimeout = 100000;
 
@@ -48,6 +51,8 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
     await DeviceInfo.performDeviceSecurityScan(widget.enableEmulatorCheck);
     await HiveUtil.initializeHive();
     await _connectivityService.initialize();
+    await setUpFireBase();
+
     _sessionRepository.stopSession();
     useExternalBankID.value = widget.useExternalBankID;
 
@@ -67,6 +72,22 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
     //   _appTimeout = timeout;
     // });
     // periodicActions(_appTimeout);
+  }
+
+  setUpFireBase() async {
+    if (widget.enablenotifications) {
+      await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform);
+      await _firebaseUtil.requestFirebasePermission();
+      await _firebaseUtil.getFirebaseToken();
+
+      if (!kIsWeb) {
+        await _firebaseUtil.setupFlutterNotifications();
+        _firebaseUtil.firebaseMessagingForegroundHandler();
+        FirebaseMessaging.onBackgroundMessage(
+            firebaseMessagingBackgroundHandler);
+      }
+    }
   }
 
   getAppLaunchCount() async {
