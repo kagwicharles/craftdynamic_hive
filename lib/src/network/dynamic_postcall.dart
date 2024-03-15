@@ -121,10 +121,9 @@ class DynamicPostCall {
         {
           AlertUtil.showAlertDialog(
               context, postDynamic.message ?? "Please Try Again Later!",
-              title: "Error");
+              title: "Info");
         }
         break;
-
       case lowFailure:
         {
           AlertUtil.showAlertDialog(
