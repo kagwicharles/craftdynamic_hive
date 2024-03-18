@@ -182,31 +182,31 @@ class ModuleItemAdapter extends TypeAdapter<ModuleItem> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ModuleItem(
-      parentModule: fields[1] as String,
-      moduleUrl: fields[4] as String?,
-      moduleId: fields[0] as String,
-      moduleName: fields[2] as String,
-      moduleCategory: fields[3] as String?,
-      merchantID: fields[6] as String?,
-      isMainMenu: fields[7] as bool?,
-      isDisabled: fields[8] as bool?,
-      isHidden: fields[9] as bool?,
-      moduleUrl2: fields[5] as String?,
-      displayOrder: fields[10] as double?,
-      blockAspectRatio: fields[11] as double?,
-      isDBCall: fields[12] as bool?,
-      header: fields[13] as String?,
-      menuBorder: fields[14] as MenuBorder?,
-      menuProperties: fields[15] as MenuProperties?,
-      blockSpacing: fields[16] as BlockSpacing?,
-      moduleDescription: fields[17] as String?,
-    );
+        parentModule: fields[1] as String,
+        moduleUrl: fields[4] as String?,
+        moduleId: fields[0] as String,
+        moduleName: fields[2] as String,
+        moduleCategory: fields[3] as String?,
+        merchantID: fields[6] as String?,
+        isMainMenu: fields[7] as bool?,
+        isDisabled: fields[8] as bool?,
+        isHidden: fields[9] as bool?,
+        moduleUrl2: fields[5] as String?,
+        displayOrder: fields[10] as double?,
+        blockAspectRatio: fields[11] as double?,
+        isDBCall: fields[12] as bool?,
+        header: fields[13] as String?,
+        menuBorder: fields[14] as MenuBorder?,
+        menuProperties: fields[15] as MenuProperties?,
+        blockSpacing: fields[16] as BlockSpacing?,
+        moduleDescription: fields[17] as String?,
+        isBankCall: fields[18] as bool?);
   }
 
   @override
   void write(BinaryWriter writer, ModuleItem obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(19)
       ..writeByte(0)
       ..write(obj.moduleId)
       ..writeByte(1)
@@ -242,7 +242,9 @@ class ModuleItemAdapter extends TypeAdapter<ModuleItem> {
       ..writeByte(16)
       ..write(obj.blockSpacing)
       ..writeByte(17)
-      ..write(obj.moduleDescription);
+      ..write(obj.moduleDescription)
+      ..writeByte(18)
+      ..write(obj.isBankCall);
   }
 
   @override

@@ -185,6 +185,24 @@ class ModuleUtil {
       return;
     }
 
+    if (moduleItem.isBankCall ?? false) {
+      CommonUtils.navigateToRoute(
+          context: context,
+          widget: const GlobalLoader(),
+          isTransparentScreen: true);
+      Map<String?, dynamic> dataObject = {};
+      _dynamicRequest
+          .dynamicRequest(moduleItem,
+              dataObj: dataObject, url: 'account', action: ActionType.PAYBILL)
+          .then((value) {
+        Navigator.of(context).pop();
+        DynamicPostCall.processDynamicResponse(
+            value!.dynamicData!, context, null,
+            moduleItem: moduleItem);
+      });
+      return;
+    }
+
     if (moduleItem.isDBCall ?? false) {
       CommonUtils.navigateToRoute(
           context: context,

@@ -116,6 +116,8 @@ class ModuleItem {
   BlockSpacing? blockSpacing;
   @HiveField(17)
   String? moduleDescription;
+  @HiveField(18)
+  bool? isBankCall;
 
   ModuleItem(
       {required this.parentModule,
@@ -135,7 +137,8 @@ class ModuleItem {
       this.menuBorder,
       this.menuProperties,
       this.blockSpacing,
-      this.moduleDescription});
+      this.moduleDescription,
+      this.isBankCall});
 
   ModuleItem.fromJson(Map<String, dynamic> json)
       : parentModule = json["ParentModule"],
@@ -158,7 +161,8 @@ class ModuleItem {
             jsonDecode(json["MenuProperties"] ?? "{}") ?? {}),
         blockSpacing =
             BlockSpacing.fromJson(jsonDecode(json["BlockSpacing"] ?? "{}")),
-        moduleDescription = json["ModuleDescription"];
+        moduleDescription = json["ModuleDescription"],
+        isBankCall = json["ISBANKCALL"];
 
   @override
   String toString() {
