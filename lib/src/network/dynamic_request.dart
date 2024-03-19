@@ -151,6 +151,10 @@ class DynamicFormRequest {
         encryptedFields:
             encryptedvalues); // Get a request map from this interface
 
+    AppLogger.appLogD(
+        tag: 'dynamic_request:',
+        message: 'current formatted object is: $requestObj');
+
     lastWebHeaderUsed.value = actionControl?.webHeader ?? "other";
 
     dynamicResponse = await _services.dynamicRequest(
