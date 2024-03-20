@@ -1198,6 +1198,7 @@ class _DynamicPhonePickerFormWidgetState
         } else if (input == "") {
           return "Enter your mobile";
         } else {
+          AppLogger.appLogD(tag: "phone input::", message: value);
           Provider.of<PluginState>(context, listen: false).addFormInput({
             "${formItem?.serviceParamId}":
                 inputNumber.phoneNumber?.replaceAll("+", "")
