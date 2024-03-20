@@ -1207,7 +1207,7 @@ class _DynamicPhonePickerFormWidgetState
           Provider.of<PluginState>(context, listen: false).addFormInput({
             "${formItem?.serviceParamId}": (no != null && no.isNotEmpty)
                 ? no.replaceAll("+", "")
-                : "${inputNumber.isoCode}$value"
+                : "237$value"
           });
         }
 
