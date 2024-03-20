@@ -1200,8 +1200,12 @@ class _DynamicPhonePickerFormWidgetState
           return "Enter your mobile";
         } else {
           AppLogger.appLogD(tag: "phone input::", message: value);
-          Provider.of<PluginState>(context, listen: false)
-              .addFormInput({"${formItem?.serviceParamId}": value});
+          var no = inputNumber.phoneNumber;
+
+          Provider.of<PluginState>(context, listen: false).addFormInput({
+            "${formItem?.serviceParamId}":
+                (no != null && no.isNotEmpty) ? no.replaceAll("+", "") : value
+          });
         }
 
         return null;
