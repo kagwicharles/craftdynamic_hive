@@ -1171,6 +1171,7 @@ class _DynamicPhonePickerFormWidgetState
     return InternationalPhoneNumberInput(
       maxLength: formItem?.maxLength ?? 11,
       onInputChanged: (PhoneNumber number) {
+        AppLogger.appLogD(tag: "phone input onchange::", message: number);
         inputNumber = number;
       },
       selectorConfig: const SelectorConfig(
@@ -1199,10 +1200,8 @@ class _DynamicPhonePickerFormWidgetState
           return "Enter your mobile";
         } else {
           AppLogger.appLogD(tag: "phone input::", message: value);
-          Provider.of<PluginState>(context, listen: false).addFormInput({
-            "${formItem?.serviceParamId}":
-                inputNumber.phoneNumber?.replaceAll("+", "")
-          });
+          Provider.of<PluginState>(context, listen: false)
+              .addFormInput({"${formItem?.serviceParamId}": value});
         }
 
         return null;
