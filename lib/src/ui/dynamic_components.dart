@@ -329,7 +329,7 @@ class HiddenWidget implements IFormWidget {
           formFields?.forEach((formField) {
             if (formField[FormFieldProp.ControlID.name] ==
                 formItem?.controlId) {
-              controlValue = formField[FormFieldProp.ControlValue.name];
+              controlValue = formField[FormFieldProp.ControlValue.name] ?? "";
               if (controlValue.isNotEmpty) {
                 children.add(SizedBox(
                   height: 0,
