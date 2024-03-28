@@ -21,6 +21,7 @@ class _LoanProductsScreenState extends State<LoanProductsScreen> {
 
   @override
   void initState() {
+    AppLogger.appLogD(tag: "loan products screen", message: "initstate func");
     fetchLoansDocument();
     super.initState();
   }
