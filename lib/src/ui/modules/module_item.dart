@@ -28,8 +28,8 @@ class ModuleItemWidget extends StatelessWidget {
       return GestureDetector(
           onTap: () {
             if (moduleItem.moduleId == 'LOANINFORMATION') {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => LoanListScreen()));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const LoanListScreen()));
             } else if (moduleItem.moduleId == "LOANPRODUCTS") {
               AppLogger.appLogD(
                   tag: "module item",
