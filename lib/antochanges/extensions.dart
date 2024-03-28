@@ -132,15 +132,6 @@ extension ApiCall on APIService {
         DynamicResponse(status: StatusCode.unknown.name);
     Map<String, dynamic> requestObj = {};
     Map<String, dynamic> innerMap = {};
-    // LoanID
-    // ,DispersedAmount
-    // ,OutstandingPrincipal
-    // ,OutstandingInterest
-    // ,RepaymentFrequency
-    // ,InstallmentAmount
-    // ,InstallmentStartDate
-    // ,ValueDate
-    // ,MaturityDate
 
     innerMap["MerchantID"] = "LOANINFORMATION";
     innerMap["ModuleID"] = "LOANINFORMATION";
