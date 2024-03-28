@@ -31,6 +31,9 @@ class ModuleItemWidget extends StatelessWidget {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => LoanListScreen()));
             } else if (moduleItem.moduleId == "LOANPRODUCTS") {
+              AppLogger.appLogD(
+                  tag: "module item",
+                  message: "module id LOANPRODUCTS clicked");
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => LoanProductsScreen(
                         moduleItem: moduleItem,
