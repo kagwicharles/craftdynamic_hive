@@ -30,14 +30,6 @@ class ModuleItemWidget extends StatelessWidget {
             if (moduleItem.moduleId == 'LOANINFORMATION') {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const LoanListScreen()));
-            } else if (moduleItem.moduleId == "LOANPRODUCTS") {
-              AppLogger.appLogD(
-                  tag: "module item",
-                  message: "module id LOANPRODUCTS clicked");
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LoanProductsScreen(
-                        moduleItem: moduleItem,
-                      )));
             } else {
               ModuleUtil.onItemClick(moduleItem, context);
             }
@@ -185,6 +177,16 @@ class ModuleUtil {
 
     if (isDisabled) {
       CommonUtils.showToast("Coming soon");
+      return;
+    }
+
+    if (moduleItem.moduleId == "LOANPRODUCTS") {
+      AppLogger.appLogD(
+          tag: "module item", message: "module id LOANPRODUCTS clicked");
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => LoanProductsScreen(
+                moduleItem: moduleItem,
+              )));
       return;
     }
 
