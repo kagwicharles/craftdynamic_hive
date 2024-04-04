@@ -56,6 +56,7 @@ class _LoanListScreenState extends State<LoanListScreen> {
                   var mapItem = items[index];
                   mapItem.removeWhere(
                       (key, value) => key == null || value == null);
+
                   return Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 4.0, vertical: 0.0),

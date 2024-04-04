@@ -68,7 +68,7 @@ class AuthRepository {
           refreshUIData) {
         await _initRepository.getAppUIData(refreshData: true);
       }
-      await _profileRepository.getAllAccountBalancesAndSaveInAppState();
+      _profileRepository.getAllAccountBalancesAndSaveInAppState();
     } else if (activationResponse.status == StatusCode.changePin.statusCode) {
       await _sharedPref.setIsListeningToFocusState(true);
       _moduleRepository.getModuleById(ModuleId.PIN.name).then((module) {
