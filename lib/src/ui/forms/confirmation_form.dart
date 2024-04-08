@@ -9,6 +9,7 @@ class ConfirmationForm {
 
     return showModalBottomSheet<void>(
       showDragHandle: true,
+      enableDrag: true,
       context: context,
       builder: (BuildContext context) {
         return Container(
