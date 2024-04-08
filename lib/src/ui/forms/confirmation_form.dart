@@ -11,6 +11,7 @@ class ConfirmationForm {
       showDragHandle: true,
       enableDrag: true,
       context: context,
+      isScrollControlled: true,
       builder: (BuildContext context) {
         return Container(
             padding:
