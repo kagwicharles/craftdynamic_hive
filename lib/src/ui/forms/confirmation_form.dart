@@ -11,7 +11,6 @@ class ConfirmationForm {
       showDragHandle: true,
       enableDrag: true,
       context: context,
-      isScrollControlled: true,
       builder: (BuildContext context) {
         return Container(
             padding:
@@ -41,33 +40,41 @@ class ConfirmationForm {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 12,
-                ),
-                Form(
-                    key: formKey,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: formItems.length,
-                        padding: const EdgeInsets.only(left: 14, right: 14),
-                        itemBuilder: (context, index) {
-                          return BaseFormComponent(
-                              formItem: formItems[index],
-                              moduleItem: moduleItem,
-                              formItems: formItems,
-                              formKey: formKey,
-                              child:
-                                  IFormWidget(formItems[index], jsonText: input)
+                ListView(
+                  shrinkWrap: true,
+                  children: [
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Form(
+                        key: formKey,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: formItems.length,
+                            padding: const EdgeInsets.only(left: 14, right: 14),
+                            itemBuilder: (context, index) {
+                              return BaseFormComponent(
+                                  formItem: formItems[index],
+                                  moduleItem: moduleItem,
+                                  formItems: formItems,
+                                  formKey: formKey,
+                                  child: IFormWidget(formItems[index],
+                                          jsonText: input)
                                       .render());
-                        })),
-                const Spacer(),
-                SizedBox(
-                    width: 300,
-                    child: WidgetFactory.buildButton(context, () {
-                      Navigator.of(context).pop(0);
-                    }, "Continue".toUpperCase())),
-                const SizedBox(
-                  height: 44,
+                            })),
+                    const SizedBox(
+                      height: 44,
+                    ),
+                    SizedBox(
+                        width: 300,
+                        child: WidgetFactory.buildButton(context, () {
+                          Navigator.of(context).pop(0);
+                        }, "Continue".toUpperCase())),
+                    const SizedBox(
+                      height: 44,
+                    )
+                  ],
                 )
               ],
             ));
