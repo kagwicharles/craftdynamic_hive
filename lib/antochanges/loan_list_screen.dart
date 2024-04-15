@@ -40,7 +40,7 @@ class _LoanListScreenState extends State<LoanListScreen> {
             child = Center(child: CircularLoadUtil());
           } else {
             if (snapshot.hasData) {
-              List<dynamic>? loans = snapshot.data?.loanInformationList;
+              List<dynamic>? loans = snapshot.data?.dynamicList;
               List<Map> items = [];
 
               if (loans != null) {
