@@ -27,12 +27,7 @@ class ModuleItemWidget extends StatelessWidget {
 
       return GestureDetector(
           onTap: () {
-            if (moduleItem.moduleId == 'LOANINFORMATION') {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const LoanListScreen()));
-            } else {
-              ModuleUtil.onItemClick(moduleItem, context);
-            }
+            ModuleUtil.onItemClick(moduleItem, context);
           },
           child: IMenuUtil(getMenuType(), moduleItem).getMenuItem());
     });
@@ -254,6 +249,12 @@ class ModuleUtil {
           CommonUtils.navigateToRoute(
               context: context,
               widget: ViewStandingOrder(moduleItem: moduleItem));
+          break;
+        }
+      case ModuleId.LOANINFORMATION:
+        {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const LoanListScreen()));
           break;
         }
       case ModuleId.BOOKCAB:
