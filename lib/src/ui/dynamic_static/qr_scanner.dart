@@ -114,6 +114,10 @@ class _QRScannerState extends State<QRScanner> {
 
   void validateQR(String code, QRViewController controller) {
     if (code.isNotEmpty) {
+      CommonUtils.navigateToRoute(
+          context: context,
+          widget: const GlobalLoader(),
+          isTransparentScreen: true);
       AppLogger.appLogD(tag: "qr code", message: "scanning qr ----> $code");
       input.addAll({"ACCOUNTID": code});
       CommonUtils.showToast("Successfully scanned QR");
@@ -132,6 +136,7 @@ class _QRScannerState extends State<QRScanner> {
                 context: widget.context,
                 tappedButton: true)
             .then((value) {
+          Navigator.of(context).pop();
           DynamicPostCall.processDynamicResponse(
               value?.dynamicData, widget.context, widget.formItem.controlId,
               moduleItem: widget.moduleItem);
