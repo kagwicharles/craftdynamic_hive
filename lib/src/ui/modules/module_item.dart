@@ -230,6 +230,7 @@ class ModuleUtil {
                 controlType: '',
                 controlText: '',
                 controlId: 'VALIDATE1',
+                actionId: 'VALIDATE1',
                 moduleId: 'PAYMERCHANT',
                 serviceParamId: 'ACCOUNTID'),
             context: context,
