@@ -1,13 +1,4 @@
-import 'dart:developer';
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:vibration/vibration.dart';
-
-import '../../../craft_dynamic.dart';
-import '../../network/dynamic_request.dart';
+part of craft_dynamic;
 
 class QRScanner extends StatefulWidget {
   final ModuleItem moduleItem;
@@ -15,11 +6,10 @@ class QRScanner extends StatefulWidget {
   final BuildContext context;
 
   const QRScanner(
-      {Key? key,
+      {super.key,
       required this.moduleItem,
       required this.formItem,
-      required this.context})
-      : super(key: key);
+      required this.context});
 
   @override
   State<StatefulWidget> createState() => _QRScannerState();

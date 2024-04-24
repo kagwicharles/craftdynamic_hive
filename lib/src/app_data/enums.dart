@@ -161,7 +161,8 @@ enum ModuleId {
   SECRETQUESTIONSCHECK,
   FORGOTPIN,
   LOANINFORMATION,
-  MAIN
+  MAIN,
+  PAYMERCHANT
 }
 
 enum LittleProduct {

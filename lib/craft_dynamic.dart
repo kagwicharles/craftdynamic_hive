@@ -54,6 +54,7 @@ import "package:hex/hex.dart";
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -82,7 +83,6 @@ import 'src/network/network_repository.dart';
 import 'src/network/rsa_util.dart';
 import 'src/session_manager/session_manager.dart';
 import 'src/ui/dynamic_static/biometric_login.dart';
-import 'src/ui/dynamic_static/qr_scanner.dart';
 import 'src/ui/dynamic_static/request_status.dart';
 import 'src/ui/dynamic_static/transactions_list.dart';
 import 'src/ui/dynamic_static/view_beneficiary.dart';
@@ -98,6 +98,7 @@ import '/src/ui/dynamic_static/grouped_button.dart';
 import '/src/ui/dynamic_static/list_screen.dart';
 import '/src/providers/group_button_provider.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'dart:developer';
 
 part 'src/adapter/dropdown_adapter.dart';
 part 'src/ui/dynamic_widget_factory.dart';
@@ -138,6 +139,7 @@ part 'src/util/string_util.dart';
 part 'src/ui/forms/confirmation_form.dart';
 part 'src/network/dynamic_postcall.dart';
 part 'src/ui/dynamic_static/list_data.dart';
+part 'src/ui/dynamic_static/qr_scanner.dart';
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {

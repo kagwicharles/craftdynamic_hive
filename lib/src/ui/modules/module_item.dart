@@ -222,6 +222,16 @@ class ModuleUtil {
     }
 
     switch (EnumFormatter.getModuleId(moduleItem.moduleId)) {
+      case ModuleId.PAYMERCHANT:
+        {
+          context.navigate(QRScanner(
+            moduleItem: moduleItem,
+            formItem: FormItem(
+                controlType: '', controlText: '', moduleId: 'PAYMERCHANT'),
+            context: context,
+          ));
+          break;
+        }
       case ModuleId.FINGERPRINT:
         {
           CommonUtils.navigateToRoute(
