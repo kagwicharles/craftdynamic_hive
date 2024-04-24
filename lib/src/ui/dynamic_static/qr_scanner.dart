@@ -70,7 +70,7 @@ class _QRScannerState extends State<QRScanner> {
           onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
         )),
         Container(
-            color: APIService.appPrimaryColor,
+            color: Theme.of(context).primaryColor,
             child: Center(
                 child: Container(
                     margin: const EdgeInsets.all(4),
