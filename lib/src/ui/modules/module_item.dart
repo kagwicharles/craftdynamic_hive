@@ -229,6 +229,7 @@ class ModuleUtil {
             formItem: FormItem(
                 controlType: '',
                 controlText: '',
+                controlId: 'VALIDATE1',
                 moduleId: 'PAYMERCHANT',
                 serviceParamId: 'ACCOUNTID'),
             context: context,
