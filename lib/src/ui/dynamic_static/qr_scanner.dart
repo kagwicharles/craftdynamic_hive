@@ -81,6 +81,7 @@ class _QRScannerState extends State<QRScanner> {
                     },
                     icon: Icon(
                       flashisopen ? Icons.flash_off : Icons.flash_on,
+                      size: 44,
                       color: Colors.white,
                     ))))
       ],
