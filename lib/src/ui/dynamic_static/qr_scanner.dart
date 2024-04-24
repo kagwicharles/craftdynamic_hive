@@ -132,9 +132,11 @@ class _QRScannerState extends State<QRScanner> {
                 dataObj: input,
                 context: widget.context,
                 tappedButton: true)
-            .then((value) => DynamicPostCall.processDynamicResponse(
-                value!.dynamicData!, widget.context, widget.formItem.controlId!,
-                moduleItem: widget.moduleItem));
+            .then((value) {
+          DynamicPostCall.processDynamicResponse(
+              value?.dynamicData, widget.context, widget.formItem.controlId,
+              moduleItem: widget.moduleItem);
+        });
         Vibration.vibrate();
       });
     }
