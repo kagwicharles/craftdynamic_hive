@@ -22,6 +22,7 @@ class _QRScannerState extends State<QRScanner> {
   final _dynamicRequest = DynamicFormRequest();
   Map<String, dynamic> input = {};
   bool scanSuccess = false;
+  bool flashisopen = false;
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
@@ -54,16 +55,31 @@ class _QRScannerState extends State<QRScanner> {
         : 300.0;
     // To ensure the Scanner view is properly sizes after rotation
     // we need to listen for Flutter SizeChanged notification and update controller
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: _onQRViewCreated,
-      overlay: QrScannerOverlayShape(
-          borderColor: scanSuccess ? Colors.blue : Colors.red,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: scanArea),
-      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
+    return Column(
+      children: [
+        Expanded(
+            child: QRView(
+          key: qrKey,
+          onQRViewCreated: _onQRViewCreated,
+          overlay: QrScannerOverlayShape(
+              borderColor: scanSuccess ? Colors.blue : Colors.red,
+              borderRadius: 10,
+              borderLength: 30,
+              borderWidth: 10,
+              cutOutSize: scanArea),
+          onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
+        )),
+        IconButton(
+          onPressed: () async {
+            await controller?.toggleFlash();
+            setState(() {
+              flashisopen = !flashisopen;
+            });
+          },
+          icon:
+              flashisopen ? Icon(Icons.flash_off) : const Icon(Icons.flash_on),
+        )
+      ],
     );
   }
 
