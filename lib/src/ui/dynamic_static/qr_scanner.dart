@@ -74,7 +74,7 @@ class _QRScannerState extends State<QRScanner> {
             child: Center(
                 child: Container(
                     margin: const EdgeInsets.all(4),
-                    padding: const EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         border: Border.all(width: 2, color: Colors.white)),
@@ -87,7 +87,7 @@ class _QRScannerState extends State<QRScanner> {
                         },
                         icon: Icon(
                           flashisopen ? Icons.flash_off : Icons.flash_on,
-                          size: 28,
+                          size: 24,
                           color: Colors.white,
                         )))))
       ],
