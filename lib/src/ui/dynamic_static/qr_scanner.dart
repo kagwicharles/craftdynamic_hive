@@ -72,18 +72,24 @@ class _QRScannerState extends State<QRScanner> {
         Container(
             color: APIService.appPrimaryColor,
             child: Center(
-                child: IconButton(
-                    onPressed: () async {
-                      await controller?.toggleFlash();
-                      setState(() {
-                        flashisopen = !flashisopen;
-                      });
-                    },
-                    icon: Icon(
-                      flashisopen ? Icons.flash_off : Icons.flash_on,
-                      size: 44,
-                      color: Colors.white,
-                    ))))
+                child: Container(
+                    margin: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(width: 2, color: Colors.white)),
+                    child: IconButton(
+                        onPressed: () async {
+                          await controller?.toggleFlash();
+                          setState(() {
+                            flashisopen = !flashisopen;
+                          });
+                        },
+                        icon: Icon(
+                          flashisopen ? Icons.flash_off : Icons.flash_on,
+                          size: 34,
+                          color: Colors.white,
+                        )))))
       ],
     );
   }
