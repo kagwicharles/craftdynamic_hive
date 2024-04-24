@@ -73,7 +73,7 @@ class _QRScannerState extends State<QRScanner> {
             color: APIService.appPrimaryColor,
             child: Center(
                 child: Container(
-                    margin: const EdgeInsets.all(20),
+                    margin: const EdgeInsets.all(4),
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
