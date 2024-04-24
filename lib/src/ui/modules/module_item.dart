@@ -227,7 +227,10 @@ class ModuleUtil {
           context.navigate(QRScanner(
             moduleItem: moduleItem,
             formItem: FormItem(
-                controlType: '', controlText: '', moduleId: 'PAYMERCHANT'),
+                controlType: '',
+                controlText: '',
+                moduleId: 'PAYMERCHANT',
+                serviceParamId: 'ACCOUNTID'),
             context: context,
           ));
           break;
