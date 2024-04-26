@@ -199,7 +199,8 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
             }),
             navigatorKey: Get.key,
             builder: (context, child) {
-              Future.delayed(Duration.zero, () => launchForceUpdateDialog());
+              Future.delayed(
+                  const Duration(seconds: 2), () => launchForceUpdateDialog());
               Provider.of<PluginState>(context, listen: false)
                   .setLogoutScreen(widget.appTimeoutScreen);
 
