@@ -12,6 +12,7 @@ class DynamicCraftWrapper extends StatefulWidget {
   bool showAccountBalanceInDropdowns;
   bool enableEmulatorCheck;
   bool enablenotifications;
+  bool forceupdateapp;
 
   DynamicCraftWrapper(
       {super.key,
@@ -25,7 +26,8 @@ class DynamicCraftWrapper extends StatefulWidget {
       this.localizationIsEnabled = false,
       this.showAccountBalanceInDropdowns = false,
       this.enableEmulatorCheck = false,
-      this.enablenotifications = false});
+      this.enablenotifications = false,
+      this.forceupdateapp = false});
 
   @override
   State<DynamicCraftWrapper> createState() => _DynamicCraftWrapperState();
@@ -52,6 +54,7 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
     await HiveUtil.initializeHive();
     await _connectivityService.initialize();
     await setUpFireBase();
+    launchForceUpdateDialog();
 
     _sessionRepository.stopSession();
     useExternalBankID.value = widget.useExternalBankID;
@@ -125,6 +128,50 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
     LocationUtil.getLatLong().then((value) {
       _sharedPref.setLatLong(json.encode(value));
     });
+  }
+
+  launchForceUpdateDialog() {
+    if (widget.forceupdateapp) {
+      showModalBottomSheet<void>(
+        context: context,
+        isDismissible: false,
+        showDragHandle: true,
+        builder: (BuildContext context) {
+          return Container(
+            height: 200,
+            color: Colors.amber,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text("Update required"),
+                  ElevatedButton(
+                      child: const Text('Update'),
+                      onPressed: () async {
+                        var packagename = await DeviceInfo.getPackageName();
+
+                        if (Platform.isAndroid || Platform.isIOS) {
+                          final appId =
+                              Platform.isAndroid ? packagename : packagename;
+                          final url = Uri.parse(
+                            Platform.isAndroid
+                                ? "market://details?id=$appId"
+                                : "https://apps.apple.com/app/id$appId",
+                          );
+                          launchUrl(
+                            url,
+                            mode: LaunchMode.externalApplication,
+                          );
+                        }
+                      }),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    }
   }
 
   @override

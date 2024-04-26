@@ -55,6 +55,11 @@ class DeviceInfo {
     return packageInfo.version;
   }
 
+  static Future<String> getPackageName() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.packageName;
+  }
+
   static Future<bool> isEmulator() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
