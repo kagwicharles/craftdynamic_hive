@@ -193,14 +193,13 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
             debugShowCheckedModeBanner: false,
             theme: widget.appTheme,
             home: Obx(() {
-              launchForceUpdateDialog();
-
               return showLoadingScreen.value
                   ? widget.appLoadingScreen
                   : widget.dashboard;
             }),
             navigatorKey: Get.key,
             builder: (context, child) {
+              launchForceUpdateDialog();
               Provider.of<PluginState>(context, listen: false)
                   .setLogoutScreen(widget.appTimeoutScreen);
 
