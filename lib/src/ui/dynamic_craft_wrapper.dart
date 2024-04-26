@@ -54,7 +54,6 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
     await HiveUtil.initializeHive();
     await _connectivityService.initialize();
     await setUpFireBase();
-    launchForceUpdateDialog();
 
     _sessionRepository.stopSession();
     useExternalBankID.value = widget.useExternalBankID;
@@ -194,6 +193,8 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
             debugShowCheckedModeBanner: false,
             theme: widget.appTheme,
             home: Obx(() {
+              launchForceUpdateDialog();
+
               return showLoadingScreen.value
                   ? widget.appLoadingScreen
                   : widget.dashboard;
