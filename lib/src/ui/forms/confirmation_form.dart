@@ -67,11 +67,9 @@ class ConfirmationForm {
                   SizedBox(
                       width: 300,
                       child: WidgetFactory.buildButton(context, () {
-                        FocusScopeNode currentFocus = FocusScope.of(context);
-                        if (!currentFocus.hasPrimaryFocus) {
-                          currentFocus.unfocus();
-                        }
                         Navigator.of(context).pop(0);
+                        FocusScopeNode currentFocus = FocusScope.of(context);
+                        currentFocus.unfocus();
                       }, "Continue".toUpperCase())),
                   const SizedBox(
                     height: 44,
