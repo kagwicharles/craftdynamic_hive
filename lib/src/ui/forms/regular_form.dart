@@ -34,7 +34,15 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
   initState() {
     recentList = widget.sortedForms.toList().firstWhereOrNull(
         (formItem) => formItem.controlType == ViewType.LIST.name);
+    checkIsChangePinForm(widget.moduleItem);
     super.initState();
+  }
+
+  checkIsChangePinForm(ModuleItem moduleItem) {
+    if (moduleItem.moduleId == ModuleId.CHANGEPIN.name) {
+      AlertUtil.showAlertDialog(context,
+          "Dear Customer, Please change your PIN for better security. Choose a new PIN and keep it private. We suggest our customers to change their pin periodically for enhanced security. \nThank you.");
+    }
   }
 
   @override
