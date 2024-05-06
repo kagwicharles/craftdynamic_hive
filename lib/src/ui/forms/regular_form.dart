@@ -43,7 +43,8 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
     if (moduleItem.moduleId == ModuleId.PIN.name) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         AlertUtil.showAlertDialog(context,
-            "Dear Customer, Please change your PIN for better security. Choose a new PIN and keep it private. We suggest our customers to change their pin periodically for enhanced security. \nThank you.");
+            "Dear Customer, Please change your PIN for better security. Choose a new PIN and keep it private. We suggest our customers to change their pin periodically for enhanced security. \nThank you.",
+            title: "Info");
       });
     }
   }
