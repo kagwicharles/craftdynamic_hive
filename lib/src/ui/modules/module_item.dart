@@ -222,21 +222,21 @@ class ModuleUtil {
     }
 
     switch (EnumFormatter.getModuleId(moduleItem.moduleId)) {
-      case ModuleId.PAYMERCHANT:
-        {
-          context.navigate(QRScanner(
-            moduleItem: moduleItem,
-            formItem: FormItem(
-                controlType: '',
-                controlText: '',
-                controlId: 'VALIDATE1',
-                actionId: 'VALIDATE1',
-                moduleId: 'PAYMERCHANT',
-                serviceParamId: 'ACCOUNTID'),
-            context: context,
-          ));
-          break;
-        }
+      // case ModuleId.PAYMERCHANT:
+      //   {
+      //     context.navigate(QRScanner(
+      //       moduleItem: moduleItem,
+      //       formItem: FormItem(
+      //           controlType: '',
+      //           controlText: '',
+      //           controlId: 'VALIDATE1',
+      //           actionId: 'VALIDATE1',
+      //           moduleId: 'PAYMERCHANT',
+      //           serviceParamId: 'ACCOUNTID'),
+      //       context: context,
+      //     ));
+      //     break;
+      //   }
       case ModuleId.FINGERPRINT:
         {
           CommonUtils.navigateToRoute(
