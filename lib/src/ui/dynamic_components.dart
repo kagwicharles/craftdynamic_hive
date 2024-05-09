@@ -901,7 +901,7 @@ class _DropDownState extends State<DropDown> {
 
       {
         return FutureBuilder<Map<String, dynamic>?>(
-            future: getDropDownValues(formItem!, moduleItem!),
+            future: getDropDownValues(formItem!, moduleItem!, null),
             builder: (BuildContext context,
                 AsyncSnapshot<Map<String, dynamic>?> snapshot) {
               AppLogger.appLogD(
@@ -916,7 +916,7 @@ class _DropDownState extends State<DropDown> {
               );
               AppLogger.appLogD(
                   tag: "dropdown",
-                  message: "snapshot has data...v${snapshot.data}");
+                  message: "snapshot has data...${snapshot.data}");
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.hasData) {
                 AppLogger.appLogD(
@@ -924,25 +924,48 @@ class _DropDownState extends State<DropDown> {
                 var data = snapshot.data ?? {};
                 dropdownItems = data;
                 AppLogger.appLogD(
-                    tag: "dropdown data-->", message: dropdownItems);
+                    tag: "dropdown data::controlid${formItem?.controlId}",
+                    message: dropdownItems);
 
                 child =
                     Consumer<DropDownState>(builder: (context, state, child) {
                   dropdownItems = removeAllLoanAccounts(
                       dropdownItems, state.currentRepaymentAccounts);
+                  Map<String, dynamic> temprelmap = {};
+                  Map<String, dynamic> tempdropdownitems = {};
+                  Map<String, dynamic> dropdownmenu = {};
 
-                  AppLogger.appLogD(
-                      tag: classname,
-                      message:
-                          "all values @${formItem?.controlId} --------> $data");
+                  if (isBillerName(formItem?.controlId ?? "")) {
+                    AppLogger.appLogD(
+                        tag: "dropdown data::controlid${formItem?.controlId}",
+                        message: dropdownItems);
+                    relationIDMap.forEach((key, value) {
+                      if (value == state.currentRelationID) {
+                        temprelmap.addAll({key: value});
+                      }
+                    });
+                    AppLogger.appLogD(
+                        tag:
+                            "Dropdown RelationID Map after ${formItem?.controlId}",
+                        message: temprelmap);
+                    dropdownItems.forEach((key, value) {
+                      if (temprelmap.containsKey(key)) {
+                        debugPrint("adding with key --$key");
+                        tempdropdownitems.addAll({key: value});
+                      }
+                    });
+                    if (tempdropdownitems.entries.isNotEmpty) {
+                      _currentValue = tempdropdownitems.entries.first.key;
+                    }
+                  }
 
-                  AppLogger.appLogD(
-                      tag: "$classname:relationid @${formItem?.controlId}",
-                      message:
-                          Provider.of<DropDownState>(context, listen: false)
-                              .currentRelationID);
+                  dropdownmenu = isBillerName(formItem?.controlId ?? "")
+                      ? tempdropdownitems.isNotEmpty
+                          ? tempdropdownitems
+                          : {}
+                      : dropdownItems;
 
-                  var dropdownPicks = dropdownItems.entries.map((item) {
+                  var dropdownPicks = dropdownmenu.entries.map((item) {
                     return DropdownMenuItem(
                       value: item.key,
                       child: Text(
@@ -986,51 +1009,40 @@ class _DropDownState extends State<DropDown> {
                     }
                   }
 
-                  if (isBillerName(formItem?.controlId ?? "")) {
-                    _currentValue = formItem?.hasInitialValue ?? true
-                        ? dropdownPicks.isNotEmpty
-                            ? "${dropdownPicks[0].value}"
-                            : null
-                        : null;
-                  }
-
-                  AppLogger.appLogD(
-                      tag: "$classname@${formItem?.controlId}",
-                      message:
-                          "current relationid is --> ${state.currentRelationID} and current value set is $_currentValue");
-
                   return DropdownButtonFormField(
                     value: _currentValue,
                     decoration:
                         InputDecoration(labelText: formItem?.controlText),
                     isExpanded: true,
                     style: const TextStyle(fontWeight: FontWeight.normal),
-                    onChanged: ((value) => {
-                          AppLogger.appLogD(
-                              tag: 'dropdown component event elected',
-                              message: value),
-                          setState(() {
-                            _currentValue = value.toString();
-                          }),
-                          Provider.of<PluginState>(context, listen: false)
-                              .addDynamicDropDownData({
-                            formItem?.controlId ?? "": {
-                              formItem?.controlId ?? "": getValueFromList(value)
-                            }
-                          }),
-                          state.addCurrentDropDownValue(
-                              {formItem?.controlId: value}),
-                          if (isBillerType(formItem?.controlId ?? ""))
-                            {
-                              state.addCurrentRelationID(
-                                  getRelationIDValue(value)),
-                            },
-                          if (isFromAccountField(formItem?.controlId ?? ""))
-                            {
-                              state.setCurrentSelections(
-                                  {formItem?.controlId: _currentValue}),
-                            }
-                        }),
+                    onChanged: ((value) async {
+                      AppLogger.appLogD(
+                          tag: 'dropdown component event elected',
+                          message: value);
+                      setState(() {
+                        _currentValue = value.toString();
+                      });
+                      Provider.of<PluginState>(context, listen: false)
+                          .addDynamicDropDownData({
+                        formItem?.controlId ?? "": {
+                          formItem?.controlId ?? "": getValueFromList(value)
+                        }
+                      });
+                      state.addCurrentDropDownValue(
+                          {formItem?.controlId: value});
+                      if (isBillerType(formItem?.controlId ?? "")) {
+                        var relationid = await _userCodeRepository
+                            .getRelationIDBySubcodeID(value.toString());
+                        // var relationid = getRelationIDValue(value);
+                        AppLogger.appLogD(
+                            tag: "dropdown relation id:", message: relationid);
+                        state.addCurrentRelationID(relationid);
+                      }
+                      if (isFromAccountField(formItem?.controlId ?? "")) {
+                        state.setCurrentSelections(
+                            {formItem?.controlId: _currentValue});
+                      }
+                    }),
                     validator: (value) {
                       AppLogger.appLogD(
                           tag: 'dropdown component validator value-->',
@@ -1160,8 +1172,8 @@ class _DropDownState extends State<DropDown> {
     });
   }
 
-  Future<Map<String, dynamic>?>? getDropDownValues(
-      FormItem formItem, ModuleItem moduleItem) async {
+  Future<Map<String, dynamic>?>? getDropDownValues(FormItem formItem,
+      ModuleItem moduleItem, String? currentRelationID) async {
     if (formItem.controlFormat != ControlFormat.SELECTBANKACCOUNT.name ||
         formItem.controlFormat != ControlFormat.SELECTBENEFICIARY.name) {
       try {
@@ -1175,7 +1187,8 @@ class _DropDownState extends State<DropDown> {
         AppLogger.appLogE(tag: "Dropdown error", message: e.toString());
       }
     }
-    return await IDropDownAdapter(formItem, moduleItem).getDropDownItems();
+    return await IDropDownAdapter(formItem, moduleItem, currentRelationID)
+        .getDropDownItems();
   }
 }
 
