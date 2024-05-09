@@ -1,7 +1,8 @@
 part of craft_dynamic;
 
 abstract class IDropDownAdapter {
-  factory IDropDownAdapter(FormItem formItem, ModuleItem moduleItem) {
+  factory IDropDownAdapter(
+      FormItem formItem, ModuleItem moduleItem, String? currentRelationID) {
     switch (EnumFormatter.getControlFormat(formItem.controlFormat!)) {
       case ControlFormat.SELECTBANKACCOUNT:
         return _BankAccountDropDown(formItem: formItem);
@@ -10,27 +11,48 @@ abstract class IDropDownAdapter {
         return _BeneficiaryDropDown(merchantID: moduleItem.merchantID);
 
       default:
-        return _UserCodeDropDown(dataSourceID: formItem.dataSourceId);
+        return _UserCodeDropDown(
+            dataSourceID: formItem.dataSourceId,
+            formItem: formItem,
+            currentRelationID: currentRelationID);
     }
   }
   Future<Map<String, dynamic>?>? getDropDownItems();
 }
 
 class _UserCodeDropDown implements IDropDownAdapter {
-  _UserCodeDropDown({this.dataSourceID});
+  _UserCodeDropDown({this.dataSourceID, this.formItem, this.currentRelationID});
 
   String? dataSourceID;
+  FormItem? formItem;
+  String? currentRelationID;
   final _userCodeRepository = UserCodeRepository();
 
   @override
   Future<Map<String, dynamic>?>? getDropDownItems() async {
     var userCodes = await _userCodeRepository.getUserCodesById(dataSourceID);
     AppLogger.appLogD(
+        tag: "drodpdown_adapter::usercodes before",
+        message: userCodes.toString());
+    if (isBillerName(formItem?.controlId ?? "") && currentRelationID != null) {
+      userCodes = await _userCodeRepository.getUserCodesByIdAndRelationID(
+          dataSourceID, currentRelationID);
+      AppLogger.appLogD(
+          tag: "drodpdown_adapter::usercodes after",
+          message: userCodes.toString());
+    }
+    AppLogger.appLogD(
         tag: "dropdown adapter::datasourceid @$dataSourceID",
         message: userCodes);
+
     return userCodes.fold<Map<String, dynamic>>(
         {}, (acc, curr) => acc..[curr.subCodeId] = curr.description!);
   }
+
+  bool isBillerName(String controlID) =>
+      controlID.toLowerCase() == ControlID.BILLERNAME.name.toLowerCase()
+          ? true
+          : false;
 }
 
 class _BankAccountDropDown implements IDropDownAdapter {
