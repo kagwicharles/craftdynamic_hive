@@ -186,6 +186,22 @@ class UserCodeRepository {
     var box = await openBox();
     return box.values.where((item) => item.id == id).toList();
   }
+
+  Future<List<UserCode>> getUserCodesByIdAndRelationID(
+      String? datasourceid, String? relationid) async {
+    var box = await openBox();
+    return box.values
+        .where(
+            (item) => item.id == datasourceid && item.relationId == relationid)
+        .toList();
+  }
+
+  Future<String> getRelationIDBySubcodeID(String subcodeid) async {
+    var box = await openBox();
+    UserCode userCode =
+        box.values.firstWhere((item) => item.subCodeId == subcodeid);
+    return userCode.relationId ?? "";
+  }
 }
 
 class OnlineAccountProductRepository {
