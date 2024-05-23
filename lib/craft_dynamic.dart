@@ -10,7 +10,6 @@ import 'dart:collection';
 import 'package:craft_dynamic/antochanges/loan_products.dart';
 import 'package:craft_dynamic/src/builder/request_builder.dart';
 import 'package:craft_dynamic/src/ui/dynamic_static/viewpdf_screen.dart';
-import 'package:craft_dynamic/src/ui/forms/otp_form.dart';
 import 'package:craft_dynamic/src/ui/platform_components/platform_button.dart';
 import 'package:craft_dynamic/src/util/config_util.dart';
 import 'package:craft_dynamic/src/util/location_util.dart';
@@ -47,6 +46,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pem/pem.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pinput/pinput.dart';
 import 'package:pointycastle/block/aes_fast.dart';
 import 'package:pointycastle/block/modes/gcm.dart';
 import 'package:pointycastle/pointycastle.dart' hide Padding;
@@ -140,6 +140,7 @@ part 'src/ui/forms/confirmation_form.dart';
 part 'src/network/dynamic_postcall.dart';
 part 'src/ui/dynamic_static/list_data.dart';
 part 'src/ui/dynamic_static/qr_scanner.dart';
+part 'src/ui/forms/otp_form.dart';
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {

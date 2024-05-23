@@ -1,8 +1,4 @@
-import 'package:craft_dynamic/craft_dynamic.dart';
-import 'package:craft_dynamic/src/network/dynamic_request.dart';
-import 'package:flutter/material.dart';
-import 'package:pinput/pinput.dart';
-import 'package:vibration/vibration.dart';
+part of craft_dynamic;
 
 class OTPForm {
   static confirmOTPTransaction(context, ModuleItem moduleItem,
