@@ -1499,7 +1499,7 @@ class DynamicListWidget implements IFormWidget {
               builder: (BuildContext context,
                   AsyncSnapshot<DynamicResponse?> snapshot) {
                 Widget child = Center(
-                  child: LoadUtil(),
+                  child: CircularLoadUtil(),
                 );
                 if (snapshot.hasData) {
                   dynamicResponse = snapshot.data;
