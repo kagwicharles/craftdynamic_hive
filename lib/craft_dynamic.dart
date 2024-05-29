@@ -83,6 +83,7 @@ import 'src/network/network_repository.dart';
 import 'src/network/rsa_util.dart';
 import 'src/session_manager/session_manager.dart';
 import 'src/ui/dynamic_static/biometric_login.dart';
+import 'src/ui/dynamic_static/fd_details_screen.dart';
 import 'src/ui/dynamic_static/loan_details_screen.dart';
 import 'src/ui/dynamic_static/request_status.dart';
 import 'src/ui/dynamic_static/transactions_list.dart';

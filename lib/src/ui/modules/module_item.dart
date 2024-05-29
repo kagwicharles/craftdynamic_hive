@@ -267,6 +267,13 @@ class ModuleUtil {
 
           break;
         }
+      case ModuleId.FDDETAILS:
+        {
+          CommonUtils.navigateToRoute(
+              context: context,
+              widget: FDDetailsScreen(moduleItem: moduleItem));
+          break;
+        }
       case ModuleId.STANDINGORDERVIEWDETAILS:
         {
           CommonUtils.navigateToRoute(
