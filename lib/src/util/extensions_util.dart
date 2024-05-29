@@ -136,6 +136,68 @@ extension APICall on APIService {
 
     return dynamicResponse;
   }
+
+  Future<DynamicResponse?> repayLoan(String merchantID,
+      {fromAccount, toAccount, amount, narration, pin}) async {
+    String? res;
+    DynamicResponse dynamicResponse =
+        DynamicResponse(status: StatusCode.unknown.name);
+    Map<String, dynamic> requestObj = {};
+    Map<String, dynamic> innerMap = {};
+    innerMap["MerchantID"] = merchantID;
+    innerMap["AMOUNT"] = amount;
+    innerMap["INFOFIELD1"] = narration;
+    innerMap["BANKACCOUNTID"] = fromAccount;
+    innerMap["ACCOUNTID"] = toAccount;
+
+    requestObj[RequestParam.PayBill.name] = innerMap;
+    requestObj[RequestParam.EncryptedFields.name] = {
+      "PIN": CryptLib.encryptField(pin)
+    };
+
+    final route =
+        await _sharedPref.getRoute(RouteUrl.account.name.toLowerCase());
+    try {
+      res = await performDioRequest(
+          await dioRequestBodySetUp("PAYBILL",
+              objectMap: requestObj, isAuthenticate: false),
+          route: route);
+      dynamicResponse = DynamicResponse.fromJson(jsonDecode(res ?? "{}") ?? {});
+      logger.d("fd details request : $res");
+    } catch (e) {
+      AppLogger.appLogE(tag: runtimeType.toString(), message: e.toString());
+      return dynamicResponse;
+    }
+
+    return dynamicResponse;
+  }
+
+  Future<DynamicResponse?> getListDetails(String merchantID) async {
+    String? res;
+    DynamicResponse dynamicResponse =
+        DynamicResponse(status: StatusCode.unknown.name);
+    Map<String, dynamic> requestObj = {};
+    Map<String, dynamic> innerMap = {};
+    innerMap["MerchantID"] = merchantID;
+
+    requestObj[RequestParam.PayBill.name] = innerMap;
+
+    final route =
+        await _sharedPref.getRoute(RouteUrl.account.name.toLowerCase());
+    try {
+      res = await performDioRequest(
+          await dioRequestBodySetUp("PAYBILL",
+              objectMap: requestObj, isAuthenticate: false),
+          route: route);
+      dynamicResponse = DynamicResponse.fromJson(jsonDecode(res ?? "{}") ?? {});
+      logger.d("fd details request : $res");
+    } catch (e) {
+      AppLogger.appLogE(tag: runtimeType.toString(), message: e.toString());
+      return dynamicResponse;
+    }
+
+    return dynamicResponse;
+  }
 }
 
 extension Navigate on BuildContext {
