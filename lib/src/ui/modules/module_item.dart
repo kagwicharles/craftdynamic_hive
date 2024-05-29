@@ -259,6 +259,14 @@ class ModuleUtil {
               widget: ViewBeneficiary(moduleItem: moduleItem));
           break;
         }
+      case ModuleId.LOANDETAILS:
+        {
+          CommonUtils.navigateToRoute(
+              context: context,
+              widget: LoanDetailsScreen(moduleItem: moduleItem));
+
+          break;
+        }
       case ModuleId.STANDINGORDERVIEWDETAILS:
         {
           CommonUtils.navigateToRoute(
