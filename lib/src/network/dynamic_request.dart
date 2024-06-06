@@ -11,6 +11,7 @@ class DynamicFormRequest {
   Map<String?, dynamic> encryptedvalues = {};
   final _actionControlRepository = ActionControlRepository();
   final _formsRepository = FormsRepository();
+  final _initRepo = InitRepository();
   final _services = APIService();
   final _sharedPref = CommonSharedPref();
   String? confirmationModuleID;
@@ -187,6 +188,10 @@ class DynamicFormRequest {
     if (moduleItem?.moduleId == StatusCode.unknown.name &&
         dynamicResponse.status == StatusCode.success.statusCode) {
       _sharedPref.setBio(false);
+    }
+
+    if (dynamicResponse.status == changeLanguage) {
+      await _initRepo.getAppUIData(refreshData: true);
     }
 
     try {

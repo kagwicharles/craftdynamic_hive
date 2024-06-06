@@ -83,7 +83,7 @@ class _TransactionReceiptState extends State<TransactionReceipt>
                                     )),
                                     const Text(
                                       "Success",
-                                    ).tr(),
+                                    ),
                                     Expanded(
                                       child: Divider(
                                         color: Colors.grey[300],

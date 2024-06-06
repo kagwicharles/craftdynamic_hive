@@ -97,7 +97,7 @@ class AlertUtil {
                                       style: TextStyle(
                                           fontSize: 18,
                                           color: APIService.appSecondaryColor),
-                                    ).tr()),
+                                    )),
                                 const SizedBox(
                                   width: 12,
                                 ),
@@ -113,7 +113,7 @@ class AlertUtil {
                             style: const TextStyle(
                               fontSize: 18,
                             ),
-                          ).tr()),
+                          )),
                     ],
                   )
                 ],

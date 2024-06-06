@@ -6,7 +6,9 @@ class DynamicCraftWrapper extends StatefulWidget {
   final Widget appTimeoutScreen;
   final Widget appInactivityScreen;
   final ThemeData appTheme;
-  List<LocalizationsDelegate>? localizationDelegates;
+  Iterable<Locale>? supportedLocales;
+  Iterable<LocalizationsDelegate<dynamic>>? localizationDelegates;
+  Locale? currentLocale;
   bool localizationIsEnabled;
   bool useExternalBankID;
   bool showAccountBalanceInDropdowns;
@@ -21,7 +23,9 @@ class DynamicCraftWrapper extends StatefulWidget {
       required this.appTimeoutScreen,
       required this.appInactivityScreen,
       required this.appTheme,
+      this.supportedLocales,
       this.localizationDelegates,
+      this.currentLocale,
       this.useExternalBankID = false,
       this.localizationIsEnabled = false,
       this.showAccountBalanceInDropdowns = false,
@@ -39,6 +43,7 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
   final _sessionRepository = SessionRepository();
   final _sharedPref = CommonSharedPref();
   final _firebaseUtil = NotificationsUtil();
+  String? languageId;
 
   var _appTimeout = 100000;
 
@@ -108,6 +113,7 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
     await _initRepository.getAppToken();
     await _initRepository.getAppUIData();
     showLoadingScreen.value = false;
+    languageId = await _sharedPref.getLanguageID();
     var timeout = await _sharedPref.getAppIdleTimeout();
     setState(() {
       _appTimeout = timeout;
@@ -133,38 +139,36 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
   Widget build(BuildContext context) {
     return _sessionRepository.getSessionManager(
         MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (context) => PluginState()),
-            ChangeNotifierProvider(create: (context) => DynamicState()),
-            ChangeNotifierProvider(create: (context) => DropDownState()),
-          ],
-          child: GetMaterialApp(
-            localizationsDelegates: widget.localizationIsEnabled
-                ? widget.localizationDelegates ?? context.localizationDelegates
-                : null,
-            supportedLocales: widget.localizationIsEnabled
-                ? context.supportedLocales
-                : [const Locale('en')],
-            locale: widget.localizationIsEnabled ? context.locale : null,
-            debugShowCheckedModeBanner: false,
-            theme: widget.appTheme,
-            home: Obx(() {
-              return showLoadingScreen.value
-                  ? widget.appLoadingScreen
-                  : widget.dashboard;
-            }),
-            navigatorKey: Get.key,
-            builder: (context, child) {
-              Provider.of<PluginState>(context, listen: false)
-                  .setLogoutScreen(widget.appTimeoutScreen);
+            providers: [
+              ChangeNotifierProvider(create: (context) => PluginState()),
+              ChangeNotifierProvider(create: (context) => DynamicState()),
+              ChangeNotifierProvider(create: (context) => DropDownState()),
+            ],
+            child: Builder(
+              builder: (context) => GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+                localizationsDelegates: widget.localizationDelegates,
+                supportedLocales:
+                    widget.supportedLocales ?? [const Locale('en')],
+                locale: widget.currentLocale ?? Locale(languageId ?? 'en'),
+                theme: widget.appTheme,
+                home: Obx(() {
+                  return showLoadingScreen.value
+                      ? widget.appLoadingScreen
+                      : widget.dashboard;
+                }),
+                navigatorKey: Get.key,
+                builder: (context, child) {
+                  Provider.of<PluginState>(context, listen: false)
+                      .setLogoutScreen(widget.appTimeoutScreen);
 
-              return MediaQuery(
-                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                child: child!,
-              );
-            },
-          ),
-        ),
+                  return MediaQuery(
+                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                    child: child!,
+                  );
+                },
+              ),
+            )),
         context: context,
         _appTimeout,
         widget.appInactivityScreen,

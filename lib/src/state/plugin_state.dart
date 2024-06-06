@@ -1,6 +1,7 @@
 part of craft_dynamic;
 
 class PluginState extends ChangeNotifier {
+  Locale? appLocale;
   bool _loadingNetworkData = false;
   bool _obscureText = true;
   bool _deleteFormValues = true;
@@ -41,6 +42,11 @@ class PluginState extends ChangeNotifier {
 
   Map<String, Map<String, dynamic>> get dynamicDropDownData =>
       _dynamicDropDownData;
+
+  setAppLocale(Locale locale) {
+    appLocale = locale;
+    notifyListeners();
+  }
 
   void setRequestState(bool state, {String? currentTab}) {
     _loadingNetworkData = state;
@@ -244,3 +250,5 @@ var dropdownSelection = {}.obs;
 var selectedDateFrequency = 0.obs;
 
 var logoutWidget = Rx<Widget>(SizedBox()).obs;
+
+Rx<Locale> applocale = const Locale('en').obs;

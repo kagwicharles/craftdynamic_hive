@@ -53,6 +53,8 @@ class AuthRepository {
       await _sharedPref.setIsListeningToFocusState(true);
       await _userAccountRepository.addUserAccountData(activationResponse);
       String? currentLanguageIDSetting = activationResponse.languageID;
+      AppLogger.appLogD(
+          tag: "current device language", message: currentLanguage);
       var newdataversion = activationResponse.staticDataVersion;
       // await _sharedPref.addStaticDataVersion(newdataversion ?? 0);
 
@@ -61,6 +63,9 @@ class AuthRepository {
           currentLanguageIDSetting != "" &&
           currentLanguage != currentLanguageIDSetting) {
         await _sharedPref.setLanguageID(currentLanguageIDSetting);
+        AppLogger.appLogD(
+            tag: "language id from response",
+            message: currentLanguageIDSetting);
         refreshUIData = true;
       }
 

@@ -158,7 +158,7 @@ class CommonSharedPref {
   }
 
   getLanguageID() async {
-    return await storage.read(key: "languageID") ?? "ENG";
+    return await storage.read(key: "languageID");
   }
 
   setTokenIsRefreshed(String status) async {

@@ -1,9 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:craft_dynamic/src/util/local_data_util.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +26,7 @@ class _RequestStatusScreenState extends State<RequestStatusScreen>
     with SingleTickerProviderStateMixin {
   final _sharedPref = CommonSharedPref();
   StatusCode statusCode = StatusCode.success;
+
   late var _controller;
 
   @override
@@ -78,7 +79,11 @@ class _RequestStatusScreenState extends State<RequestStatusScreen>
   }
 
   _isChangeLanguage() async {
+    await _sharedPref.setLanguageID(widget.postDynamic.languageID ?? "en");
     if (widget.postDynamic.status == changeLanguage) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        Get.updateLocale(Locale(widget.postDynamic.languageID ?? 'en'));
+      });
       await Hive.close();
     }
   }
@@ -157,7 +162,7 @@ class _RequestStatusScreenState extends State<RequestStatusScreen>
                             SizedBox(
                                 width: 200,
                                 child: WidgetFactory.buildButton(
-                                    context, closeOrLogout, "Done".tr())),
+                                    context, closeOrLogout, "Done")),
                           ],
                         ))),
               ),
