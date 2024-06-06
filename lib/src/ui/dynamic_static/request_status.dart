@@ -201,7 +201,6 @@ class _RequestStatusScreenState extends State<RequestStatusScreen>
   closeOrLogout() {
     widget.moduleItem != null &&
                 widget.moduleItem?.moduleId == ModuleId.PIN.name ||
-            widget.moduleItem?.moduleId == ModuleId.LANGUAGEPREFERENCE.name ||
             widget.postDynamic.status == StatusCode.changeBankType.statusCode ||
             widget.moduleItem?.moduleId == ModuleId.FORGOTPIN.name ||
             widget.postDynamic.status == StatusCode.logout.statusCode
