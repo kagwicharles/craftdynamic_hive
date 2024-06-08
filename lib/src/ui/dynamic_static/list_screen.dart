@@ -140,6 +140,7 @@ class ListWidget extends StatelessWidget {
             Expanded(
                 child: ListView.builder(
               shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(vertical: 14),
               itemCount: mapItems.length,
               itemBuilder: (context, index) {
                 var mapItem = mapItems[index];
@@ -151,7 +152,13 @@ class ListWidget extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Card(
+                        Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(.4))),
                             child: InkWell(
                                 borderRadius: BorderRadius.circular(12.0),
                                 child: Container(
@@ -174,9 +181,6 @@ class ListWidget extends StatelessWidget {
                                                   children: [
                                                     Text(
                                                       "$key:",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleMedium,
                                                     ),
                                                     Flexible(
                                                         child: Text(
