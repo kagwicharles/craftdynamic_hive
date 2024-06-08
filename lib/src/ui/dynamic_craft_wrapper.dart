@@ -102,7 +102,6 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
     if (launchCount == 0) {
       // _sharedPref.clearPrefs();
       _sharedPref.setLaunchCount(launchCount++);
-      await _sharedPref.setLanguageID("ENG");
     }
     if (launchCount < 5) {
       _sharedPref.setLaunchCount(launchCount++);
