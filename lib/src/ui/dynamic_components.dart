@@ -52,7 +52,7 @@ class BaseFormComponent extends StatelessWidget {
                 formItem.controlType == ViewType.HORIZONTALTEXT.name
             ? const SizedBox()
             : const SizedBox(
-                height: 18,
+                height: 24,
               )
       ],
     );
