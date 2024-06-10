@@ -60,7 +60,7 @@ class VerticalModule extends StatelessWidget {
         shape: RoundedRectangleBorder(
             side: BorderSide(
                 width: menuBorder?.width ?? 1.5,
-                color: Theme.of(context).primaryColor.withOpacity(.7)),
+                color: Theme.of(context).primaryColor.withOpacity(.5)),
             borderRadius: BorderRadius.all(
               Radius.circular(menuBorder?.radius ?? 12),
             )),
