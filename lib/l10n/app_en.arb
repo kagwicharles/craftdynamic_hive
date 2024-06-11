@@ -1,0 +1,6 @@
+{
+    "loginbiometric": "Login with Fingerprint/Face",
+    "usebiometric": "Use fingerprint/face for faster and easy access to your account",
+    "enablebiometriclogin": "Enable Fingerprint/Face Login",
+    "enablebiometric": "Enable Biometric"
+}

@@ -6,6 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final _sharedPref = CommonSharedPref();
 
@@ -49,7 +50,7 @@ class _BiometricLoginState extends State<BiometricLogin> {
               color: Colors.white,
             ),
           ),
-          title: const Text("Enable fingerprint/face login"),
+          title: Text(AppLocalizations.of(context)!.usebiometric),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -64,15 +65,15 @@ class _BiometricLoginState extends State<BiometricLogin> {
               const SizedBox(
                 height: 12.0,
               ),
-              const Text(
-                "Login with Fingerprint/Face",
+              Text(
+                AppLocalizations.of(context)!.loginbiometric,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 12.0,
               ),
-              const Text(
-                "Use fingerprint/face for faster and easy access to your account",
+              Text(
+                AppLocalizations.of(context)!.usebiometric,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
@@ -135,7 +136,8 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                   controller: _pinController,
                   obscureText: true,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: "Enter PIN"),
+                  decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.enterpin),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter pin';
@@ -153,7 +155,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                         enableBiometric,
                         isBiometricEnabled.value
                             ? "Disable Biometric"
-                            : "Enable Biometric"))
+                            : AppLocalizations.of(context)!.enablebiometric))
               ],
             ),
           ),
