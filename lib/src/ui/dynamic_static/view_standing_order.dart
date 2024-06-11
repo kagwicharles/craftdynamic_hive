@@ -9,6 +9,7 @@ import 'package:craft_dynamic/src/network/dynamic_request.dart';
 import 'package:craft_dynamic/src/ui/dynamic_static/delete_standing_order_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pinput/pinput.dart';
 
 final _dynamicRequest = DynamicFormRequest();
@@ -98,7 +99,8 @@ class _ViewStandingOrderState extends State<ViewStandingOrder> {
                               const SizedBox(
                                 height: 12,
                               ),
-                              const Text("No standing orders found!")
+                              Text(AppLocalizations.of(context)!
+                                  .nostandingorders)
                             ],
                           ),
                         );
