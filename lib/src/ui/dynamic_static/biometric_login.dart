@@ -83,7 +83,7 @@ class _BiometricLoginState extends State<BiometricLogin> {
                     enableDisableBioDialog(context: context);
                   },
                   child: Obx(() => Text(isBiometricEnabled.value
-                      ? AppLocalizations.of(context)!.disablefingerprint
+                      ? "Disable fingerprint/face login"
                       : AppLocalizations.of(context)!.enablebiometriclogin)))
             ],
           ),
@@ -153,7 +153,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                         context,
                         enableBiometric,
                         isBiometricEnabled.value
-                            ? AppLocalizations.of(context)!.disablebiometric
+                            ? "Disable Biometric"
                             : AppLocalizations.of(context)!.enablebiometric))
               ],
             ),
@@ -167,7 +167,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
       if (enrolledFingerprints.length > 0) {
         _handleBiometrics(CryptLib.encryptField(_pinController.text));
       } else {
-        CommonUtils.showToast(AppLocalizations.of(context)!.nofingerprints,
+        CommonUtils.showToast("No fingerprints enrolled on device",
             lenth: Toast.LENGTH_LONG);
       }
     }
@@ -190,8 +190,8 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                   Navigator.pop(context);
                   _pinController.clear();
                   CommonUtils.showToast(isBiometricEnabled.value
-                      ? AppLocalizations.of(context)!.biometricenablesuccess
-                      : AppLocalizations.of(context)!.biometricdisablesuccess);
+                      ? "Biometrics enabled successfully"
+                      : "Biometrics disabled successfully");
                 } else {
                   CommonUtils.showToast(value.message);
                 }

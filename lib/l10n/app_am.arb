@@ -4,10 +4,6 @@
     "enablebiometriclogin": " በጣት ወይም በፊት አሻራ ለመጠቀም",
     "enablebiometric": "በአሻራ ለመጠቀም",
     "enterpinno": "አገልግሎት ያስጀምሩ",
-    "disablefingerprint": "የጣት አሻራ/የፊት መግቢያን አሰናክል",
-    "disablebiometric": "የጣት አሻራን አሰናክል",
-    "nofingerprints": "በዚህ መሳሪያ ላይ ምንም የጣት አሻራዎች አልተመዘገቡም።",
     "nostandingorders": "ምንም ቋሚ ትዕዛዞች አልተገኙም!",
-    "biometricenablesuccess": "የባዮሜትሪክስ መግባት በተሳካ ሁኔታ ነቅቷል።",
-    "biometricdisablesuccess": "የባዮሜትሪክስ መግባት በተሳካ ሁኔታ ተሰናክሏል።"
+    "disablefingerprint": "የጣት አሻራ/የፊት መግቢያን አሰናክል"
 }

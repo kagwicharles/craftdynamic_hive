@@ -4,10 +4,6 @@
     "enablebiometriclogin": "Enable Fingerprint/Face Login",
     "enablebiometric": "Enable Biometric",
     "enterpinno": "Enter pin",
-    "disablefingerprint": "Disable Fingerprint/Face Login",
-    "disablebiometric": "Disable Biometric",
-    "nofingerprints": "No fingerprints enrolled on this device",
     "nostandingorders": "No standing orders found!",
-    "biometricenablesuccess": "Biometrics login enabled successfully",
-    "biometricdisablesuccess": "Biometrics login disabled successfully"
+    "disablefingerprint": "Disable fingerprint/face login"
 }
