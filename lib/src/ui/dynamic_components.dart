@@ -970,6 +970,7 @@ class _DropDownState extends State<DropDown> {
                       value: item.key,
                       child: Text(
                         item.value,
+                        style: const TextStyle(color: Colors.black),
                       ),
                     );
                   }).toList();
