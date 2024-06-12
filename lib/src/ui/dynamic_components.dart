@@ -970,7 +970,6 @@ class _DropDownState extends State<DropDown> {
                       value: item.key,
                       child: Text(
                         item.value,
-                        style: Theme.of(context).textTheme.labelSmall,
                       ),
                     );
                   }).toList();
