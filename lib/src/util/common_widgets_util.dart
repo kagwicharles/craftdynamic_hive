@@ -173,15 +173,14 @@ class GlobalLoader extends StatelessWidget {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              LoadUtil(),
+              CircularLoadUtil(),
               const SizedBox(
                 height: 12,
               ),
-              Text(
+              const Text(
                 "Please wait...",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: APIService.appPrimaryColor),
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
               )
             ],
           )),
