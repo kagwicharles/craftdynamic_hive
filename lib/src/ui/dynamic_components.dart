@@ -785,7 +785,6 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                       item.value[formItem?.controlId] ?? formItem?.controlText,
                   child: Text(
                     item.value[formItem?.controlId] ?? formItem?.controlText,
-                    style: Theme.of(context).textTheme.labelSmall,
                   ),
                 );
               }).toList();
