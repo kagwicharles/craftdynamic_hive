@@ -797,7 +797,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 value: _currentValue,
                 decoration: InputDecoration(labelText: formItem?.controlText),
                 isExpanded: true,
-                style: const TextStyle(fontWeight: FontWeight.normal),
+                style: const TextStyle(color: Colors.black),
                 onChanged: (value) {
                   Provider.of<PluginState>(context, listen: false)
                       .addDynamicDropDownData(
@@ -909,6 +909,7 @@ class _DropDownState extends State<DropDown> {
                 value: _currentValue,
                 hint: Text(
                   formItem!.controlText!,
+                  style: const TextStyle(color: Colors.black),
                 ),
                 isExpanded: true,
                 items: const [],
