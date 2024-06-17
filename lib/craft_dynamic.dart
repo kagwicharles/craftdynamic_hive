@@ -18,6 +18,7 @@ import 'package:craft_dynamic/src/util/notifications_util.dart';
 import 'package:craft_dynamic/src/util/root_checker.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

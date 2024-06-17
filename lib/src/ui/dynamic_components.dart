@@ -551,6 +551,8 @@ class _ImageDynamicDropDownState extends State<ImageDynamicDropDown> {
   final _apiService = APIService();
   Map<String, dynamic> extraFieldMap = {};
   List<dynamic> dropdownItems = [];
+  List<BankImageDropdown> banks = [];
+  BankImageDropdown? selectedBank;
 
   FormItem? formItem;
   ModuleItem? moduleItem;
@@ -615,62 +617,132 @@ class _ImageDynamicDropDownState extends State<ImageDynamicDropDown> {
               _currentValue = formItem?.hasInitialValue ?? true
                   ? dropdownItems.first[formItem?.controlId]["Value"]
                   : null;
-              var dropdownPicks = dropdownItems.asMap().entries.map((item) {
+
+              banks = dropdownItems.asMap().entries.map((item) {
                 Map<String, dynamic> jsonvalue =
                     item.value[formItem?.controlId] ?? {};
                 var image = jsonvalue["ImageUrl"];
                 var label = jsonvalue["Description"];
                 var value = jsonvalue["Value"];
+                return BankImageDropdown(
+                    bankimageurl: image,
+                    bankdescription: label,
+                    bankvalue: value);
+              }).toList();
+              banks.toSet().toList();
 
-                return DropdownMenuItem(
-                    value: value ?? formItem?.controlText,
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2),
+              // var dropdownPicks = dropdownItems.asMap().entries.map((item) {
+              //   Map<String, dynamic> jsonvalue =
+              //       item.value[formItem?.controlId] ?? {};
+              //   var image = jsonvalue["ImageUrl"];
+              //   var label = jsonvalue["Description"];
+              //   var value = jsonvalue["Value"];
+
+              //   return DropdownMenuItem(
+              //       value: value ?? formItem?.controlText,
+              //       child: Padding(
+              //           padding: const EdgeInsets.symmetric(vertical: 2),
+              //           child: Row(
+              //             mainAxisSize: MainAxisSize.max,
+              //             children: [
+              //               CachedNetworkImage(
+              //                 imageUrl: image ?? formItem?.controlText,
+              //                 placeholder: (context, url) => PulseLoadUtil(),
+              //                 errorWidget: (context, url, error) =>
+              //                     const Icon(Icons.error),
+              //                 width: 70,
+              //                 height: 70,
+              //                 fit: BoxFit.contain,
+              //               ),
+              //               const SizedBox(
+              //                 width: 8,
+              //               ),
+              //               Expanded(
+              //                   child: Text(
+              //                 label ?? formItem?.controlText,
+              //                 overflow: TextOverflow.ellipsis,
+              //               ))
+              //             ],
+              //           )));
+              // }).toList();
+              // dropdownPicks.toSet().toList();
+              if (banks.isNotEmpty && (formItem?.hasInitialValue ?? true)) {
+                addInitialValueToLinkedField(context, dropdownItems.first);
+                selectedBank = banks.first;
+              }
+
+              AppLogger.appLogD(tag: "list of banks", message: banks.length);
+
+              child = DropdownSearch<BankImageDropdown>(
+                items: banks,
+                selectedItem: selectedBank,
+                onChanged: ((value) {
+                  selectedBank = value;
+                }),
+                itemAsString: (BankImageDropdown b) => b.bankdescription,
+                popupProps: PopupProps.bottomSheet(
+                  showSearchBox: true,
+                  searchFieldProps: const TextFieldProps(
+                      decoration: InputDecoration(
+                          labelText: "Enter bank name",
+                          prefixIcon: Icon(Icons.search))),
+                  bottomSheetProps: const BottomSheetProps(elevation: 4),
+                  itemBuilder: (context, item, isSelected) {
+                    return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 14),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             CachedNetworkImage(
-                              imageUrl: image ?? formItem?.controlText,
+                              imageUrl: item.bankimageurl,
                               placeholder: (context, url) => PulseLoadUtil(),
                               errorWidget: (context, url, error) =>
                                   const Icon(Icons.error),
-                              width: 70,
-                              height: 70,
+                              width: 58,
+                              height: 58,
                               fit: BoxFit.contain,
                             ),
                             const SizedBox(
-                              width: 8,
+                              width: 12,
                             ),
-                            Expanded(
-                                child: Text(
-                              label ?? formItem?.controlText,
+                            Text(
+                              item.bankdescription,
                               overflow: TextOverflow.ellipsis,
-                            ))
+                            )
                           ],
-                        )));
-              }).toList();
-              dropdownPicks.toSet().toList();
-              if (dropdownPicks.isNotEmpty &&
-                  (formItem?.hasInitialValue ?? true)) {
-                addInitialValueToLinkedField(context, dropdownItems.first);
-              }
-              child = DropdownButtonFormField(
-                value: _currentValue,
-                items: dropdownPicks,
-                isExpanded: true,
-                decoration: InputDecoration(labelText: formItem?.controlText),
-                onChanged: (value) {},
+                        ));
+                  },
+                ),
                 validator: (value) {
-                  String? input = value.toString();
+                  String? input = value?.bankvalue;
                   if ((formItem?.isMandatory ?? false) && input == "null") {
                     return 'Input required*';
                   }
                   debugPrint("value in dropdown is $value");
-                  Provider.of<PluginState>(context, listen: false)
-                      .addFormInput({"${formItem?.serviceParamId}": value});
+                  Provider.of<PluginState>(context, listen: false).addFormInput(
+                      {"${formItem?.serviceParamId}": value?.bankvalue});
                   return null;
                 },
               );
+
+              // child = DropdownButtonFormField(
+              //   value: _currentValue,
+              //   items: dropdownPicks,
+              //   isExpanded: true,
+              //   decoration: InputDecoration(labelText: formItem?.controlText),
+              //   onChanged: (value) {},
+              //   validator: (value) {
+              //     String? input = value.toString();
+              //     if ((formItem?.isMandatory ?? false) && input == "null") {
+              //       return 'Input required*';
+              //     }
+              //     debugPrint("value in dropdown is $value");
+              //     Provider.of<PluginState>(context, listen: false)
+              //         .addFormInput({"${formItem?.serviceParamId}": value});
+              //     return null;
+              //   },
+              // );
             }
           }
 
@@ -794,6 +866,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                   (formItem?.hasInitialValue ?? true)) {
                 addInitialValueToLinkedField(context, dropdownItems.first);
               }
+
               child = DropdownButtonFormField(
                 value: _currentValue,
                 decoration: InputDecoration(labelText: formItem?.controlText),
@@ -1272,7 +1345,7 @@ class DynamicTextViewWidget implements IFormWidget {
                       key == null || value == null || value == "");
 
                   return Material(
-                      elevation: 1,
+                      elevation: 0,
                       borderRadius:
                           const BorderRadius.all(Radius.circular(8.0)),
                       child: Padding(

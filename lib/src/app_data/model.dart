@@ -441,3 +441,19 @@ class ReceiptModel {
       : title = json["Title"],
         value = json["Value"];
 }
+
+class BankImageDropdown {
+  final String bankimageurl;
+  final String bankdescription;
+  final String bankvalue;
+
+  BankImageDropdown(
+      {required this.bankimageurl,
+      required this.bankdescription,
+      required this.bankvalue});
+
+  BankImageDropdown.fromJson(Map<String, dynamic> json)
+      : bankimageurl = json['ImageUrl'],
+        bankdescription = json['Description'],
+        bankvalue = json['Value'];
+}
