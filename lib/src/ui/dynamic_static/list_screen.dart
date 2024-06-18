@@ -154,7 +154,7 @@ class ListWidget extends StatelessWidget {
                       children: [
                         Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(12),
                                 border: Border.all(
                                     color: Theme.of(context)
                                         .primaryColor
@@ -180,7 +180,7 @@ class ListWidget extends StatelessWidget {
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      "$key:",
+                                                      "$key",
                                                     ),
                                                     Flexible(
                                                         child: Text(

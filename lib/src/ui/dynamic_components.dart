@@ -684,34 +684,43 @@ class _ImageDynamicDropDownState extends State<ImageDynamicDropDown> {
                   showSearchBox: true,
                   searchFieldProps: const TextFieldProps(
                       decoration: InputDecoration(
-                          labelText: "Enter bank name",
+                          labelText: "Search bank",
                           prefixIcon: Icon(Icons.search))),
                   bottomSheetProps: const BottomSheetProps(elevation: 4),
                   itemBuilder: (context, item, isSelected) {
-                    return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 14),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            CachedNetworkImage(
-                              imageUrl: item.bankimageurl,
-                              placeholder: (context, url) => PulseLoadUtil(),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                              width: 58,
-                              height: 58,
-                              fit: BoxFit.contain,
-                            ),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                            Text(
-                              item.bankdescription,
-                              overflow: TextOverflow.ellipsis,
-                            )
-                          ],
-                        ));
+                    return Column(
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 14, vertical: 4),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                CachedNetworkImage(
+                                  imageUrl: item.bankimageurl,
+                                  placeholder: (context, url) =>
+                                      PulseLoadUtil(),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                  width: 58,
+                                  height: 58,
+                                  fit: BoxFit.contain,
+                                ),
+                                const SizedBox(
+                                  width: 12,
+                                ),
+                                Text(
+                                  item.bankdescription,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            )),
+                        Divider(
+                          height: 4,
+                          color: Colors.grey[200],
+                        )
+                      ],
+                    );
                   },
                 ),
                 validator: (value) {

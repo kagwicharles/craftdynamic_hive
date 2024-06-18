@@ -166,22 +166,21 @@ class GlobalLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.grey.withOpacity(.6),
         body: Container(
           color: Theme.of(context).primaryColor.withOpacity(.1),
           child: Center(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              LoadUtil(),
+              CircularLoadUtil(),
               const SizedBox(
                 height: 12,
               ),
-              Text(
+              const Text(
                 "Please wait...",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: APIService.appPrimaryColor),
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
               )
             ],
           )),
