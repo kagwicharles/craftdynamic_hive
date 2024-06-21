@@ -124,55 +124,67 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
       chips.add(Expanded(
           flex: 1,
           child: Container(
-              height: 54,
-              margin: const EdgeInsets.only(right: 2),
-              child: ChoiceChip(
-                side: _value == index
-                    ? null
-                    : BorderSide(
-                        color: Theme.of(context).primaryColor.withOpacity(.4)),
-                labelStyle: TextStyle(
-                  overflow: TextOverflow.ellipsis,
-                  color: _value == index
-                      ? Colors.white
-                      : APIService.appSecondaryColor,
-                ),
-                label: SizedBox(
-                  width: double.infinity,
-                  child: Text(formItem.controlText ?? ""),
-                ),
-                selected: _value == index,
-                onSelected: (bool selected) {
-                  if (_value != index) {
-                    setState(() {
-                      _value = selected ? index : null;
-                    });
-                  }
-                },
-              )
+            height: 48,
+            margin: const EdgeInsets.all(4),
+            child:
 
-              //     RadioListTile<int>(
-              //   title: Text(
-              //     formItem.controlText ?? "",
-              //     style: const TextStyle(fontSize: 14, color: Colors.black),
-              //   ),
-              //   value: index,
-              //   groupValue: _value,
-              //   activeColor: APIService.appPrimaryColor,
-              //   onChanged: (value) {
-              //     // if (value != index) {
-              //     // }
+                // ChoiceChip(
+                //   side: _value == index
+                //       ? null
+                //       : BorderSide(
+                //           color: Theme.of(context).primaryColor.withOpacity(.4)),
+                //   labelStyle: TextStyle(
+                //     overflow: TextOverflow.ellipsis,
+                //     color: _value == index
+                //         ? Colors.white
+                //         : APIService.appSecondaryColor,
+                //   ),
+                //   label: SizedBox(
+                //     width: double.infinity,
+                //     child: Text(formItem.controlText ?? ""),
+                //   ),
+                //   selected: _value == index,
+                //   onSelected: (bool selected) {
+                //     if (_value != index) {
+                //       setState(() {
+                //         _value = selected ? index : null;
+                //       });
+                //     }
+                //   },
+                // )
 
-              //     setState(() {
-              //       _value = value;
-              //     });
-              //   },
-              //   dense: true,
-              //   shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(12),
-              //       side: BorderSide(color: Theme.of(context).primaryColor)),
-              // ),
-              )));
+                RadioListTile<int>(
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                formItem.controlText ?? "",
+                style: TextStyle(
+                    color: index == _value
+                        ? APIService.appPrimaryColor
+                        : Colors.grey[600],
+                    fontWeight:
+                        index == _value ? FontWeight.bold : FontWeight.normal),
+              ),
+              value: index,
+              groupValue: _value,
+              activeColor: APIService.appPrimaryColor,
+              selectedTileColor: Colors.grey,
+              onChanged: (value) {
+                // if (value != index) {
+                // }
+
+                setState(() {
+                  _value = value;
+                });
+              },
+              dense: true,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(
+                      color: index == _value
+                          ? APIService.appSecondaryColor
+                          : Colors.grey[600]!)),
+            ),
+          )));
     });
   }
 
