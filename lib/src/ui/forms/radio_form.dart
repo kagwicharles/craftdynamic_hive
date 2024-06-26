@@ -228,7 +228,7 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
                     children: chips,
                   ))),
               const SizedBox(
-                height: 18,
+                height: 28,
               ),
               Form(
                   key: _formKey,
