@@ -125,7 +125,7 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
           flex: 1,
           child: Container(
             height: 54,
-            margin: const EdgeInsets.only(right: 2),
+            margin: const EdgeInsets.all(4),
             child:
 
                 //  ChoiceChip(
