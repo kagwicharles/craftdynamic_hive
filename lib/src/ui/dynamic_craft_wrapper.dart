@@ -110,7 +110,6 @@ class _DynamicCraftWrapperState extends State<DynamicCraftWrapper> {
 
   getAppData() async {
     await _initRepository.getAppToken();
-    await _initRepository.getAppUIData();
     showLoadingScreen.value = false;
     languageId = await _sharedPref.getLanguageID();
     var timeout = await _sharedPref.getAppIdleTimeout();
