@@ -152,9 +152,16 @@ class ListWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Card(
+                            elevation: 0,
                             child: InkWell(
                                 borderRadius: BorderRadius.circular(12.0),
                                 child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(
+                                          color: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(.2))),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 12.0, vertical: 4.0),
                                   child: Column(
@@ -173,22 +180,16 @@ class ListWidget extends StatelessWidget {
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      "$key:",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleMedium,
+                                                      "$key",
                                                     ),
                                                     Flexible(
                                                         child: Text(
                                                       value.toString(),
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: WidgetUtil
-                                                              .getTextColor(
-                                                                  value
-                                                                      .toString(),
-                                                                  key.toString())),
+                                                      style: const TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                       textAlign:
                                                           TextAlign.right,
                                                     ))
