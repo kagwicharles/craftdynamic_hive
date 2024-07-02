@@ -1355,8 +1355,13 @@ class DynamicTextViewWidget implements IFormWidget {
 
                   return Material(
                       elevation: 0,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(8.0)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8.0)),
+                          side: BorderSide(
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(.4))),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12.0, vertical: 8.0),
@@ -1372,17 +1377,14 @@ class DynamicTextViewWidget implements IFormWidget {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "$key:",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleMedium,
+                                            "$key",
                                           ),
                                           Flexible(
                                               child: Text(
                                             value.toString(),
                                             textAlign: TextAlign.right,
                                             style: const TextStyle(
-                                                fontFamily: "Roboto"),
+                                                fontWeight: FontWeight.bold),
                                           ))
                                         ],
                                       ))))
