@@ -218,11 +218,14 @@ class APIService {
       await _sharedPref.setTokenIsRefreshed("false");
       return 1;
     }
+
+    var encryptedRequestBody = {"Data": rsaEncrypted};
+    AppLogger.appLogD(
+        tag: "Encrypted token request", message: encryptedRequestBody);
+
     try {
       dioResponse = await dio.post(url,
-          data: {
-            "Data": rsaEncrypted,
-          },
+          data: encryptedRequestBody,
           options: Options(headers: {
             'Access-Control-Allow-Origin': '*',
           }));
