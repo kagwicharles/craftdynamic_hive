@@ -55,10 +55,9 @@ class _QRScannerState extends State<QRScanner> {
         : 300.0;
     // To ensure the Scanner view is properly sizes after rotation
     // we need to listen for Flutter SizeChanged notification and update controller
-    return Column(
+    return Stack(
       children: [
-        Expanded(
-            child: QRView(
+        QRView(
           key: qrKey,
           onQRViewCreated: _onQRViewCreated,
           overlay: QrScannerOverlayShape(
@@ -68,29 +67,67 @@ class _QRScannerState extends State<QRScanner> {
               borderWidth: 10,
               cutOutSize: scanArea),
           onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
-        )),
-        Container(
-            color: Theme.of(context).primaryColor,
-            child: Center(
-                child: Container(
-                    margin: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        border: Border.all(width: 2, color: Colors.white)),
-                    child: IconButton(
-                        onPressed: () async {
-                          await controller?.toggleFlash();
-                          setState(() {
-                            flashisopen = !flashisopen;
-                          });
-                        },
-                        icon: Icon(
-                          flashisopen ? Icons.flash_off : Icons.flash_on,
-                          size: 24,
-                          color: Colors.white,
-                        )))))
+        ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Container(
+                margin: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(width: 2, color: Colors.white)),
+                child: IconButton(
+                    onPressed: () async {
+                      await controller?.toggleFlash();
+                      setState(() {
+                        flashisopen = !flashisopen;
+                      });
+                    },
+                    icon: Icon(
+                      flashisopen ? Icons.flash_off : Icons.flash_on,
+                      size: 24,
+                      color: Colors.white,
+                    ))),
+            SizedBox(width: 18),
+            Container(
+                margin: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(width: 2, color: Colors.white)),
+                child: IconButton(
+                    onPressed: () async {
+                      readQRFromFile();
+                    },
+                    icon: Icon(
+                      Icons.file_open_sharp,
+                      size: 24,
+                      color: Colors.white,
+                    )))
+          ]),
+        )
       ],
     );
+  }
+
+  Future<File?> readQRFromFile() async {
+    File? file;
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      try {
+        file = File(result.files.single.path!);
+        final qrCode = await QrCodeToolsPlugin.decodeFrom(file.path);
+        AppLogger.appLogD(tag: "QR code from file", message: qrCode ?? "");
+        if (qrCode != null) {
+          validateQR(qrCode, controller!);
+        }
+      } catch (e) {
+        AppLogger.appLogD(tag: "error reading file qr", message: e);
+        CommonUtils.showToast("Error, Unable to read QR");
+      }
+    }
+    return file;
   }
 
   void _onQRViewCreated(QRViewController controller) {
