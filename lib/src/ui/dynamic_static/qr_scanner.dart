@@ -90,7 +90,7 @@ class _QRScannerState extends State<QRScanner> {
                       size: 24,
                       color: Colors.white,
                     ))),
-            SizedBox(width: 18),
+            const SizedBox(width: 18),
             Container(
                 margin: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
@@ -100,7 +100,7 @@ class _QRScannerState extends State<QRScanner> {
                     onPressed: () async {
                       readQRFromFile();
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.file_open_sharp,
                       size: 24,
                       color: Colors.white,
