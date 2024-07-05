@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:craft_dynamic/craft_dynamic.dart';
 import 'package:craft_dynamic/src/util/widget_util.dart';
 
+import 'dynamic_form.dart';
+
 class TabWidget extends StatefulWidget {
   List<FormItem> formItems;
   String title;
@@ -223,24 +225,11 @@ class _TabWidgetListState extends State<TabWidgetList> {
           const SizedBox(
             height: 12,
           ),
-          Form(
-              key: _formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.only(left: 18, right: 18, top: 8),
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: sortedForms.length,
-                  itemBuilder: (context, index) {
-                    return BaseFormComponent(
-                        formItem: sortedForms[index],
-                        moduleItem: widget.moduleItem,
-                        formKey: _formKey,
-                        formItems: sortedForms,
-                        child: IFormWidget(
-                          sortedForms[index],
-                        ).render());
-                  }))
+          DynamicForm(
+            formkey: _formKey,
+            moduleItem: widget.moduleItem,
+            forms: sortedForms,
+          )
         ])));
   }
 

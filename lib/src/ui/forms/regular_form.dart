@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:craft_dynamic/src/ui/forms/dynamic_form.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
@@ -114,25 +115,13 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
                         const SizedBox(
                           height: 12,
                         ),
-                        Form(
-                            key: _formKey,
-                            child: ListView.builder(
-                                padding: const EdgeInsets.only(
-                                    left: 18, right: 18, top: 8),
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: formItems.length,
-                                itemBuilder: (context, index) {
-                                  return BaseFormComponent(
-                                      formItem: formItems[index],
-                                      moduleItem: widget.moduleItem,
-                                      formItems: formItems,
-                                      formKey: _formKey,
-                                      child: IFormWidget(formItems[index],
-                                              jsonText: widget.jsonDisplay,
-                                              formFields: widget.formFields)
-                                          .render());
-                                }))
+                        DynamicForm(
+                          formkey: _formKey,
+                          moduleItem: widget.moduleItem,
+                          forms: formItems,
+                          jsonDisplay: widget.jsonDisplay,
+                          formFields: widget.formFields,
+                        )
                       ],
                     ))))));
   }

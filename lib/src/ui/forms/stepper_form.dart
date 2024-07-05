@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
 
+import 'dynamic_form.dart';
+
 class StepperFormWidget extends StatefulWidget {
   ModuleItem moduleItem;
   List<FormItem> formItems;
@@ -159,26 +161,17 @@ class StepForm extends StatelessWidget {
         .toList();
 
     return WillPopScope(
-        onWillPop: () async {
-          Provider.of<PluginState>(context, listen: false)
-              .setRequestState(false);
-          return true;
-        },
-        child: Form(
-            key: formKey,
-            child: ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: stepForms.length,
-                itemBuilder: (context, index) {
-                  return BaseFormComponent(
-                      formItem: stepForms[index],
-                      moduleItem: moduleItem,
-                      formItems: stepForms,
-                      formKey: formKey,
-                      child: IFormWidget(stepForms[index],
-                              jsonText: jsonDisplay, formFields: formFields)
-                          .render());
-                })));
+      onWillPop: () async {
+        Provider.of<PluginState>(context, listen: false).setRequestState(false);
+        return true;
+      },
+      child: DynamicForm(
+        formkey: formKey,
+        moduleItem: moduleItem,
+        forms: formItems,
+        jsonDisplay: jsonDisplay,
+        formFields: formFields,
+      ),
+    );
   }
 }
