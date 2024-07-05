@@ -6,8 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:craft_dynamic/craft_dynamic.dart';
 import 'package:craft_dynamic/src/util/widget_util.dart';
 
-import 'dynamic_form.dart';
-
 class TabWidget extends StatefulWidget {
   List<FormItem> formItems;
   String title;

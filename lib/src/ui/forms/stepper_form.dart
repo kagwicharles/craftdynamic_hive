@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
 
-import 'dynamic_form.dart';
-
 class StepperFormWidget extends StatefulWidget {
   ModuleItem moduleItem;
   List<FormItem> formItems;
