@@ -201,11 +201,18 @@ extension APICall on APIService {
 }
 
 extension Navigate on BuildContext {
-  navigate(Widget widget) {
-    Navigator.push(
-      this,
-      MaterialPageRoute(builder: (context) => widget),
-    );
+  navigate(Widget widget, {bool isLoader = false}) {
+    isLoader
+        ? Navigator.push(
+            this,
+            PageRouteBuilder(
+              opaque: false, // Set the route as transparent
+              pageBuilder: (context, animation, secondaryAnimation) => widget,
+            ))
+        : Navigator.push(
+            this,
+            MaterialPageRoute(builder: (context) => widget),
+          );
   }
 
   navigateAndPopAll(Widget widget) {
