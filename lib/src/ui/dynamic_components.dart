@@ -725,9 +725,9 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
   @override
   initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<PluginState>(context, listen: false).clearDynamicDropDown();
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   Provider.of<PluginState>(context, listen: false).clearDynamicDropDown();
+    // });
   }
 
   @override
