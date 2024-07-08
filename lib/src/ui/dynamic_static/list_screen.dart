@@ -83,7 +83,7 @@ class ListWidget extends StatelessWidget {
                                         children: mapItem
                                             .map((key, value) => MapEntry(
                                                 key,
-                                                value != null && value != ""
+                                                value != null || value != ""
                                                     ? Container(
                                                         padding:
                                                             const EdgeInsets
