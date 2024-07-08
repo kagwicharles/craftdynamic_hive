@@ -25,60 +25,74 @@ class AlertUtil {
               child: AlertDialog(
                 actionsPadding:
                     const EdgeInsets.symmetric(vertical: 4, horizontal: 14),
-                insetPadding: const EdgeInsets.symmetric(horizontal: 34),
-                titlePadding: const EdgeInsets.only(
-                    top: 12, left: 12, right: 12, bottom: 12),
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                insetPadding: const EdgeInsets.symmetric(horizontal: 44),
+                titlePadding: const EdgeInsets.symmetric(vertical: 0),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                title: Center(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    title == null
-                        ? const SizedBox()
-                        : Text(
-                            title,
-                            style: const TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    showTitleIcon
-                        ? isInfoAlert
-                            ? Icon(
-                                Icons.info_outline,
-                                color:
-                                    APIService.appPrimaryColor.withOpacity(.4),
-                                size: 28,
-                              )
-                            : const Icon(
-                                Icons.error_outline,
-                                color: Colors.redAccent,
-                                size: 28,
-                              )
-                        : const SizedBox()
-                  ],
-                )),
-                content: SingleChildScrollView(
-                    child: ListBody(
-                  children: <Widget>[
-                    Center(
-                        child: Text(
-                      message,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.normal),
-                      textAlign: TextAlign.center,
-                    )),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Divider(
-                      color: APIService.appPrimaryColor.withOpacity(.2),
-                    )
-                  ],
-                )),
+                title: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 44),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8))),
+                    child: Center(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        title == null
+                            ? const SizedBox()
+                            : Text(
+                                title,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white),
+                              ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        showTitleIcon
+                            ? isInfoAlert
+                                ? Icon(
+                                    Icons.info_outline,
+                                    color: APIService.appPrimaryColor
+                                        .withOpacity(.4),
+                                    size: 28,
+                                  )
+                                : const Icon(
+                                    Icons.error_outline,
+                                    color: Colors.redAccent,
+                                    size: 28,
+                                  )
+                            : const SizedBox()
+                      ],
+                    ))),
+                content: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: SingleChildScrollView(
+                        child: ListBody(
+                      children: <Widget>[
+                        Divider(
+                          height: 0,
+                          color: APIService.appPrimaryColor.withOpacity(.4),
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        Center(
+                            child: Text(
+                          message,
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.normal),
+                          textAlign: TextAlign.center,
+                        )),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                      ],
+                    ))),
                 actions: <Widget>[
                   Row(
                     mainAxisAlignment: isConfirm
