@@ -765,6 +765,10 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
               //     ?.values
               //     .toList();
               // var currentSelected = linkedMap?[0];
+              AppLogger.appLogD(
+                  tag: "all selected dynamic dropdown data",
+                  message: Provider.of<PluginState>(context, listen: false)
+                      .dynamicDropDownData);
               var linkedMap = Provider.of<PluginState>(context, listen: false)
                   .dynamicDropDownData[formItem?.linkedToRowID];
               AppLogger.appLogD(
