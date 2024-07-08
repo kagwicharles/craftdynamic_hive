@@ -145,9 +145,10 @@ class EmptyUtil extends StatelessWidget {
         children: [
           Image.asset(
             "packages/craft_dynamic/assets/images/empty.png",
-            height: 64,
-            width: 64,
+            height: 77,
+            width: 77,
             fit: BoxFit.cover,
+            color: APIService.appSecondaryColor,
           ),
           const SizedBox(
             height: 14,
