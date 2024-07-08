@@ -760,14 +760,16 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
             dropdownItems = snapshot.data?.dynamicList ?? [];
             if (formItem?.linkedToRowID != null ||
                 formItem?.linkedToRowID != "") {
+              // var linkedMap = Provider.of<PluginState>(context, listen: false)
+              //     .dynamicDropDownData[formItem?.linkedToRowID]
+              //     ?.values
+              //     .toList();
+              // var currentSelected = linkedMap?[0];
               var linkedMap = Provider.of<PluginState>(context, listen: false)
-                  .dynamicDropDownData[formItem?.linkedToRowID]
-                  ?.values
-                  .toList();
-              var currentSelected = linkedMap?[0];
+                  .dynamicDropDownData[formItem?.linkedToRowID];
               AppLogger.appLogD(
                   tag: "linked property on dynamic dropdown",
-                  message: currentSelected);
+                  message: linkedMap);
             }
             AppLogger.appLogD(
                 tag: "dropdown data--> @${formItem?.controlId}",
