@@ -725,9 +725,9 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
   @override
   initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   Provider.of<PluginState>(context, listen: false).clearDynamicDropDown();
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<PluginState>(context, listen: false).clearDynamicDropDown();
+    });
   }
 
   @override
@@ -758,87 +758,90 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
           );
           if (snapshot.hasData) {
             dropdownItems = snapshot.data?.dynamicList ?? [];
-            if (formItem?.linkedToRowID != null ||
-                formItem?.linkedToRowID != "") {
-              var linkedMap = Provider.of<PluginState>(context, listen: false)
-                  .dynamicDropDownData[formItem?.linkedToRowID]
-                  ?.values
-                  .toList();
-              var currentSelected = linkedMap?[0];
-              AppLogger.appLogD(
-                  tag: "all selected dynamic dropdown data",
-                  message: Provider.of<PluginState>(context, listen: false)
-                      .dynamicDropDownData);
-              // var linkedMap = Provider.of<PluginState>(context, listen: false)
-              //     .dynamicDropDownData[formItem?.linkedToRowID];
-              AppLogger.appLogD(
-                  tag: "linked property on dynamic dropdown",
-                  message: currentSelected);
-            }
-            AppLogger.appLogD(
-                tag: "dropdown data--> @${formItem?.controlId}",
-                message: dropdownItems);
 
-            if (dropdownItems.isEmpty) {
-              child = DropdownButtonFormField2(
-                value: _currentValue,
-                hint: Text(
-                  snapshot.data?.message ?? formItem?.controlText ?? "",
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-                isExpanded: true,
-                style: const TextStyle(fontSize: 16, color: Colors.black),
-                items: const [],
-              );
-            } else {
-              addLoanAccounts(dropdownItems);
-              _currentValue = formItem?.hasInitialValue ?? true
-                  ? dropdownItems.first[formItem?.controlId]
-                  : null;
-              var dropdownPicks = dropdownItems.asMap().entries.map((item) {
-                return DropdownMenuItem(
-                  value:
-                      item.value[formItem?.controlId] ?? formItem?.controlText,
-                  child: Text(
-                    item.value[formItem?.controlId] ?? formItem?.controlText,
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
-                );
-              }).toList();
-              dropdownPicks.toSet().toList();
-              if (dropdownPicks.isNotEmpty &&
-                  (formItem?.hasInitialValue ?? true)) {
-                addInitialValueToLinkedField(context, dropdownItems.first);
+            child = Consumer<PluginState>(builder: (context, state, child) {
+              Widget secondChild = SizedBox();
+
+              if (formItem?.linkedToRowID != null ||
+                  formItem?.linkedToRowID != "") {
+                var linkedMap = state
+                    .dynamicDropDownData[formItem?.linkedToRowID]?.values
+                    .toList();
+                var currentSelected = linkedMap?[0];
+                AppLogger.appLogD(
+                    tag: "all selected dynamic dropdown data",
+                    message: state.dynamicDropDownData);
+                // var linkedMap = Provider.of<PluginState>(context, listen: false)
+                //     .dynamicDropDownData[formItem?.linkedToRowID];
+                AppLogger.appLogD(
+                    tag: "linked property on dynamic dropdown",
+                    message: currentSelected);
               }
 
-              child = DropdownButtonFormField(
-                value: _currentValue,
-                decoration: InputDecoration(labelText: formItem?.controlText),
-                isExpanded: true,
-                style: const TextStyle(fontWeight: FontWeight.normal),
-                onChanged: (value) {
-                  Provider.of<PluginState>(context, listen: false)
-                      .addDynamicDropDownData(
-                          {formItem?.controlId ?? "": getValueFromList(value)});
-                },
-                validator: (value) {
-                  String? input = value.toString();
-                  if ((formItem?.isMandatory ?? false) && input == "null") {
-                    return 'Input required*';
-                  }
-                  Provider.of<PluginState>(context, listen: false)
-                      .addFormInput({
-                    "${formItem?.serviceParamId}":
-                        getValueFromList(value)[formItem?.controlId ?? ""]
-                  });
-                  return null;
-                },
-                items: dropdownPicks,
-              );
-            }
-          }
+              AppLogger.appLogD(
+                  tag: "dropdown data--> @${formItem?.controlId}",
+                  message: dropdownItems);
 
+              if (dropdownItems.isEmpty) {
+                secondChild = DropdownButtonFormField2(
+                  value: _currentValue,
+                  hint: Text(
+                    snapshot.data?.message ?? formItem?.controlText ?? "",
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                  isExpanded: true,
+                  style: const TextStyle(fontSize: 16, color: Colors.black),
+                  items: const [],
+                );
+              } else {
+                addLoanAccounts(dropdownItems);
+                _currentValue = formItem?.hasInitialValue ?? true
+                    ? dropdownItems.first[formItem?.controlId]
+                    : null;
+                var dropdownPicks = dropdownItems.asMap().entries.map((item) {
+                  return DropdownMenuItem(
+                    value: item.value[formItem?.controlId] ??
+                        formItem?.controlText,
+                    child: Text(
+                      item.value[formItem?.controlId] ?? formItem?.controlText,
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
+                  );
+                }).toList();
+                dropdownPicks.toSet().toList();
+                if (dropdownPicks.isNotEmpty &&
+                    (formItem?.hasInitialValue ?? true)) {
+                  addInitialValueToLinkedField(context, dropdownItems.first);
+                }
+
+                secondChild = DropdownButtonFormField(
+                  value: _currentValue,
+                  decoration: InputDecoration(labelText: formItem?.controlText),
+                  isExpanded: true,
+                  style: const TextStyle(fontWeight: FontWeight.normal),
+                  onChanged: (value) {
+                    state.addDynamicDropDownData(
+                        {formItem?.controlId ?? "": getValueFromList(value)});
+                  },
+                  validator: (value) {
+                    String? input = value.toString();
+                    if ((formItem?.isMandatory ?? false) && input == "null") {
+                      return 'Input required*';
+                    }
+                    Provider.of<PluginState>(context, listen: false)
+                        .addFormInput({
+                      "${formItem?.serviceParamId}":
+                          getValueFromList(value)[formItem?.controlId ?? ""]
+                    });
+                    return null;
+                  },
+                  items: dropdownPicks,
+                );
+              }
+              return secondChild;
+            });
+          }
           return child;
         });
   }
