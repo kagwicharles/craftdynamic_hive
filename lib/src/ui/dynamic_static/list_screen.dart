@@ -148,8 +148,8 @@ class ListWidget extends StatelessWidget {
               itemCount: mapItems.length,
               itemBuilder: (context, index) {
                 var mapItem = mapItems[index];
-                mapItem
-                    .removeWhere((key, value) => key == null || value == null);
+                mapItem.removeWhere((key, value) =>
+                    key == null || value == null || value == "");
                 return Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 8, vertical: 0.0),
