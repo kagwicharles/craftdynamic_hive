@@ -83,42 +83,46 @@ class ListWidget extends StatelessWidget {
                                         children: mapItem
                                             .map((key, value) => MapEntry(
                                                 key,
-                                                Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(vertical: 2),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          "$key:",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor),
-                                                        ),
-                                                        Text(
-                                                          value.toString(),
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal,
-                                                              color: WidgetUtil
-                                                                  .getTextColor(
-                                                                      value
-                                                                          .toString(),
-                                                                      key.toString())),
-                                                          softWrap: true,
-                                                        )
-                                                      ],
-                                                    ))))
+                                                value != null && value != ""
+                                                    ? Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                vertical: 2),
+                                                        child: Row(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              "$key:",
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .primaryColor),
+                                                            ),
+                                                            Text(
+                                                              value.toString(),
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  color: WidgetUtil
+                                                                      .getTextColor(
+                                                                          value
+                                                                              .toString(),
+                                                                          key.toString())),
+                                                              softWrap: true,
+                                                            )
+                                                          ],
+                                                        ))
+                                                    : const SizedBox()))
                                             .values
                                             .toList(),
                                       ),
