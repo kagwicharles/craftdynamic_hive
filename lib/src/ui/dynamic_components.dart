@@ -758,6 +758,17 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
           );
           if (snapshot.hasData) {
             dropdownItems = snapshot.data?.dynamicList ?? [];
+            if (formItem?.linkedToRowID != null ||
+                formItem?.linkedToRowID != "") {
+              var linkedMap = Provider.of<PluginState>(context, listen: false)
+                  .dynamicDropDownData[formItem?.linkedToRowID]
+                  ?.values
+                  .toList();
+              var currentSelected = linkedMap?[0];
+              AppLogger.appLogD(
+                  tag: "linked property on dynamic dropdown",
+                  message: currentSelected);
+            }
             AppLogger.appLogD(
                 tag: "dropdown data--> @${formItem?.controlId}",
                 message: dropdownItems);
@@ -785,6 +796,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                       item.value[formItem?.controlId] ?? formItem?.controlText,
                   child: Text(
                     item.value[formItem?.controlId] ?? formItem?.controlText,
+                    style: Theme.of(context).textTheme.labelSmall,
                   ),
                 );
               }).toList();
@@ -793,11 +805,12 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                   (formItem?.hasInitialValue ?? true)) {
                 addInitialValueToLinkedField(context, dropdownItems.first);
               }
+
               child = DropdownButtonFormField(
                 value: _currentValue,
                 decoration: InputDecoration(labelText: formItem?.controlText),
                 isExpanded: true,
-                style: const TextStyle(color: Colors.black),
+                style: const TextStyle(fontWeight: FontWeight.normal),
                 onChanged: (value) {
                   Provider.of<PluginState>(context, listen: false)
                       .addDynamicDropDownData(
