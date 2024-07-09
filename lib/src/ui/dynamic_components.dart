@@ -851,7 +851,6 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 // }
 
                 secondChild = DropdownButtonFormField(
-                  value: "",
                   decoration: InputDecoration(labelText: formItem?.controlText),
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
