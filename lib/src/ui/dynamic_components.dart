@@ -777,6 +777,8 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                     .where((map) =>
                         map[formItem?.linkedToRowID] == currentSelected)
                     .toList();
+                filteredDropdownItems = removeDuplicateDropdownItems(
+                    filteredDropdownItems, formItem?.controlId ?? "");
 
                 AppLogger.appLogD(
                     tag:
@@ -869,6 +871,15 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
           }
           return child;
         });
+  }
+
+  List<dynamic> removeDuplicateDropdownItems(
+      List<dynamic> list, String controlID) {
+    Set<dynamic> uniqueKeys =
+        list.map((donation) => donation[controlID]).toSet();
+    return list
+        .where((donation) => uniqueKeys.remove(donation[controlID]))
+        .toList();
   }
 
   addLoanAccounts(List<dynamic> accounts) {
