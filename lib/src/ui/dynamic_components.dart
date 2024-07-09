@@ -763,7 +763,8 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
               Widget secondChild = const SizedBox();
 
               if (formItem?.linkedToRowID != null ||
-                  formItem?.linkedToRowID != "") {
+                  formItem?.linkedToRowID != "" ||
+                  formItem!.linkedToRowID!.isNotEmpty) {
                 var linkedMap = state
                     .dynamicDropDownData[formItem?.linkedToRowID]?.values
                     .toList();
@@ -771,7 +772,8 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 dropdownItems.removeWhere(
                     (map) => map[formItem?.linkedToRowID] != currentSelected);
                 AppLogger.appLogD(
-                    tag: "linked property on dynamic dropdown",
+                    tag:
+                        "linked property on dynamic dropdown ${formItem?.controlId}",
                     message: currentSelected);
               }
 
