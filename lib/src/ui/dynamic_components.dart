@@ -810,7 +810,10 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
               } else {
                 addLoanAccounts(dropdownItems);
                 _currentValue = formItem?.hasInitialValue ?? true
-                    ? dropdownItems.first[formItem?.controlId]
+                    ? formItem?.linkedToRowID != null &&
+                            formItem?.linkedToRowID != ""
+                        ? filteredDropdownItems.first[formItem?.controlId]
+                        : dropdownItems.first[formItem?.controlId]
                     : null;
                 var dropdownPicks = formItem?.linkedToRowID != null &&
                         formItem?.linkedToRowID != ""
