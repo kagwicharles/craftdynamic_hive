@@ -815,6 +815,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                         ? filteredDropdownItems.first[formItem?.controlId]
                         : dropdownItems.first[formItem?.controlId]
                     : null;
+
                 var dropdownPicks = formItem?.linkedToRowID != null &&
                         formItem?.linkedToRowID != ""
                     ? filteredDropdownItems.asMap().entries.map((item) {
@@ -841,10 +842,10 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                       }).toList();
                 dropdownPicks.toSet().toList();
 
-                if (dropdownPicks.isNotEmpty &&
-                    (formItem?.hasInitialValue ?? true)) {
-                  addInitialValueToLinkedField(context, dropdownItems.first);
-                }
+                // if (dropdownPicks.isNotEmpty &&
+                //     (formItem?.hasInitialValue ?? true)) {
+                //   addInitialValueToLinkedField(context, dropdownItems.first);
+                // }
 
                 secondChild = DropdownButtonFormField(
                   value: _currentValue,
