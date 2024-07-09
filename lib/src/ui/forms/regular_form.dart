@@ -65,10 +65,9 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
             CommonUtils.showToast("Please wait...");
             return false;
           }
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            Provider.of<PluginState>(context, listen: false)
-                .clearDynamicDropDown();
-          });
+          WidgetsBinding.instance.addPostFrameCallback((_) {});
+          Provider.of<PluginState>(context, listen: false)
+              .clearDynamicDropDown();
           Provider.of<PluginState>(context, listen: false).clearDynamicInput();
           Provider.of<DropDownState>(context, listen: false).clearSelections();
           Provider.of<PluginState>(context, listen: false)
