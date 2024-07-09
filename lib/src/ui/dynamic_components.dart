@@ -784,8 +784,12 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
               }
 
               AppLogger.appLogD(
-                  tag: "dropdown data--> @${formItem?.controlId}",
+                  tag: "unfiltered dropdown data--> @${formItem?.controlId}",
                   message: dropdownItems);
+
+              AppLogger.appLogD(
+                  tag: "filtered dropdown data--> @${formItem?.controlId}",
+                  message: filteredDropdownItems);
 
               if (dropdownItems.isEmpty) {
                 secondChild = DropdownButtonFormField2(
