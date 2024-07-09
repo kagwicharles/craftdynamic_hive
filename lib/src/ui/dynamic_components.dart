@@ -794,10 +794,6 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
               }
 
               AppLogger.appLogD(
-                  tag: "dynamic dropdown current value @${formItem?.controlId}",
-                  message: _currentValue);
-
-              AppLogger.appLogD(
                   tag: "unfiltered dropdown data--> @${formItem?.controlId}",
                   message: dropdownItems);
 
@@ -851,7 +847,6 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 // }
 
                 secondChild = DropdownButtonFormField(
-                  value: _currentValue,
                   decoration: InputDecoration(labelText: formItem?.controlText),
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
