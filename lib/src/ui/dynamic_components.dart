@@ -794,6 +794,10 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
               }
 
               AppLogger.appLogD(
+                  tag: "dynamic dropdown current value",
+                  message: _currentValue);
+
+              AppLogger.appLogD(
                   tag: "unfiltered dropdown data--> @${formItem?.controlId}",
                   message: dropdownItems);
 
@@ -853,7 +857,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                   style: const TextStyle(fontWeight: FontWeight.normal),
                   onChanged: (value) {
                     setState(() {
-                      _currentValue = null;
+                      _currentValue = value.toString();
                     });
                     state.addDynamicDropDownData(
                         {formItem?.controlId ?? "": getValueFromList(value)});
