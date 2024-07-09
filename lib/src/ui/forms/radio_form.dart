@@ -230,24 +230,11 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
               const SizedBox(
                 height: 28,
               ),
-              Form(
-                  key: _formKey,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      padding:
-                          const EdgeInsets.only(left: 14, right: 14, top: 8),
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: sortedForms.length,
-                      itemBuilder: (context, index) {
-                        return BaseFormComponent(
-                            formItem: sortedForms[index],
-                            moduleItem: widget.moduleItem,
-                            formKey: _formKey,
-                            formItems: sortedForms,
-                            child: IFormWidget(
-                              sortedForms[index],
-                            ).render());
-                      }))
+              DynamicForm(
+                formkey: _formKey,
+                moduleItem: widget.moduleItem,
+                forms: sortedForms,
+              ),
             ]))));
   }
 }

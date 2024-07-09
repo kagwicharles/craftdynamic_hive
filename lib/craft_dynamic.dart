@@ -141,6 +141,7 @@ part 'src/network/dynamic_postcall.dart';
 part 'src/ui/dynamic_static/list_data.dart';
 part 'src/ui/dynamic_static/qr_scanner.dart';
 part 'src/ui/forms/otp_form.dart';
+part 'src/ui/forms/dynamic_form.dart';
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
