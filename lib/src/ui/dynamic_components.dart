@@ -762,9 +762,8 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
             child = Consumer<PluginState>(builder: (context, state, child) {
               Widget secondChild = const SizedBox();
 
-              if (formItem?.linkedToRowID != null ||
-                  formItem?.linkedToRowID != "" ||
-                  formItem!.linkedToRowID!.isNotEmpty) {
+              if (formItem?.linkedToRowID != null &&
+                  formItem?.linkedToRowID != "") {
                 var linkedMap = state
                     .dynamicDropDownData[formItem?.linkedToRowID]?.values
                     .toList();
