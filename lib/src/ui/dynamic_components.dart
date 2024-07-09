@@ -794,7 +794,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
               }
 
               AppLogger.appLogD(
-                  tag: "dynamic dropdown current value",
+                  tag: "dynamic dropdown current value @${formItem?.controlId}",
                   message: _currentValue);
 
               AppLogger.appLogD(
@@ -856,9 +856,12 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
                   onChanged: (value) {
-                    setState(() {
-                      _currentValue = value.toString();
-                    });
+                    if (!filteredDropdownItems
+                        .any((map) => map[formItem?.controlId] == value)) {
+                      setState(() {
+                        _currentValue = null;
+                      });
+                    }
                     state.addDynamicDropDownData(
                         {formItem?.controlId ?? "": getValueFromList(value)});
                   },
