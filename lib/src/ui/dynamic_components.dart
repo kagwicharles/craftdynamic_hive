@@ -834,9 +834,6 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                       }).toList()
                     : dropdownItems.asMap().entries.map((item) {
                         return DropdownMenuItem(
-                          onTap: () {
-                            state.clearDynamicDropDown();
-                          },
                           value: item.value[formItem?.controlId] ??
                               formItem?.controlText,
                           child: Text(
@@ -854,7 +851,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 // }
 
                 secondChild = DropdownButtonFormField(
-                  value: _currentValue,
+                  value: dropdownPicks.first.value,
                   decoration: InputDecoration(labelText: formItem?.controlText),
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
