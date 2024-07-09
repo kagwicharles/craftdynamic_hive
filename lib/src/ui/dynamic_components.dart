@@ -774,7 +774,8 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 //     (map) => map[formItem?.linkedToRowID] != currentSelected);
 
                 filteredDropdownItems = dropdownItems
-                    .where((map) => map[formItem?.controlId] == currentSelected)
+                    .where((map) =>
+                        map[formItem?.linkedToRowID] == currentSelected)
                     .toList();
 
                 AppLogger.appLogD(
