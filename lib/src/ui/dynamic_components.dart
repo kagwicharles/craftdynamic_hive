@@ -127,6 +127,7 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
   @override
   void initState() {
     super.initState();
+    Provider.of<PluginState>(context, listen: false).clearDynamicDropDown();
     if (widget.customText != null) {
       controller.text = widget.customText!;
     }
@@ -860,7 +861,6 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
 
                     state.addDynamicDropDownData(
                         {formItem?.controlId ?? "": getValueFromList(value)});
-                    state.clearDynamicDropDown();
                   },
                   validator: (value) {
                     String? input = value.toString();
