@@ -855,13 +855,10 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                   decoration: InputDecoration(labelText: formItem?.controlText),
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
+                  onTap: () {
+                    state.clearDynamicDropDown();
+                  },
                   onChanged: (value) {
-                    if (!filteredDropdownItems
-                        .any((map) => map[formItem?.controlId] == value)) {
-                      setState(() {
-                        _currentValue = null;
-                      });
-                    }
                     state.addDynamicDropDownData(
                         {formItem?.controlId ?? "": getValueFromList(value)});
                   },
