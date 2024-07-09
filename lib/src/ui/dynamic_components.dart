@@ -845,9 +845,9 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 //     : null;
 
                 secondChild = DropdownButtonFormField(
-                  value: dropdownPicks.isNotEmpty
-                      ? dropdownPicks.first.value
-                      : null,
+                  // value: dropdownPicks.isNotEmpty
+                  //     ? dropdownPicks.first.value
+                  //     : null,
                   decoration: InputDecoration(labelText: formItem?.controlText),
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
