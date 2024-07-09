@@ -758,6 +758,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
           );
           if (snapshot.hasData) {
             dropdownItems = snapshot.data?.dynamicList ?? [];
+            List<dynamic> filteredDropdownItems = [];
 
             child = Consumer<PluginState>(builder: (context, state, child) {
               Widget secondChild = const SizedBox();
@@ -768,8 +769,14 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                     .dynamicDropDownData[formItem?.linkedToRowID]?.values
                     .toList();
                 var currentSelected = linkedMap?[0];
-                dropdownItems.removeWhere(
-                    (map) => map[formItem?.linkedToRowID] != currentSelected);
+
+                // dropdownItems.removeWhere(
+                //     (map) => map[formItem?.linkedToRowID] != currentSelected);
+
+                filteredDropdownItems = dropdownItems
+                    .where((map) => map[formItem?.controlId] == currentSelected)
+                    .toList();
+
                 AppLogger.appLogD(
                     tag:
                         "linked property on dynamic dropdown ${formItem?.controlId}",
@@ -797,17 +804,32 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 _currentValue = formItem?.hasInitialValue ?? true
                     ? dropdownItems.first[formItem?.controlId]
                     : null;
-                var dropdownPicks = dropdownItems.asMap().entries.map((item) {
-                  return DropdownMenuItem(
-                    value: item.value[formItem?.controlId] ??
-                        formItem?.controlText,
-                    child: Text(
-                      item.value[formItem?.controlId] ?? formItem?.controlText,
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  );
-                }).toList();
+                var dropdownPicks = formItem?.linkedToRowID != null &&
+                        formItem?.linkedToRowID != ""
+                    ? filteredDropdownItems.asMap().entries.map((item) {
+                        return DropdownMenuItem(
+                          value: item.value[formItem?.controlId] ??
+                              formItem?.controlText,
+                          child: Text(
+                            item.value[formItem?.controlId] ??
+                                formItem?.controlText,
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        );
+                      }).toList()
+                    : dropdownItems.asMap().entries.map((item) {
+                        return DropdownMenuItem(
+                          value: item.value[formItem?.controlId] ??
+                              formItem?.controlText,
+                          child: Text(
+                            item.value[formItem?.controlId] ??
+                                formItem?.controlText,
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        );
+                      }).toList();
                 dropdownPicks.toSet().toList();
+
                 if (dropdownPicks.isNotEmpty &&
                     (formItem?.hasInitialValue ?? true)) {
                   addInitialValueToLinkedField(context, dropdownItems.first);
