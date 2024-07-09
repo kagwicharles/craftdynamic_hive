@@ -127,7 +127,6 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
   @override
   void initState() {
     super.initState();
-    Provider.of<PluginState>(context, listen: false).clearDynamicDropDown();
     if (widget.customText != null) {
       controller.text = widget.customText!;
     }
@@ -151,6 +150,7 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
         tag: "textformfield", message: "controlid-->${formItem?.controlId}");
 
     return Consumer<PluginState>(builder: (context, state, child) {
+      controller.clear();
       isObscured = formItem?.controlFormat == ControlFormat.PinNumber.name ||
               formItem?.controlFormat == ControlFormat.PIN.name
           ? true
