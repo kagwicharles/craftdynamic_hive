@@ -762,6 +762,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
 
             child = Consumer<PluginState>(builder: (context, state, child) {
               Widget secondChild = const SizedBox();
+              _currentValue = null;
 
               if (formItem?.linkedToRowID != null &&
                   formItem?.linkedToRowID != "") {
@@ -809,8 +810,12 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
               } else {
                 addLoanAccounts(dropdownItems);
                 _currentValue = formItem?.hasInitialValue ?? true
-                    ? dropdownItems.first[formItem?.controlId]
+                    ? formItem?.linkedToRowID != null &&
+                            formItem?.linkedToRowID != ""
+                        ? filteredDropdownItems.first[formItem?.controlId]
+                        : dropdownItems.first[formItem?.controlId]
                     : null;
+
                 var dropdownPicks = formItem?.linkedToRowID != null &&
                         formItem?.linkedToRowID != ""
                     ? filteredDropdownItems.asMap().entries.map((item) {
@@ -837,10 +842,10 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                       }).toList();
                 dropdownPicks.toSet().toList();
 
-                if (dropdownPicks.isNotEmpty &&
-                    (formItem?.hasInitialValue ?? true)) {
-                  addInitialValueToLinkedField(context, dropdownItems.first);
-                }
+                // if (dropdownPicks.isNotEmpty &&
+                //     (formItem?.hasInitialValue ?? true)) {
+                //   addInitialValueToLinkedField(context, dropdownItems.first);
+                // }
 
                 secondChild = DropdownButtonFormField(
                   value: _currentValue,
@@ -848,6 +853,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
                   onChanged: (value) {
+                    _currentValue = value.toString();
                     state.addDynamicDropDownData(
                         {formItem?.controlId ?? "": getValueFromList(value)});
                   },
