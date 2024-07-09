@@ -845,6 +845,14 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 //     ? dropdownPicks.first.value.toString()
                 //     : null;
 
+                if (formItem?.linkedToRowID != null &&
+                    formItem?.linkedToRowID != "") {
+                  state.addDynamicDropDownData({
+                    formItem?.controlId ?? "":
+                        getValueFromList(dropdownPicks.first.value)
+                  });
+                }
+
                 secondChild = DropdownButtonFormField(
                   value: dropdownPicks.isNotEmpty
                       ? dropdownPicks.first.value
