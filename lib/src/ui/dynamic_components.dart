@@ -854,15 +854,21 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 }
 
                 secondChild = DropdownButtonFormField(
-                  value: dropdownPicks.isNotEmpty
-                      ? dropdownPicks.first.value
-                      : null,
+                  value:
+                      dropdownPicks.any((item) => item.value == _currentValue)
+                          ? _currentValue
+                          : null,
                   decoration: InputDecoration(labelText: formItem?.controlText),
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
                   onChanged: (value) {
+                    setState(() {
+                      _currentValue = value.toString();
+                    });
+
                     state.addDynamicDropDownData(
                         {formItem?.controlId ?? "": getValueFromList(value)});
+                    state.clearDynamicDropDown();
                   },
                   validator: (value) {
                     String? input = value.toString();
