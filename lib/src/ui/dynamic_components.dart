@@ -853,9 +853,10 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
                   onChanged: (value) {
-                    _currentValue = value.toString();
-                    state.addDynamicDropDownData(
-                        {formItem?.controlId ?? "": getValueFromList(value)});
+                    setState(() {
+                      state.addDynamicDropDownData(
+                          {formItem?.controlId ?? "": getValueFromList(value)});
+                    });
                   },
                   validator: (value) {
                     String? input = value.toString();
