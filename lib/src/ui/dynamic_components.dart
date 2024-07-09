@@ -762,7 +762,6 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
 
             child = Consumer<PluginState>(builder: (context, state, child) {
               Widget secondChild = const SizedBox();
-              _currentValue = null;
 
               if (formItem?.linkedToRowID != null &&
                   formItem?.linkedToRowID != "") {
@@ -809,12 +808,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 );
               } else {
                 addLoanAccounts(dropdownItems);
-                _currentValue = formItem?.hasInitialValue ?? true
-                    ? formItem?.linkedToRowID != null &&
-                            formItem?.linkedToRowID != ""
-                        ? filteredDropdownItems.first[formItem?.controlId]
-                        : dropdownItems.first[formItem?.controlId]
-                    : null;
+
                 var dropdownPicks = formItem?.linkedToRowID != null &&
                         formItem?.linkedToRowID != ""
                     ? filteredDropdownItems.asMap().entries.map((item) {
@@ -845,6 +839,10 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                     (formItem?.hasInitialValue ?? true)) {
                   addInitialValueToLinkedField(context, dropdownItems.first);
                 }
+
+                _currentValue = dropdownPicks.isNotEmpty
+                    ? dropdownPicks.first.value.toString()
+                    : null;
 
                 secondChild = DropdownButtonFormField(
                   value: _currentValue,
