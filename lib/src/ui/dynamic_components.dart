@@ -763,9 +763,6 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
             child = Consumer<PluginState>(builder: (context, state, child) {
               Widget secondChild = const SizedBox();
               _currentValue = null;
-              _currentValue = formItem?.hasInitialValue ?? true
-                  ? dropdownItems.first[formItem?.controlId]
-                  : null;
 
               if (formItem?.linkedToRowID != null &&
                   formItem?.linkedToRowID != "") {
@@ -788,9 +785,6 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                     tag:
                         "linked property on dynamic dropdown ${formItem?.controlId}",
                     message: currentSelected);
-                _currentValue = formItem?.hasInitialValue ?? true
-                    ? filteredDropdownItems.first[formItem?.controlId]
-                    : null;
               }
 
               AppLogger.appLogD(
@@ -803,6 +797,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
 
               if (dropdownItems.isEmpty) {
                 secondChild = DropdownButtonFormField2(
+                  value: _currentValue,
                   hint: Text(
                     snapshot.data?.message ?? formItem?.controlText ?? "",
                     style: const TextStyle(
@@ -814,7 +809,12 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 );
               } else {
                 addLoanAccounts(dropdownItems);
-
+                _currentValue = formItem?.hasInitialValue ?? true
+                    ? formItem?.linkedToRowID != null &&
+                            formItem?.linkedToRowID != ""
+                        ? filteredDropdownItems.first[formItem?.controlId]
+                        : dropdownItems.first[formItem?.controlId]
+                    : null;
                 var dropdownPicks = formItem?.linkedToRowID != null &&
                         formItem?.linkedToRowID != ""
                     ? filteredDropdownItems.asMap().entries.map((item) {
@@ -841,12 +841,13 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                       }).toList();
                 dropdownPicks.toSet().toList();
 
-                // if (dropdownPicks.isNotEmpty &&
-                //     (formItem?.hasInitialValue ?? true)) {
-                //   addInitialValueToLinkedField(context, dropdownItems.first);
-                // }
+                if (dropdownPicks.isNotEmpty &&
+                    (formItem?.hasInitialValue ?? true)) {
+                  addInitialValueToLinkedField(context, dropdownItems.first);
+                }
 
                 secondChild = DropdownButtonFormField(
+                  // value: _currentValue,
                   decoration: InputDecoration(labelText: formItem?.controlText),
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
