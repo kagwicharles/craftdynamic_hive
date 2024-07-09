@@ -837,7 +837,8 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
 
                 if (dropdownPicks.isNotEmpty &&
                     (formItem?.hasInitialValue ?? true)) {
-                  addInitialValueToLinkedField(context, dropdownItems.first);
+                  addInitialValueToLinkedField(
+                      context, dropdownPicks.first.value);
                 }
 
                 // _currentValue = dropdownPicks.isNotEmpty
@@ -845,9 +846,9 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 //     : null;
 
                 secondChild = DropdownButtonFormField(
-                  // value: dropdownPicks.isNotEmpty
-                  //     ? dropdownPicks.first.value
-                  //     : null,
+                  value: dropdownPicks.isNotEmpty
+                      ? dropdownPicks.first.value
+                      : null,
                   decoration: InputDecoration(labelText: formItem?.controlText),
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
