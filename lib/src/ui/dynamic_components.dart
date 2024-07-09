@@ -758,6 +758,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
           );
           if (snapshot.hasData) {
             dropdownItems = snapshot.data?.dynamicList ?? [];
+            List<dynamic> filteredDropdownItems = [];
 
             child = Consumer<PluginState>(builder: (context, state, child) {
               Widget secondChild = const SizedBox();
@@ -768,8 +769,17 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                     .dynamicDropDownData[formItem?.linkedToRowID]?.values
                     .toList();
                 var currentSelected = linkedMap?[0];
-                dropdownItems.removeWhere(
-                    (map) => map[formItem?.linkedToRowID] != currentSelected);
+
+                // dropdownItems.removeWhere(
+                //     (map) => map[formItem?.linkedToRowID] != currentSelected);
+
+                filteredDropdownItems = dropdownItems
+                    .where((map) =>
+                        map[formItem?.linkedToRowID] == currentSelected)
+                    .toList();
+                filteredDropdownItems = removeDuplicateDropdownItems(
+                    filteredDropdownItems, formItem?.controlId ?? "");
+
                 AppLogger.appLogD(
                     tag:
                         "linked property on dynamic dropdown ${formItem?.controlId}",
@@ -777,8 +787,12 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
               }
 
               AppLogger.appLogD(
-                  tag: "dropdown data--> @${formItem?.controlId}",
+                  tag: "unfiltered dropdown data--> @${formItem?.controlId}",
                   message: dropdownItems);
+
+              AppLogger.appLogD(
+                  tag: "filtered dropdown data--> @${formItem?.controlId}",
+                  message: filteredDropdownItems);
 
               if (dropdownItems.isEmpty) {
                 secondChild = DropdownButtonFormField2(
@@ -797,17 +811,32 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 _currentValue = formItem?.hasInitialValue ?? true
                     ? dropdownItems.first[formItem?.controlId]
                     : null;
-                var dropdownPicks = dropdownItems.asMap().entries.map((item) {
-                  return DropdownMenuItem(
-                    value: item.value[formItem?.controlId] ??
-                        formItem?.controlText,
-                    child: Text(
-                      item.value[formItem?.controlId] ?? formItem?.controlText,
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  );
-                }).toList();
+                var dropdownPicks = formItem?.linkedToRowID != null &&
+                        formItem?.linkedToRowID != ""
+                    ? filteredDropdownItems.asMap().entries.map((item) {
+                        return DropdownMenuItem(
+                          value: item.value[formItem?.controlId] ??
+                              formItem?.controlText,
+                          child: Text(
+                            item.value[formItem?.controlId] ??
+                                formItem?.controlText,
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        );
+                      }).toList()
+                    : dropdownItems.asMap().entries.map((item) {
+                        return DropdownMenuItem(
+                          value: item.value[formItem?.controlId] ??
+                              formItem?.controlText,
+                          child: Text(
+                            item.value[formItem?.controlId] ??
+                                formItem?.controlText,
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        );
+                      }).toList();
                 dropdownPicks.toSet().toList();
+
                 if (dropdownPicks.isNotEmpty &&
                     (formItem?.hasInitialValue ?? true)) {
                   addInitialValueToLinkedField(context, dropdownItems.first);
@@ -842,6 +871,15 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
           }
           return child;
         });
+  }
+
+  List<dynamic> removeDuplicateDropdownItems(
+      List<dynamic> list, String controlID) {
+    Set<dynamic> uniqueKeys =
+        list.map((donation) => donation[controlID]).toSet();
+    return list
+        .where((donation) => uniqueKeys.remove(donation[controlID]))
+        .toList();
   }
 
   addLoanAccounts(List<dynamic> accounts) {
