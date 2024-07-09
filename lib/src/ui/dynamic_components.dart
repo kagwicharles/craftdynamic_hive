@@ -760,7 +760,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
             dropdownItems = snapshot.data?.dynamicList ?? [];
 
             child = Consumer<PluginState>(builder: (context, state, child) {
-              Widget secondChild = SizedBox();
+              Widget secondChild = const SizedBox();
 
               if (formItem?.linkedToRowID != null ||
                   formItem?.linkedToRowID != "") {
@@ -768,11 +768,8 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                     .dynamicDropDownData[formItem?.linkedToRowID]?.values
                     .toList();
                 var currentSelected = linkedMap?[0];
-                AppLogger.appLogD(
-                    tag: "all selected dynamic dropdown data",
-                    message: state.dynamicDropDownData);
-                // var linkedMap = Provider.of<PluginState>(context, listen: false)
-                //     .dynamicDropDownData[formItem?.linkedToRowID];
+                dropdownItems.removeWhere(
+                    (map) => map[formItem?.linkedToRowID] != currentSelected);
                 AppLogger.appLogD(
                     tag: "linked property on dynamic dropdown",
                     message: currentSelected);
