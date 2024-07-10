@@ -761,7 +761,8 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
             dropdownItems = snapshot.data?.dynamicList ?? [];
             List<dynamic> filteredDropdownItems = [];
 
-            child = Consumer<PluginState>(builder: (context, state, child) {
+            child = Consumer2<PluginState, DropDownState>(
+                builder: (context, state, dropdownState, child) {
               Widget secondChild = const SizedBox();
 
               if (formItem?.linkedToRowID != null &&
@@ -855,9 +856,17 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
                   onChanged: (value) {
+                    AppLogger.appLogD(
+                        tag: 'Selected the dropdown innit', message: value);
                     setState(() {
                       _currentValue = value.toString();
                     });
+
+                    if (formItem?.linkedToRowID == null ||
+                        formItem?.linkedToRowID == "") {
+                      state.clearAllFields();
+                      dropdownState.clearAllSelections();
+                    }
 
                     state.addDynamicDropDownData(
                         {formItem?.controlId ?? "": getValueFromList(value)});
@@ -883,6 +892,8 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
           return child;
         });
   }
+
+  void clearState() {}
 
   List<dynamic> removeDuplicateDropdownItems(
       List<dynamic> list, String controlID) {
