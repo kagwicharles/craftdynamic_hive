@@ -150,6 +150,7 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
         tag: "textformfield", message: "controlid-->${formItem?.controlId}");
 
     return Consumer<PluginState>(builder: (context, state, child) {
+      controller.clear();
       isObscured = formItem?.controlFormat == ControlFormat.PinNumber.name ||
               formItem?.controlFormat == ControlFormat.PIN.name
           ? true
@@ -846,13 +847,18 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 //     : null;
 
                 secondChild = DropdownButtonFormField(
-                  value: dropdownPicks.isNotEmpty
-                      ? dropdownPicks.first.value
-                      : null,
+                  value:
+                      dropdownPicks.any((item) => item.value == _currentValue)
+                          ? _currentValue
+                          : null,
                   decoration: InputDecoration(labelText: formItem?.controlText),
                   isExpanded: true,
                   style: const TextStyle(fontWeight: FontWeight.normal),
                   onChanged: (value) {
+                    setState(() {
+                      _currentValue = value.toString();
+                    });
+
                     state.addDynamicDropDownData(
                         {formItem?.controlId ?? "": getValueFromList(value)});
                   },
