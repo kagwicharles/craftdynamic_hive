@@ -1,6 +1,6 @@
 part of craft_dynamic;
 
-class DynamicForm extends StatelessWidget {
+class DynamicForm extends StatefulWidget {
   final GlobalKey<FormState> formkey;
   final ModuleItem moduleItem;
   final List<FormItem> forms;
@@ -15,22 +15,35 @@ class DynamicForm extends StatelessWidget {
       this.formFields});
 
   @override
+  State<DynamicForm> createState() => _DynamicFormState();
+}
+
+class _DynamicFormState extends State<DynamicForm> {
+  @override
+  void initState() {
+    super.initState();
+    widget.forms
+        .removeWhere((formItem) => formItem.controlType == ViewType.LIST.name);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
-        key: formkey,
+        key: widget.formkey,
         child: ListView.builder(
             padding: const EdgeInsets.only(left: 18, right: 18, top: 8),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: forms.length,
+            itemCount: widget.forms.length,
             itemBuilder: (context, index) {
               return BaseFormComponent(
-                  formItem: forms[index],
-                  moduleItem: moduleItem,
-                  formItems: forms,
-                  formKey: formkey,
-                  child: IFormWidget(forms[index],
-                          jsonText: jsonDisplay, formFields: formFields)
+                  formItem: widget.forms[index],
+                  moduleItem: widget.moduleItem,
+                  formItems: widget.forms,
+                  formKey: widget.formkey,
+                  child: IFormWidget(widget.forms[index],
+                          jsonText: widget.jsonDisplay,
+                          formFields: widget.formFields)
                       .render());
             }));
   }
