@@ -112,6 +112,12 @@ class PluginState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearAllFields() {
+    clearDynamicInput();
+    clearDynamicDropDown();
+    notifyListeners();
+  }
+
   clearDynamicDropDown() {
     _dynamicDropDownData.clear();
     notifyListeners();
@@ -194,6 +200,11 @@ class DropDownState extends ChangeNotifier {
     _currentSelections.clear();
     _currentDropDownValue.clear();
     _currentRepaymentAccounts.clear();
+  }
+
+  void clearAllSelections() {
+    clearSelections();
+    notifyListeners();
   }
 }
 
